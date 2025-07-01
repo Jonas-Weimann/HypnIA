@@ -15,10 +15,10 @@ const esElementoValido = (elemento) => {
 }
 
 const esEmocionValida = (emociones) => {
-    if (!Array.isArray(emociones) || emociones.length !== 3) {
+    if (!Array.isArray(emociones) || emociones.length < 3) {
         return false;
     }
-    return emociones.every(emocion => typeof emocion === 'number' && emocion > 0);
+    return emociones.every(emocion => typeof emocion === 'number' && emocion > 0 && emocion <= 30);
 };
 
 module.exports = {
