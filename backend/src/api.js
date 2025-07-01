@@ -1,9 +1,12 @@
 const express = require('express');
+const apiRoutes = require('./routes');
 
 const app = express()
 app.use(express.json())
 
 const PORT = process.env.PORT || 3000;
+
+app.use('/api', apiRoutes);
 
 app.get('/', (req, res) => {
     res.status(200).send('API is running successfully.');
