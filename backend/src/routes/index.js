@@ -1,8 +1,8 @@
 const express = require('express');
-const usersRoute = require('./users');
-const cardsRoute = require('./cards');
-const dreamsRoute = require('./dreams');
-const emotionsRoute = require('./emotions');
+const usersRoute = require('./usersRoute.js');
+const cardsRoute = require('./cardsRoute.js');
+const dreamsRoute = require('./dreamsRoute.js');
+const emotionsRoute = require('./emotionsRoute.js');
 
 const router = express.Router();
 
