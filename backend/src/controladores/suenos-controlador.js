@@ -1,7 +1,7 @@
 const dbClient = require('../config/dbClient.js');
-const {esEmocionValida} = require('../utils/validation.js');
+const {esEmocionValida} = require('../utilidades/validacion.js');
 
-const getAllDreams = async (req, res) =>{
+const getAllSuenos = async (req, res) =>{
     try{
         const dreams = await dbClient.query('SELECT * FROM suenos');
         res.status(200).json(dreams.rows);
@@ -10,23 +10,23 @@ const getAllDreams = async (req, res) =>{
     }
 }
 
-const getDreamById = async (req,res)=>{
-    const { did } = req.params;
+const getSuenoById = async (req,res)=>{
+    const { sid } = req.params;
     try {
-        const dream = await dbClient.query('SELECT * FROM suenos WHERE id_sueno = $1', [did]);
-        if (dream.rows.length === 0) {
+        const sueno = await dbClient.query('SELECT * FROM suenos WHERE id_sueno = $1', [sid]);
+        if (sueno.rows.length === 0) {
             throw { status: 404, message: 'Sueño no encontrado' };
         }
-        res.status(200).json(dream.rows[0]);
+        res.status(200).json(sueno.rows[0]);
     } catch (error){
         res.status(error.status || 500 ).json({ message: error.message || 'Error obteniendo sueño'});
     }
 }
 
-const getPublicDreams = async (req, res)=>{
+const getSuenosPublicos = async (req, res)=>{
     try {
-        const publicDreams = await dbClient.query('SELECT * FROM suenos WHERE publico = true');
-        res.status(200).json(publicDreams.rows);
+        const suenosPublicos = await dbClient.query('SELECT * FROM suenos WHERE publico = true');
+        res.status(200).json(suenosPublicos.rows);
     } catch (error) {
         res.status(500).json({ message: 'Error obteniendo sueños públicos', error: error.message });
     }
@@ -45,13 +45,13 @@ CREATE TABLE suenos (
 );
 */
 
-const createDream = async (req, res) => {
+const createSueno = async (req, res) => {
     const { descripcion, fecha, publico, interpretacion, emociones} = req.body;
-    const id_usuario = req.user.id;
-    const client = await dbClient.connect()
+    const id_usuario = req.usuario.id;
+    const cliente = await dbClient.connect()
 
     try {
-        await client.query('BEGIN');
+        await cliente.query('BEGIN');
 
         if (!id_usuario) {
             throw { status: 401, message: 'Usuario no autenticado' };
@@ -63,91 +63,87 @@ const createDream = async (req, res) => {
             throw { status: 400, message: 'Emociones no válidas.' };
         }
 
-        const newDream = await client.query(
+        const nuevoSueno = await cliente.query(
             'INSERT INTO suenos (id_usuario, descripcion, fecha, publico, interpretacion) VALUES ($1, $2, $3, $4, $5) RETURNING *',
             [id_usuario, descripcion, fecha, publico || false, interpretacion || null]
         );
-        const dreamId = newDream.rows[0].id_sueno;
-        const emotionQueries = emociones.map(emocion => {
-            client.query('INSERT INTO suenos_emociones (id_sueno, id_emocion) VALUES ($1, $2)', [dreamId, emocion]);
+        const idSueno = nuevoSueno.rows[0].id_sueno;
+        const insertarEmociones = emociones.map(emocion => {
+            cliente.query('INSERT INTO suenos_emociones (id_sueno, id_emocion) VALUES ($1, $2)', [idSueno, emocion]);
         });
-        await Promise.all(emotionQueries);
+        await Promise.all(insertarEmociones);
 
-        await client.query('COMMIT')
-        res.status(201).json(newDream.rows[0]);
+        await cliente.query('COMMIT')
+        res.status(201).json(nuevoSueno.rows[0]);
 
     } catch (error) {
-        await client.query('ROLLBACK');
+        await cliente.query('ROLLBACK');
         res.status(error.status || 500).json({
             message: error.message || 'Error creando sueño',
         });
     } finally {
-        client.release();
+        cliente.release();
     }
 };
 
-const updateDream = async (req, res)=>{
-    const { did } = req.params;
-    const {desctipcion, fecha, publico, interpretacion, emociones} = req.body;
-    const id_usuario = req.user.id;
-    const client = await dbClient.connect();
+const updateSueno = async (req, res)=>{
+    const { sid } = req.params;
+    const {descripcion, fecha, publico, interpretacion, emociones} = req.body;
+    const id_usuario = req.usuario.id;
+    const cliente = await dbClient.connect();
     try {
-        await client.query('BEGIN');
+        await cliente.query('BEGIN');
 
         if (!id_usuario) {
             throw { status: 401, message: 'Usuario no autenticado' };
         }
-        if (!desctipcion || !fecha) {
+        if (!descripcion || !fecha) {
             throw { status: 400, message: 'Faltan campos requeridos' };
         }
         if (!esEmocionValida(emociones)) {
             throw { status: 400, message: 'Emociones no válidas.' };
         }
 
-        const updatedDream = await client.query(
+        const suenoActualizado = await cliente.query(
             'UPDATE suenos SET descripcion = $1, fecha = $2, publico = $3, interpretacion = $4 WHERE id_sueno = $5 AND id_usuario = $6 RETURNING *',
-            [desctipcion, fecha, publico || false, interpretacion || null, did, id_usuario]
+            [descripcion, fecha, publico || false, interpretacion || null, sid, id_usuario]
         );
-        if (updatedDream.rowCount === 0) {
+
+        if (suenoActualizado.rows.length === 0) {
             throw { status: 404, message: 'Sueño no encontrado' };
         }
         
-        const dreamId = updatedDream.rows[0].id_sueno;
-        const emotionDelete = await client.query('DELETE FROM suenos_emociones WHERE id_sueno = $1', [dreamId]);
-        if (emotionDelete.rowCount === 0) {
+        const suenoId = suenoActualizado.rows[0].id_sueno;
+        const emocionesEliminadas = await cliente.query('DELETE FROM suenos_emociones WHERE id_sueno = $1', [suenoId]);
+        if (emocionesEliminadas.rows.length === 0) {
             throw { status: 404, message: 'Sueño no encontrado' };
         }
-        const emotionQueries = emociones.map(emocion => {
-            client.query('INSERT INTO suenos_emociones (id_sueno, id_emocion) VALUES ($1, $2)', [dreamId, emocion]);
+        const insertarEmociones = emociones.map(emocion => {
+            cliente.query('INSERT INTO suenos_emociones (id_sueno, id_emocion) VALUES ($1, $2)', [suenoId, emocion]);
         });
-        await Promise.all(emotionQueries);
+        await Promise.all(insertarEmociones);
 
-        await client.query('COMMIT')
-
-        if (updatedDream.rows.length === 0) {
-            throw { status: 404, message: 'Sueño no encontrado' };
-        }
-
-        res.status(200).json(updatedDream.rows[0]);
+        await cliente.query('COMMIT')
+        res.status(200).json(suenoActualizado.rows[0]);
     } catch (error){
-        await client.query('ROLLBACK');
+        await cliente.query('ROLLBACK');
         res.status(error.status || 500).json({
             message: error.message || 'Error actualizando sueño',
         });
     } finally {
-         client.release();
+         cliente.release();
     }
 }
 
-const deleteDream = async (req, res)=>{
-    const { did } = req.params;
-    const id_usuario = req.user.id;
+const deleteSueno = async (req, res)=>{
+    const { sid } = req.params;
+    const id_usuario = req.usuario.id;
     try {
-        const deletedDream = await dbClient.query(
+        const suenoEliminado = await dbClient.query(
             'DELETE FROM suenos WHERE id_sueno = $1 AND id_usuario = $2 RETURNING *',
-            [did, id_usuario]
+            [sid, id_usuario]
         );
-        if (deletedDream.rowCount === 0) {
+        if (suenoEliminado.rows.length === 0) {
             throw { status: 404, message: 'Sueño no encontrado' };
         }
         res.status(200).json({ message: 'Sueño eliminado exitosamente' });
@@ -159,10 +155,10 @@ const deleteDream = async (req, res)=>{
 }
 
 module.exports = {
-    getAllDreams,
-    getDreamById, 
-    getPublicDreams, 
-    createDream, 
-    updateDream, 
-    deleteDream
+    getAllSuenos,
+    getSuenoById, 
+    getSuenosPublicos, 
+    createSueno, 
+    updateSueno, 
+    deleteSueno
 }

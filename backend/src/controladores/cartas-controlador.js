@@ -1,23 +1,23 @@
 const dbClient = require('../config/dbClient.js');
-const { esElementoValido, esEmocionValida, esPolaridadValida } = require('../utils/validation.js');
+const { esElementoValido, esEmocionValida, esPolaridadValida } = require('../utilidades/validacion.js');
 
-const getAllCards = async (req, res)=>{
+const getAllCartas = async (req, res)=>{
     try {
-        const cards = await dbClient.query('SELECT * FROM cartas');
-        res.status(200).json(cards.rows);
+        const cartas = await dbClient.query('SELECT * FROM cartas');
+        res.status(200).json(cartas.rows);
     } catch (error) {
         res.status(500).json({ message: 'Error obteniendo cartas', error: error.message });
     }
 }
 
-const getCardById = async (req, res) => {
-    const { id } = req.params;
+const getCartaById = async (req, res) => {
+    const { cid } = req.params;
     try {
-        const card = await dbClient.query('SELECT * FROM cartas WHERE id_carta = $1', [id]);
-        if (card.rows.length === 0) {
+        const carta = await dbClient.query('SELECT * FROM cartas WHERE id_carta = $1', [cid]);
+        if (carta.rows.length === 0) {
             return res.status(404).json({ error: 'Carta no encontrada' });
         }
-        res.status(200).json(card.rows[0]);
+        res.status(200).json(carta.rows[0]);
     } catch (error) {
         res.status(500).json({ message: 'Error obteniendo carta', error: error.message });
     }
@@ -35,19 +35,19 @@ CREATE TABLE cartas (
 */
 /*
 curl --header "Content-Type: application/json" \
-  --request PUT \
+  --request POST \
   --data '{
     "nombre": "El falso despertar",
     "descripcion": "Una sensación de haber despertado dentro del propio sueño.",
     "imagen": "",
     "elemento": "aire",
-    "polaridad": "neutral",
+    "polaridad": "neutra",
     "emociones": [1, 3, 7]
   }' \
-  http://localhost:3000/api/cards/127
+  http://localhost:3000/api/cartas
 
 */
-const createCard = async (req, res) => {
+const createCarta = async (req, res) => {
     const { nombre, descripcion, imagen, elemento, polaridad, emociones } = req.body;
     try {
         if(!nombre || !descripcion || !elemento || !polaridad || !emociones) {
@@ -63,23 +63,23 @@ const createCard = async (req, res) => {
             return res.status(400).json({ error: 'Emociones no válidas' });
         }
 
-        const newCard = await dbClient.query(
+        const nuevaCarta = await dbClient.query(
             'INSERT INTO cartas (nombre, descripcion, imagen, elemento, polaridad) VALUES ($1, $2, $3, $4, $5) RETURNING *',
             [nombre, descripcion, imagen, elemento, polaridad]
         );
-        const cardId = newCard.rows[0].id_carta;
-        const emotionQueries = emociones.map(emocion => 
-            dbClient.query('INSERT INTO cartas_emociones (id_carta, id_emocion) VALUES ($1, $2)', [cardId, emocion])
+        const idCarta = nuevaCarta.rows[0].id_carta;
+        const insertarEmociones = emociones.map(emocion => 
+            dbClient.query('INSERT INTO cartas_emociones (id_carta, id_emocion) VALUES ($1, $2)', [idCarta, emocion])
         );
-        await Promise.all(emotionQueries);
+        await Promise.all(insertarEmociones);
         
-        res.status(201).json(newCard.rows[0]);
+        res.status(201).json(nuevaCarta.rows[0]);
     } catch (error) {
          res.status(500).json({ message: 'Error creando carta', error: error.message });
     }
 }
 
-const updateCard = async (req, res) => {
+const updateCarta = async (req, res) => {
     const { cid } = req.params;
     const { nombre, descripcion, imagen, elemento, polaridad, emociones } = req.body;
     try {
@@ -95,29 +95,29 @@ const updateCard = async (req, res) => {
         if (!esEmocionValida(emociones)) {
             return res.status(400).json({ error: 'Emociones no válidas' });
         }
-        const updatedCard = await dbClient.query(
+        const cartaActualizada = await dbClient.query(
             'UPDATE cartas SET nombre = $1, descripcion = $2, imagen = $3, elemento = $4, polaridad = $5 WHERE id_carta = $6 RETURNING *',
             [nombre, descripcion, imagen, elemento, polaridad, cid]
         );
-        if (updatedCard.rows.length === 0) {
+        if (cartaActualizada.rows.length === 0) {
             return res.status(404).json({ error: 'Carta no encontrada' });
         }
-        const cardId = updatedCard.rows[0].id_carta;
-        const emotionQueries = emociones.map(emocion => 
-            dbClient.query('INSERT INTO cartas_emociones (id_carta, id_emocion) VALUES ($1, $2)', [cardId, emocion])
+        const idCarta = cartaActualizada.rows[0].id_carta;
+        const insertarEmociones = emociones.map(emocion => 
+            dbClient.query('INSERT INTO cartas_emociones (id_carta, id_emocion) VALUES ($1, $2)', [idCarta, emocion])
         );
-        await Promise.all(emotionQueries);
-        res.status(200).json(updatedCard.rows[0]);
+        await Promise.all(insertarEmociones);
+        res.status(200).json(cartaActualizada.rows[0]);
     } catch (error) {
         res.status(500).json({ message: 'Error actualizando carta', error: error.message });
     }
 }
 
-const deleteCard = async (req, res) => {
+const deleteCarta = async (req, res) => {
     const { cid } = req.params;
     try {
-        const deletedCard = await dbClient.query('DELETE FROM cartas WHERE id_carta = $1 RETURNING *', [cid]);
-        if (deletedCard.rows.length === 0) {
+        const cartaEliminada = await dbClient.query('DELETE FROM cartas WHERE id_carta = $1 RETURNING *', [cid]);
+        if (cartaEliminada.rows.length === 0) {
             return res.status(404).json({ error: 'Carta no encontrada' });
         }
         res.status(200).json({ message: 'Carta eliminada con exito' });
@@ -127,9 +127,9 @@ const deleteCard = async (req, res) => {
 }
 
 module.exports = {
-    getAllCards,
-    getCardById,
-    createCard,
-    updateCard,
-    deleteCard
+    getAllCartas,
+    getCartaById,
+    createCarta,
+    updateCarta,
+    deleteCarta
 };
