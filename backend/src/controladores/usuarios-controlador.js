@@ -1,6 +1,7 @@
 const dbClient = require('../config/dbClient.js');
 const { obtenerFechaActual } = require('../utilidades/fecha.js');
-const { generarHash } = require('../utilidades/encriptacion.js');
+const { generarHash, compararHash } = require('../utilidades/encriptacion.js');
+const { generarToken } = require('../utilidades/jsonwebtoken.js');
 
 const getAllUsuarios = async (req, res) => {
     try {
@@ -45,10 +46,14 @@ const getUsuarioByEmail = async (req, res) => {
 
 const getSuenosByUsuario = async (req, res)=>{
     const { uid } = req.params;
+    const {id_usuario} = req.usuario || {};
     try {
         if (!uid || isNaN(uid)) {
             throw { status: 400, message: 'ID de usuario inválido' };
         }
+        // if (!id_usuario || id_usuario !== parseInt(uid)) {
+        //     throw { status: 403, message: 'No tienes permiso para acceder a los sueños de este usuario' };
+        // }
         const suenos = await dbClient.query('SELECT * FROM suenos WHERE id_usuario = $1', [uid]);
         if (suenos.rows.length === 0) {
             throw { status: 404, message: 'No se encontraron sueños para este usuario' };
@@ -66,7 +71,7 @@ const getSuenosPublicosByUsuario = async (req, res) => {
             throw { status: 400, message: 'ID de usuario inválido' };
         }
         const suenosPublicos = await dbClient.query(
-            `SELECT s.id_sueno, s.fecha, s.descripcion, s.fecha_creacion, s.interpretacion, s.publico
+            `SELECT s.id_sueno, s.fecha, s.descripcion, s.interpretacion, s.publico
              FROM suenos s
              JOIN usuarios u ON s.id_usuario = u.id_usuario
              WHERE u.id_usuario = $1 AND s.publico = 'true'`,
@@ -115,11 +120,48 @@ const registrarUsuario = async (req, res) => {
 }
 
 
+const iniciarSesion = async (req, res) => {
+    const { email, contrasena } = req.body;
+    const sesionActiva = req.usuario;
+    try {
+        if (sesionActiva) {
+            throw { status: 403, message: 'El usuario ya está autenticado'}
+        }
+        if (!email || !contrasena) {
+            throw { status: 400, message: 'Email y contraseña son requeridos' };
+        }
+        const resultado = await dbClient.query('SELECT * FROM usuarios WHERE email = $1', [email]);
+        if (resultado.rows.length === 0) {
+            throw { status: 401, message: 'Credenciales incorrectas' };
+        }
+        const usuario = resultado.rows[0];
+        const contrasenaValida = await compararHash(contrasena, usuario.contrasena);
+        if (!contrasenaValida) {
+            throw { status: 401, message: 'Credenciales incorrectas' };
+        }
+        const token = generarToken(usuario);
+        res.status(200).json({
+            message: 'Inicio de sesión exitoso',
+            token,
+            usuario: {
+                id_usuario: usuario.id_usuario,
+                nombre: usuario.nombre,
+                email: usuario.email
+            }
+        });
+        
+    } catch (error) {
+        res.status(error.status || 500).json({ message: error.message || 'Error iniciando sesión' });
+    }
+}
+
+
 module.exports = {
     getAllUsuarios,
     getUsuarioById,
     getUsuarioByEmail,
     getSuenosByUsuario,
     getSuenosPublicosByUsuario,
-    registrarUsuario
+    registrarUsuario,
+    iniciarSesion
 }
