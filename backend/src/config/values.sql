@@ -136,7 +136,7 @@ INSERT INTO cartas_emociones (id_carta, id_emocion) VALUES
 -- 15. La Espiral (ciclos)
 (15, 30),  -- Melancolía
 (15, 10),  -- Esperanza
-(15, 22);  -- Remordimiento
+(15, 22),  -- Remordimiento
 
 -- 16. El Ojo Durmiente (verdad interna)
 (16, 7),   -- Confianza
