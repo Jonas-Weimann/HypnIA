@@ -20,7 +20,8 @@ const obtenerDatosParaInterpretacion = async () => {
 };
 
 const generarPromptInterpretacion = async (descripcion) => {
-  const { emociones, cartas, relaciones } = obtenerDatosParaInterpretacion();
+  const { emociones, cartas, relaciones } =
+    await obtenerDatosParaInterpretacion();
   if (!emociones || !cartas || !relaciones) {
     return { message: "Error obteniendo datos para interpretación" };
   }
@@ -57,7 +58,6 @@ const generarPromptInterpretacion = async (descripcion) => {
     Lista de emociones: ${listaEmociones}.
     Lista de cartas: ${listaCartas}.
     Relaciones entre cartas y emociones: ${listaRelaciones}.
-    Sueño a interpretar: "${descripcion}"
     `;
   return [
     { role: "system", content: prompt },
