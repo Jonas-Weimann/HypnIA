@@ -10,8 +10,8 @@ const obtenerDatosParaInterpretacion = async () => {
   const relaciones = await dbClient.query(`
     SELECT c.nombre AS carta, e.nombre AS emocion
     FROM cartas_emociones ce
-    JOIN cartas c ON ce.carta_id = c.id
-    JOIN emociones e ON ce.emocion_id = e.id`);
+    JOIN cartas c ON ce.id_carta = c.id_carta
+    JOIN emociones e ON ce.id_emocion = e.id_emocion`);
   return {
     emociones: emociones.rows,
     cartas: cartas.rows,
