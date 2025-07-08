@@ -18,7 +18,7 @@
 
 .inicio_section {
   min-height: 100vh;
-  background-image: url('/assets/images/fondo-inicio.webp');
+  background-image: url('../images/fondo-inicio.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -95,7 +95,7 @@
 .contenido_info {
   display: block;
   text-decoration: none;
-  background-image: url('/assets/images/fondo-inicio.webp');
+  background-image: url('../images/fondo-inicio.webp');
   background-size: cover;
   padding: 20px;
   border-radius: 16px;
@@ -106,10 +106,6 @@
 }
 
 .contenido_info h2 {  
-  font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
-  font-style: normal;
   margin-bottom: 8px;
 }
 
