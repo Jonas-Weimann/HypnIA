@@ -1,0 +1,27 @@
+{
+  "name": "hypnia",
+  "version": "1.0.0",
+  "description": "Sitio web de registro de suenios e interpretaciones con IA.",
+  "main": "api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --watch src/api.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jonas-Weimann/HypnIA.git"
+  },
+  "author": "Dreaming",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jonas-Weimann/HypnIA/issues"
+  },
+  "homepage": "https://github.com/Jonas-Weimann/HypnIA#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.0.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.16.3"
+  }
+}
