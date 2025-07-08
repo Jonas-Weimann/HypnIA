@@ -14,13 +14,6 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: "Raleway", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 300;
-  font-style: normal;
-}
-
 /* -------------- section 1 / inicio -------------- */
 
 .inicio_section {
