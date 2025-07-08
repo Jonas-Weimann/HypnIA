@@ -1,13 +1,3 @@
-CREATE TABLE suenos (
-    id_sueno SERIAL PRIMARY KEY,
-    id_usuario INT NOT NULL,
-    descripcion TEXT NOT NULL,
-    fecha DATE NOT NULL,
-    publico BOOLEAN NOT NULL DEFAULT FALSE,
-    interpretacion TEXT,
-    FOREIGN KEY (id_usuario)
-    REFERENCES usuarios(id_usuario) ON DELETE CASCADE
-);
 
 CREATE TABLE cartas (
     id_carta SERIAL PRIMARY KEY,
@@ -24,6 +14,17 @@ CREATE TABLE usuarios (
     email VARCHAR(100) NOT NULL UNIQUE,
     contrasena VARCHAR(255) NOT NULL,
     fecha_registro DATE NOT NULL
+);
+
+CREATE TABLE suenos (
+    id_sueno SERIAL PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    descripcion TEXT NOT NULL,
+    fecha DATE NOT NULL,
+    publico BOOLEAN NOT NULL DEFAULT FALSE,
+    interpretacion TEXT,
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuarios(id_usuario) ON DELETE CASCADE
 );
 
 CREATE TABLE emociones (
