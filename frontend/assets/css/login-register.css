@@ -99,7 +99,13 @@ h1, h2 {
     padding: 10px;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.5s ease;
 }
+
+.registrar input:hover {
+    background-color: #855988;
+    color: #0f0f16;
+  }
 
 /* -------- redireccion a inicio de sesion/registrarse -------- */
 
