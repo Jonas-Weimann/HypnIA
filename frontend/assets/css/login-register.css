@@ -80,6 +80,13 @@ h1, h2 {
     cursor: pointer;
 }
 
+/* -------- mensaje ! -------- */
+
+#message {
+    text-align: center;
+    padding: 10px;
+    font-size: 80%;
+}
 
 /* -------- boton de registro -------- */
 
