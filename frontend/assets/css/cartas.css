@@ -1,0 +1,43 @@
+:root {
+  --color-lila: #855988;
+  --color-lila-oscuro: #6B4984;
+  --color-purpura: #483475;
+  --color-azul-claro: #2B2F77;
+  --color-azul: #141852;
+  --color-azul-oscuro: #070B34;
+  --color-azul-grisaceo: #0f0f16;
+}
+
+.cartas_section {
+  background-image: url('../images/fondo-inicio.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#cartas_container {
+
+  display: grid;
+
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  max-width: 1200px;
+  margin: 0 auto;    
+  gap: 50px;
+  padding-top: 40px;
+}
+
+.carta {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #ccc;
+  padding: 1rem;
+  transition: transform 0.2s;
+}
+
+.carta h2 {
+  color: var(--color-lila);
+}
+
+.carta:hover {
+  transform: scale(1.02);
+}
