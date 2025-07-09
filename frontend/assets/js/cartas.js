@@ -9,9 +9,9 @@ fetch(cartasURL)
       cartaDiv.classList.add('carta');
 
       cartaDiv.innerHTML = `
-        <h2>${carta.nombre}</h2>
-        <p><strong>Elemento:</strong> ${carta.elemento}</p>
-        <p><strong>Polaridad:</strong> ${carta.polaridad}</p>
+        <div class="nombre_carta"><h2>${carta.nombre}</h2></div>
+        <p><strong>ELEMENTO:</strong> ${carta.elemento}</p>
+        <p><strong>POLARIDAD:</strong> ${carta.polaridad}</p>
         <p>${carta.descripcion}</p>
       `;
 
@@ -23,5 +23,3 @@ fetch(cartasURL)
     console.error(error);
   });
 
-const cors = require('cors');
-app.use(cors());
