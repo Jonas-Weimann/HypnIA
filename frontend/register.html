@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/login-register.css">
+    <title>Iniciar sesion</title>
+</head>
+<body>
+    <div id="header"></div>
+    <script src="./assets/js/header.js"></script>
+    <main class="register">
+        <div class="register-container">
+            <br><h1>Registro</h1>
+            <form id="form" method="post" onsubmit="return validar_contrasena()">
+                <div class="input-box">
+                    <input type="text" id="nombre-usuario" name="nombre-usuario" required placeholder="nombre de usuario"> <br>
+                </div>
+                <div class="input-box">
+                    <input type="text" id="email" name="email" required placeholder="email"> <br>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="contrasena" name="contrasena" placeholder="contraseña"> <br>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="confirmar-contrasena" name="confirmar-contrasena" required placeholder="confirmar contraseña"> <br><br>
+                </div>
+                <div class="input-box">
+                    <input type="checkbox" id="aceptar-terminos" name="aceptar-terminos" value="terminos" required>
+                    <label style="color: #734775" for="aceptar-terminos">Aceptar terminos y condiciones</label>
+                </div>
+                <div class="registrar">
+                    <input type="submit" id="registrarse" name="registrarse" value="Registrarse">
+                </div>
+            </form>
+            <div class="iniciar-sesion">
+                <br><a href="login.html">Iniciar sesion</a><br>
+            </div>
+        </div>
+    </main>
+    <script type="text/javascript">
+        function validar_contrasena() {
+            var contrasena = document.getElementById("contrasena").value;
+            var confirmar_contrasena = document.getElementById("confirmar-contrasena").value;
+            if (contrasena !== confirmar_contrasena) {
+                return false;
+            }
+            return true;
+        }
+    </script>
+</body>

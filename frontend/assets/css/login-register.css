@@ -1,0 +1,108 @@
+
+body {
+    background-image: url(../images/fondo-inicio.webp);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    width: 100%;
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}
+
+
+h1, h2 {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* -------- colores del contenedor y titulo -------- */
+
+.login-container, 
+.register-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    transform: translate(-50%, -50%);
+    background-color: rgba(15, 15, 22, 0.9);
+    border-radius: 5px;
+}
+
+.login-container h1, 
+.register-container h1{
+    text-align: center;
+    color: #855988;
+    letter-spacing: 1px;
+    border-bottom: 3px solid rgba(40, 21, 49, 0.616);
+}
+
+/* -------- campos para completar -------- */
+
+.login-container input, 
+.register-container input{
+    color: #ae95af;
+    width: 260px;
+    margin-left: 20px;
+    margin-top: 15px;
+    background: rgba(53, 44, 58, 0.3);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.login-container input::placeholder, 
+.register-container input::placeholder {
+    color: #a787acd5;
+    opacity: 0.5;
+}
+
+#aceptar-terminos {
+    text-align: center;
+    width: 20px;
+    margin-left: 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* -------- redireccion contraseña olvidada -------- */
+
+.recordar a{
+    display: flex;
+    color: #734775;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* -------- boton de registro -------- */
+
+.registrar input{
+    color: #855988;
+    text-align: center;
+    width: 260px;
+    background: rgba(0, 0, 0, 0.3);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* -------- redireccion a inicio de sesion/registrarse -------- */
+
+.iniciar-sesion a, .registrarse a{
+    display: flex;
+    color: #855988;
+    justify-content: center;
+    align-items: center; 
+    position: relative;
+    text-decoration: none;
+    top: 5%;
+    cursor: pointer;
+}
