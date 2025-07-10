@@ -9,10 +9,13 @@ fetch(cartasURL)
       cartaDiv.classList.add('carta');
 
       cartaDiv.innerHTML = `
+        <img id="imagen_carta" src="./assets/images/cards/${carta.imagen}">
         <div class="nombre_carta"><h2>${carta.nombre}</h2></div>
-        <p><strong>ELEMENTO:</strong> ${carta.elemento}</p>
-        <p><strong>POLARIDAD:</strong> ${carta.polaridad}</p>
-        <p>${carta.descripcion}</p>
+        <div class="informacion_carta">
+          <p><u>ELEMENTO</u>: ${carta.elemento}</p>
+          <p><u>POLARIDAD</u>: ${carta.polaridad}</p>
+          <p>${carta.descripcion}</p>
+        </div>
       `;
 
       container.appendChild(cartaDiv);
