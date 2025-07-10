@@ -139,6 +139,7 @@
 			);
 			const resultado = await respuesta.json();
 			if (respuesta.ok) {
+  				localStorage.setItem("token", resultado.token);
 				mensaje.style.backgroundImage =
 				'url("./assets/images/mensaje-registro.webp")';
 				mensaje.innerHTML =

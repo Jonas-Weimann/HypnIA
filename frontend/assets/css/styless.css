@@ -75,3 +75,10 @@ nav li:hover {
 nav li:hover a {
   color: var(--color-azul-grisaceo);
 }
+
+.avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
