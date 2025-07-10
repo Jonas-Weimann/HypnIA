@@ -20,12 +20,19 @@
     <div id="header"></div>
     <script src="./assets/js/header.js"></script>
     <main class="register">
+      <div class="mensaje-resultado">
+        <b>Registro fallido</b
+        ><span
+          >Las puertas del mundo onírico no se han abierto aún.<br />Tal vez una
+          estrella ya ocupa su lugar...</span
+        >
+      </div>
       <div class="register-container">
         <br />
         <h1>Registro</h1>
         <form
           action="http://localhost:3000/api/usuarios/registrar"
-          id="registerForm"
+          id="register-form"
           method="post"
         >
           <div class="input-box">
@@ -147,12 +154,54 @@
         return true;
       };
 
-      const form = document.getElementById("registerForm");
-
-      form.addEventListener("submit", (e) => {
+      const form = document.getElementById("register-form");
+      const mensaje = document.querySelector(".mensaje-resultado");
+      form.addEventListener("submit", async (e) => {
         e.preventDefault();
         if (!checkPassword()) return;
-        form.submit();
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
+        try {
+          const respuesta = await fetch(
+            "http://localhost:3000/api/usuarios/registrar",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            }
+          );
+          const resultado = await respuesta.json();
+          if (respuesta.ok) {
+            mensaje.style.backgroundImage =
+              'url("./assets/images/mensaje-registro.webp")';
+            mensaje.innerHTML =
+              "<b>Registro exitoso</b><span>Una nueva estrella ha llegado al mundo de los sueños. <br/> Inicie sesión para empezar su aventura onírica...</span>";
+            mensaje.style.display = "flex";
+            setTimeout(() => {
+              window.location.href = "/frontend/login.html";
+            }, 3000);
+          } else {
+            mensaje.style.backgroundImage =
+              'url("./assets/images/mensaje-error.webp")';
+            mensaje.innerHTML =
+              "<b>Registro fallido</b><span>Las puertas del mundo onírico no se han abierto aún.<br/>Tal vez una estrella ya ocupa su lugar...</span>";
+            mensaje.style.display = "flex";
+            setTimeout(() => {
+              window.location.reload();
+            }, 3000);
+          }
+        } catch (error) {
+          mensaje.style.backgroundImage =
+            'url("./assets/images/mensaje-error.webp")';
+          mensaje.innerHTML =
+            "<b>Error interno</b><span>Algo explotó en la dimensión del servidor. <br/>Estamos tratando de recomponer el tejido de la realidad.</span>";
+          mensaje.style.display = "flex";
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
+        }
       });
 
       const divTerminos = document.querySelector(".terminos-condiciones");
