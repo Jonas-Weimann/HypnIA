@@ -7,16 +7,19 @@ const {
   updateSueno,
   deleteSueno,
 } = require("../controladores/suenos-controlador.js");
-const { autenticarUsuario } = require("../middlewares/autenticacion.js");
+const {
+  autenticarUsuario,
+  autenticarAdmin,
+} = require("../middlewares/autenticacion.js");
 const { interpretarSueno } = require("../middlewares/interpretarSueno.js");
 
 const router = Router();
 
-router.get("/", getAllSuenos);
+router.get("/", autenticarAdmin, getAllSuenos);
 router.get("/publicos", getSuenosPublicos);
-router.get("/:sid", getSuenoById);
-router.post("/", /*autenticarUsuario,*/ interpretarSueno, createSueno);
-router.put("/:sid", interpretarSueno, updateSueno);
-router.delete("/:sid", deleteSueno);
+router.get("/:sid", autenticarAdmin, getSuenoById);
+router.post("/", autenticarUsuario, interpretarSueno, createSueno);
+router.put("/:sid", autenticarUsuario, interpretarSueno, updateSueno);
+router.delete("/:sid", autenticarUsuario, deleteSueno);
 
 module.exports = router;
