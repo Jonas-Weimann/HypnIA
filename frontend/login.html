@@ -20,12 +20,13 @@
     <div id="header"></div>
     <script src="./assets/js/header.js"></script>
     <main class="login">
+      <div class="mensaje-resultado"></div>
       <div class="login-container">
         <br />
         <h1>Bienvenido</h1>
         <form
           action="http://localhost:3000/api/usuarios/iniciar-sesion"
-          id="loginForm"
+          id="login-form"
           method="post"
         >
           <div class="input-box">
@@ -40,7 +41,7 @@
           </div>
           <div class="input-box">
             <input
-              type="contrasena"
+              type="password"
               id="contrasena"
               name="contrasena"
               required
@@ -61,6 +62,58 @@
         </div>
       </div>
     </main>
-    <script></script>
+    <script>
+      const form = document.getElementById("login-form");
+      const mensaje = document.querySelector(".mensaje-resultado");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData);
+        try {
+          const respuesta = await fetch(
+            "http://localhost:3000/api/usuarios/iniciar-sesion",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            }
+          );
+          const resultado = await respuesta.json();
+          if (respuesta.ok && resultado.token) {
+            localStorage.setItem("token", resultado.token);
+            mensaje.style.backgroundImage =
+              'url("./assets/images/mensaje-registro.webp")';
+            mensaje.innerHTML =
+              "<b>Inicio de sesión exitoso</b><span>El velo entre mundos se ha desvanecido. <br/> Adelante, la noche te pertenece...</span>";
+            mensaje.style.display = "flex";
+            setTimeout(() => {
+              //Provisorio, proximamente cambiar a ruta de registro de sueños.
+              //Agregar funcion para cerrar sesión ( localStorage.removeItem('token') ), modificar header con opciones para un usuario logeado.
+              window.location.href = "/frontend/inicio.html";
+            }, 3000);
+          } else {
+            mensaje.style.backgroundImage =
+              'url("./assets/images/mensaje-error.webp")';
+            mensaje.innerHTML =
+              "<b>Inicio de sesión fallido</b><span>Las puertas del mundo onírico no se han abierto para usted.<br/>Verifique sus credenciales y vuelva a intentarlo</span>";
+            mensaje.style.display = "flex";
+            setTimeout(() => {
+              window.location.reload();
+            }, 3000);
+          }
+        } catch (error) {
+          mensaje.style.backgroundImage =
+            'url("./assets/images/mensaje-error.webp")';
+          mensaje.innerHTML =
+            "<b>Error interno</b><span>Algo explotó en la dimensión del servidor. <br/>Estamos tratando de recomponer el tejido de la realidad.</span>";
+          mensaje.style.display = "flex";
+          setTimeout(() => {
+            window.location.reload();
+          }, 3000);
+        }
+      });
+    </script>
   </body>
 </html>
