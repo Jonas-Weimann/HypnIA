@@ -49,3 +49,11 @@ CREATE TABLE cartas_emociones (
     FOREIGN KEY (id_carta) REFERENCES cartas(id_carta) ON DELETE CASCADE,
     FOREIGN KEY (id_emocion) REFERENCES emociones(id_emocion) ON DELETE CASCADE
 );
+
+CREATE TABLE suenos_cartas (
+    id_sueno INT,
+    id_carta INT,
+    PRIMARY KEY (id_sueno, id_carta),
+    FOREIGN KEY (id_sueno) REFERENCES suenos(id_sueno) ON DELETE CASCADE,
+    FOREIGN KEY (id_carta) REFERENCES cartas(id_carta) ON DELETE CASCADE
+)
