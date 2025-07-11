@@ -14,12 +14,11 @@
         <div id="header"></div>
         <script src="./assets/js/header.js"></script>
         <main>
-            
             <section class="registro-de-suenos">
                 <div class="mensaje-resultado"></div>
+                
                 <div class="contenedor-form">
                 <h1>DESCRIBE TU SUEÑO Y PRESIONA "INTERPRETAR"</h1>
-    
                     <form action="http://localhost:3000/api/suenos" id="form-sueno" method="post">
                         <div class="form-descripcion">
                             <label for="descripcion">Aségurate de ser descriptivo:</label>
@@ -40,31 +39,33 @@
         </main>
     </body>
     <script>
-        const token = localStorage.getItem("token");
-        if (!token) {
-            const descripcion = document.getElementById("descripcion");
-            const formVisibilidad = document.querySelector(".form-visibilidad");
-            const formBoton = document.querySelector(".form-boton");
-            
-            if (descripcion) {
-            descripcion.disabled = true;
-            descripcion.placeholder = "No puedes escribir aquí, así lo ha dictado el maravilloso mundo onírico.";
-            descripcion.style.opacity = "0.3";
+        document.addEventListener("DOMContentLoaded", () => {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                const textarea = document.getElementById("descripcion");
+                const formVisibilidad = document.querySelector(".form-visibilidad");
+                const formBoton = document.querySelector(".form-boton");
+                
+                if (textarea) {
+                textarea.disabled = true;
+                textarea.placeholder = "No puedes escribir aquí, así lo ha dictado el maravilloso mundo onírico.";
+                textarea.style.opacity = "0.3";
+                }
+                if (formVisibilidad) {
+                formVisibilidad.innerHTML = `
+                <a href="inicio.html"><img src="assets/images/luna-logo-header.webp" alt="Luna animada"></a>
+                <p>Para que el múndo onírico acepte interpretar tus sueños,<br/>
+                    debes iniciar sesión o crearte una cuenta.</p>
+                `;
+                }
+                if (formBoton) {
+                formBoton.innerHTML = `
+                <a href="login.html" class="redireccion"><h2>INICIAR SESIÓN</h2></a>
+                <a href="register.html" class="redireccion"><h2>REGISTRARSE</h2></a>
+                `;
+                }
             }
-            if (formBoton) {
-            formVisibilidad.innerHTML = `
-            <a href="inicio.html"><img src="assets/images/luna-logo-header.webp" alt="Luna animada"></a>
-            <p>Para que el múndo onírico acepte interpretar tus sueños,<br/>
-                debes iniciar sesión o crearte una cuenta.</p>
-            `;
-            }
-            if (formVisibilidad) {
-            formBoton.innerHTML = `
-            <a href="login.html" class="redireccion"><h2>INICIAR SESIÓN</h2></a>
-            <a href="register.html" class="redireccion"><h2>REGISTRARSE</h2></a>
-            `;
-            }
-        }
+        });
 
         let esPublico = false;
         document.addEventListener("DOMContentLoaded", () => {
@@ -90,11 +91,9 @@
             }
         });
 
-        const checkDescriptionLength = () => {
-			let descripcion = document.getElementById("descripcion").value;
+        const checkDescriptionLength = (descripcion) => {
 			let mensajeDescripcion = document.getElementById("mensaje-descripcion");
-
-            if(!mensajeDescripcion || !descripcion || descripcion.disabled) return false;
+            if(!mensajeDescripcion || !descripcion) return false;
 
 			if (descripcion.length < 20) {
                 mensajeDescripcion.innerHTML =
@@ -104,7 +103,7 @@
 			}
 			if (descripcion.length > 400) {
                 mensajeDescripcion.innerHTML =
-                    "La descripción de tu sueño debe menos de 400 letras.<br/>";
+                    "La descripción de tu sueño debe tener menos de 400 letras.<br/>";
                 mensajeDescripcion.style.color = "red";
                 return false;
 			}
@@ -120,58 +119,64 @@
             }).format(new Date());
         }
 
-        const form = document.getElementById("form-sueno");
-		const mensaje = document.querySelector(".mensaje-resultado");
-        const fecha_actual = obtenerFechaActual();
-		form.addEventListener("submit", async (e) => {
-			e.preventDefault();
-			if (!checkDescriptionLength()) return;
-			const formData = new FormData(form);
-			const data = Object.fromEntries(formData);
-			try {
-			const respuesta = await fetch("http://localhost:3000/api/suenos", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`
-				},
-                    body: JSON.stringify({
-                    descripcion,
-                    fecha,
-                    publico: esPublico
-                    })
-				});
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("form-sueno");
+            if (!form) return;
 
-			const resultado = await respuesta.json();
-			if (respuesta.ok) {
-				mensaje.style.backgroundImage =
-				'url("./assets/images/mensaje-registro.webp")';
-				mensaje.innerHTML =
-				"<b>Se ha registrado tu sueño con éxito</b><span>Las estrellas continúan brillando en el cielo nocturno.</span>";
-				mensaje.style.display = "flex";
-				setTimeout(() => {
-				window.location.href = "/frontend/login.html";
-				}, 3000);
-			} else {
-				mensaje.style.backgroundImage =
-				'url("./assets/images/mensaje-error.webp")';
-				mensaje.innerHTML =
-				"<b>Ocurrió un error al registrar tu sueño</b><span>Las puertas del mundo onírico a veces se atascan...</span>";
-				mensaje.style.display = "flex";
-				setTimeout(() => {
-				window.location.reload();
-				}, 3000);
-			}
-			} catch (error) {
-			mensaje.style.backgroundImage =
-				'url("./assets/images/mensaje-error.webp")';
-			mensaje.innerHTML =
-				"<b>Error interno</b><span>Algo explotó en la dimensión del servidor. <br/>Estamos tratando de recomponer el tejido de la realidad.</span>";
-			mensaje.style.display = "flex";
-			setTimeout(() => {
-				window.location.reload();
-			}, 3000);
-			}
-		});
+		    form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const token = localStorage.getItem("token");
+                const mensaje = document.querySelector(".mensaje-resultado");
+                const descripcion = document.getElementById("descripcion").value;
+                const fecha = obtenerFechaActual();
+                const publico = esPublico;
+                if (!checkDescriptionLength(descripcion) || !fecha || !mensaje || !token) return;
+
+                try {
+                const respuesta = await fetch("http://localhost:3000/api/suenos", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                        body: JSON.stringify({
+                        descripcion,
+                        fecha,
+                        publico
+                        })
+                    });
+
+                const resultado = await respuesta.json();
+                if (respuesta.ok) {
+                    mensaje.style.backgroundImage =
+                    'url("./assets/images/mensaje-registro.webp")';
+                    mensaje.innerHTML =
+                    "<b>Se ha registrado tu sueño con éxito</b><span>Las estrellas continúan brillando en el cielo nocturno.</span>";
+                    mensaje.style.display = "flex";
+                    setTimeout(() => {
+                    window.location.href = "/frontend/login.html";
+                    }, 3000);
+                } else {
+                    mensaje.style.backgroundImage =
+                    'url("./assets/images/mensaje-error.webp")';
+                    mensaje.innerHTML =
+                    "<b>Ocurrió un error al registrar tu sueño</b><span>Las puertas del mundo onírico a veces se atascan...</span>";
+                    mensaje.style.display = "flex";
+                    setTimeout(() => {
+                    window.location.reload();
+                    }, 3000);
+                }
+                } catch (error) {
+                mensaje.style.backgroundImage =
+                    'url("./assets/images/mensaje-error.webp")';
+                mensaje.innerHTML =
+                    "<b>Error interno</b><span>Algo explotó en la dimensión del servidor. <br/>Estamos tratando de recomponer el tejido de la realidad.</span>";
+                mensaje.style.display = "flex";
+                setTimeout(() => {
+                    window.location.reload();
+                }, 3000);
+                }
+		    });
+        });
     </script>
 </html>

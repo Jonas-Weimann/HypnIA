@@ -112,8 +112,31 @@
   border: 2px solid var(--color-lila);
 }
 
-.error {
-  color: red;
+.mensaje-resultado {
+  display: none;
+  background-size: cover;
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  z-index: 20;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  border-radius: 32px;
+  color: white;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 350px;
+}
+
+.mensaje-resultado b {
   text-align: center;
-  margin-bottom: 12px;
+  font-size: 30px;
+}
+
+.mensaje-resultado span {
+  text-align: center;
+  padding: 10px;
+  font-size: 20px;
 }
