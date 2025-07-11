@@ -1,4 +1,5 @@
 const dbClient = require("../config/dbClient.js");
+const { obtenerFechaActual } = require("../utilidades/fecha.js");
 const {
   generarPromptInterpretacion,
 } = require("../utilidades/interpretacion.js");
@@ -49,11 +50,12 @@ const getSuenosPublicos = async (req, res) => {
 };
 
 const createSueno = async (req, res) => {
+  const cliente = await dbClient.connect();
   try {
-    const { descripcion, fecha, publico } = req.body;
+    const { descripcion, publico } = req.body;
+    const fecha = obtenerFechaActual();
     const { id_usuario } = req.usuario;
     const { interpretacion, emociones } = req.analisis;
-    const cliente = await dbClient.connect();
     const idEmociones = await obtenerIdEmociones(emociones);
     await cliente.query("BEGIN");
 
@@ -95,7 +97,8 @@ const createSueno = async (req, res) => {
 const updateSueno = async (req, res) => {
   try {
     const { sid } = req.params;
-    const { descripcion, fecha, publico } = req.body;
+    const { descripcion, publico } = req.body;
+    const fecha = obtenerFechaActual();
     const { id_usuario } = req.usuario;
     const { interpretacion, emociones } = req.analisis;
     const idEmociones = await obtenerIdEmociones(emociones);

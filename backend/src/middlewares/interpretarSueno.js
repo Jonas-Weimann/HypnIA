@@ -6,10 +6,10 @@ const {
 const interpretarSueno = async (req, res, next) => {
   try {
     const { descripcion } = req.body;
-    // const { id_usuario } = req.usuario;
-    // if (!id_usuario) {
-    //   throw { status: 401, message: "Usuario no autenticado" };
-    // }
+    const { id_usuario } = req.usuario;
+    if (!id_usuario) {
+      throw { status: 401, message: "Usuario no autenticado" };
+    }
     if (!descripcion) {
       throw { status: 400, message: "Faltan campos requeridos" };
     }
@@ -46,7 +46,7 @@ const interpretarSueno = async (req, res, next) => {
       };
     }
 
-    req.body.analisis = analisis;
+    req.analisis = analisis;
     next();
   } catch (error) {
     console.log({
