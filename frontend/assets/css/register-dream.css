@@ -1,0 +1,105 @@
+:root {  
+  --color-lila: #855988;
+  --color-purpura: #483475;
+  --color-azul-claro: #2B2F77;
+  --color-azul: #141852;
+  --color-azul-oscuro: #070B34;
+  --color-azul-grisaceo: #0f0f16;
+  --color-gris: #1A1A24;
+}
+
+.registro-de-suenos {
+  background-image: url('../images/fondo-inicio.webp');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.contenedor-form {
+  background-color: rgba(15, 15, 22, 0.9); /*--color-azul-grisaceo*/
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.9);
+  width: 100%;
+  max-width: 700px;
+}
+
+.contenedor-form h1 {
+  margin-bottom: 20px;
+  text-align: center;
+  color: var(--color-lila);
+  font-size: 30px;
+}
+
+.form-descripcion {
+  margin-bottom: 16px;
+}
+
+.form-descripcion label {
+  display: block;
+  margin-bottom: 16px;
+  color: white;
+  font-size: 15px;
+
+}
+
+.form-descripcion textarea {
+  background-color: rgba(15, 15, 22, 0.1); /*--color-azul-grisaceo*/
+  color: white;
+  font-size: 15px;
+  border: 2px solid var(--color-lila);
+  border-radius: 12px;
+  padding: 8px;
+  width: 100%;
+  height: 100px;
+  resize: vertical; /* permite agrandar solo hacia abajo */
+}
+
+.form-visibilidad {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.form-visibilidad img {
+  width: 37px;
+  height: 37px;
+}
+
+.form-visibilidad p {
+  display: block;
+  color: white;
+  font-size: 15px;
+}
+
+.form-boton button {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  background-color: var(--color-lila);
+  color: var(--color-gris);
+  border: 2px solid var(--color-lila);
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.form-boton button:hover {
+  background-color: rgba(15, 15, 22, 0.1); /*--color-azul-grisaceo*/
+  color: var(--color-lila);
+  border: 2px solid var(--color-lila);
+  
+}
+
+.error {
+  color: red;
+  text-align: center;
+  margin-bottom: 12px;
+}

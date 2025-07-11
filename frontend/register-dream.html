@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./assets/css/register-dream.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+        <title>Registra tu sueño</title>
+    </head>
+    <body>
+        <div id="header"></div>
+        <script src="./assets/js/header.js"></script>
+        <main>
+            <section class="registro-de-suenos">
+                <div class="contenedor-form">
+                <h1>DESCRIBE TU SUEÑO Y PRESIONA "INTERPRETAR"</h1>
+                <div id="error" class="error" style="display:none;"></div>
+                    <form id="form-sueno">
+                        <div class="form-descripcion">
+                            <label for="descripcion">Aségurate de ser descriptivo:</label>
+                            <textarea id="descripcion" name="descripcion" required></textarea>
+                        </div>
+                        <div class="form-visibilidad">
+                            <img id="candado" src="assets/images/sueno-privado.png" alt="Candado cerrado">
+                            <p id="form-mensaje">Tu sueño permanecerá en privado y solo tú podrás verlo<br/>
+                                Presiona el candado para cambiar la visibilidad de tu sueño</p>
+                        </div>
+                        <div class="form-boton">
+                            <button type="submit" class="boton-interpretar"><h2>INTERPRETAR<h2></button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </body>
+    <script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        const formVisibilidad = document.querySelector(".form-visibilidad");
+        const formBoton = document.querySelector(".form-boton");
+        const textarea = document.getElementById("descripcion");
+        if (textarea) {
+        textarea.disabled = true;
+        textarea.placeholder = "No puedes escribir aquí, así los dioses lo han dictado.";
+        textarea.style.opacity = "0.3";
+    }
+        if (!formVisibilidad || !formBoton) return;
+
+        formVisibilidad.innerHTML = `
+        <a href="inicio.html"><img src="assets/images/luna-logo-header.webp" alt="Luna animada"></a>
+        <p>Para poder registrar tu sueño tienes que iniciar sesión o crearte una cuenta<br/>
+            O puedes presionar la luna para volver a inicio.</p>
+        `;
+
+        formBoton.innerHTML = `
+        <a href="login.html"><button><h2>INICIAR SESIÓN<h2></button></a>
+        <a href="register.html"><button><h2>REGISTRARSE<h2></button></a>
+        `;
+    }
+    });
+
+		
+
+
+    </script>
+</html>
