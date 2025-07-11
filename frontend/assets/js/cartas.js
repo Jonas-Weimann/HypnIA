@@ -1,4 +1,4 @@
-const container = document.getElementById('cartas_container');
+const container = document.getElementById('cartas-contenedor');
 const cartasURL = "http://localhost:3000/api/cartas";
 
 fetch(cartasURL)
@@ -9,12 +9,12 @@ fetch(cartasURL)
       cartaDiv.classList.add('carta');
 
       cartaDiv.innerHTML = `
-        <img id="imagen_carta" src="./assets/images/cards/${carta.imagen}">
-        <div class="nombre_carta"><h2>${carta.nombre}</h2></div>
-        <div class="informacion_carta">
+        <img id="imagen-carta" src="./assets/images/cards/${carta.imagen}">
+        <div class="nombre-carta"><h2>${carta.nombre}</h2></div>
+        <div class="informacion-carta">
           <p><u>ELEMENTO</u>: ${carta.elemento}</p>
           <p><u>POLARIDAD</u>: ${carta.polaridad}</p>
-          <p>${carta.descripcion}</p>
+          <p style="border-top: 1px solid white" >${carta.descripcion}</p>
         </div>
       `;
 
