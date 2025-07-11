@@ -40,11 +40,11 @@
   margin-bottom: 16px;
 }
 
-.form-descripcion label {
+.form-descripcion label, .form-visibilidad p, #mensaje-descripcion {
   display: block;
-  margin-bottom: 16px;
+  margin-bottom: 15px;
   color: white;
-  font-size: 15px;
+  font-size: 18px;
 
 }
 
@@ -68,17 +68,17 @@
 }
 
 .form-visibilidad img {
+  cursor: pointer;
   width: 37px;
   height: 37px;
+  transition: transform 0.5s ease;
 }
 
-.form-visibilidad p {
-  display: block;
-  color: white;
-  font-size: 15px;
+.form-visibilidad img:hover {
+  transform: scale(1.5); 
 }
 
-.form-boton button {
+.boton-interpretar {
   width: 100%;
   padding: 12px;
   margin-bottom: 15px;
@@ -86,16 +86,30 @@
   color: var(--color-gris);
   border: 2px solid var(--color-lila);
   border-radius: 6px;
-  font-size: 1rem;
+  font-size: 12px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background-color 0.5s ease;
 }
 
-.form-boton button:hover {
+.redireccion {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-decoration: none;
+  padding: 12px;
+  margin-bottom: 15px;
+  background-color: var(--color-lila);
+  color: var(--color-gris);
+  border-radius: 6px;
+  font-size: 12px;
+  border: 2px solid var(--color-lila);
+  transition: background-color 0.5s ease;
+}
+
+.form-boton button:hover, .redireccion:hover {
   background-color: rgba(15, 15, 22, 0.1); /*--color-azul-grisaceo*/
   color: var(--color-lila);
   border: 2px solid var(--color-lila);
-  
 }
 
 .error {
