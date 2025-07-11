@@ -15,4 +15,18 @@ const obtenerIdEmociones = async (emociones) => {
   return resultados;
 };
 
-module.exports = { obtenerIdEmociones };
+const obtenerIdCartas = async (cartas) => {
+  if (!Array.isArray(cartas)) return [];
+
+  const buscarCartas = cartas.map(async (carta) => {
+    const { rows } = await dbClient.query(
+      `SELECT id_carta FROM cartas WHERE nombre = $1`,
+      [carta.nombre]
+    );
+    return rows[0]?.id_carta;
+  });
+  const resultados = await Promise.all(buscarCartas);
+  return resultados;
+};
+
+module.exports = { obtenerIdEmociones, obtenerIdCartas };

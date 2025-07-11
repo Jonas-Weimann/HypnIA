@@ -1,9 +1,9 @@
 const dbClient = require("../config/dbClient.js");
 const { obtenerFechaActual } = require("../utilidades/fecha.js");
 const {
-  generarPromptInterpretacion,
-} = require("../utilidades/interpretacion.js");
-const { obtenerIdEmociones } = require("../utilidades/traduccion.js");
+  obtenerIdEmociones,
+  obtenerIdCartas,
+} = require("../utilidades/traduccion.js");
 const { esEmocionValida } = require("../utilidades/validacion.js");
 
 const getAllSuenos = async (req, res) => {
@@ -55,8 +55,9 @@ const createSueno = async (req, res) => {
     const { descripcion, publico } = req.body;
     const fecha = obtenerFechaActual();
     const { id_usuario } = req.usuario;
-    const { interpretacion, emociones } = req.analisis;
+    const { interpretacion, emociones, cartas } = req.analisis;
     const idEmociones = await obtenerIdEmociones(emociones);
+    const idCartas = await obtenerIdCartas(cartas);
     await cliente.query("BEGIN");
 
     if (!id_usuario) {
@@ -74,13 +75,21 @@ const createSueno = async (req, res) => {
       [id_usuario, descripcion, fecha, publico || false, interpretacion]
     );
     const idSueno = nuevoSueno.rows[0].id_sueno;
-    const insertarEmociones = idEmociones.map((idEmocion) => {
+    const insertarEmociones = idEmociones.map(async (idEmocion) => {
       cliente.query(
         "INSERT INTO suenos_emociones (id_sueno, id_emocion) VALUES ($1, $2)",
         [idSueno, idEmocion]
       );
     });
     await Promise.all(insertarEmociones);
+
+    const insertarCartas = idCartas.map(async (idCarta) => {
+      cliente.query(
+        "INSERT INTO suenos_cartas (id_sueno, id_carta) VALUES ($1, $2)",
+        [idSueno, idCarta]
+      );
+    });
+    await Promise.all(insertarCartas);
 
     await cliente.query("COMMIT");
     res.status(201).json(nuevoSueno.rows[0]);
@@ -138,7 +147,7 @@ const updateSueno = async (req, res) => {
     if (emocionesEliminadas.rows.length === 0) {
       throw { status: 404, message: "Sueño no encontrado" };
     }
-    const insertarEmociones = idEmociones.map((idEmocion) => {
+    const insertarEmociones = idEmociones.map(async (idEmocion) => {
       cliente.query(
         "INSERT INTO suenos_emociones (id_sueno, id_emocion) VALUES ($1, $2)",
         [idSueno, idEmocion]
