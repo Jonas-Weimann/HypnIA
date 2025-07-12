@@ -8,36 +8,61 @@
   --color-gris: #1A1A24;
 }
 
-.cartas_section {
-  border-top: 10px groove var(--color-lila);
-  background-color: var(--color-gris);
-  padding: 30px;
+#cartas-main {
+  background-image: url('../images/patron-estrellas.webp');
+  background-repeat: repeat;
+  width: 100%;
+  padding: 80px 0px;
+}
 
+.cartas-section {
+  background-color: rgba(15, 15, 22, 0.9); /* --color-azul-grisaceo */
+  border: 10px groove var(--color-lila);
+  border-radius: 25px;
+  margin: 0 auto;
+  padding: 40px;
+  min-height: 100vh;
+  width: 1400px;
+  max-width: 100%;
 }
 
 /* -------------- titulo de la pagina -------------- */
 
-#titulo_section {
-  max-width: 1100px;
+#cartas-titulo-section, #cartas-busqueda {
   margin: 0 auto;
   text-align: center;
-  font-size: 40px;
   font-family: "Pixelify Sans", sans-serif;
   color: white;
   background-color: rgba(84, 45, 87, 0.4);
   border: 10px groove var(--color-lila);
+  max-width: 100%;
   border-radius: 25px;
   padding: 15px;
   transition: transform 0.5s;
+
 }
 
-#titulo_section:hover {
+#cartas-titulo-section {
+  width: 1100px;
+  max-width: 100%;
+  font-size: 40px;
+  margin-bottom: 40px;
+}
+
+#cartas-busqueda {
+  width: 500px;
+  height: 60px;
+  font-size: 20px;
+  display: block;
+}
+
+#titulo-section:hover, #cartas-busqueda:hover {
   transform: scale(1.09);
 }
 
 /* -------------- contenedor de cartas -------------- */
 
-#cartas_container {
+#cartas-contenedor {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -47,6 +72,13 @@
   gap: 50px;
   padding-top: 40px;
   padding-bottom: 40px;
+}
+
+#cartas-contenedor p {
+  font-family: "Pixelify Sans", sans-serif;
+  color: white;
+  max-width: 100%;
+  font-size: 20px;
 }
 
 /* -------------- carta -------------- */
@@ -62,16 +94,16 @@
   transform: scale(1.09);
 }
 
-#imagen_carta {
+#imagen-carta {
   box-shadow: 10px 10px 20px rgba(0,0,0,0.9); /* desplazamiento horizontal 10px, vertical 10px, desenfoque 20px, color negro con opacidad 0.9 */
-  width: 300px;
-  height: 450px;
+  width: 200px;
+  height: 300px;
   display: block;
   border-radius: 25px;
   border: 10px groove var(--color-lila);
 }
 
-.informacion_carta {
+.informacion-carta {
   position: absolute;
   top: 0;
   left: 0;
@@ -85,18 +117,19 @@
   border: 10px groove var(--color-lila);
 }
 
-.carta:hover .informacion_carta {
+.carta:hover .informacion-carta {
   opacity: 1;
 }
 
-.informacion_carta p {
+.informacion-carta p {
   color: white;
-  font-size: 25px;
+  font-size: 20px;
   font-family: "Pixelify Sans", sans-serif;
-  padding: 20px;
+  padding: 2px 5px;
+  text-align: center;
 }
 
-.nombre_carta {
+.nombre-carta {
   position: absolute;
   top: 0;
   left: 0;
@@ -108,23 +141,23 @@
   transition: opacity 0.5s ease;
 }
 
-.carta:hover .nombre_carta {
+.carta:hover .nombre-carta {
   opacity: 0;
 }
 
-.nombre_carta h2 {
+.nombre-carta h2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
   background-color: rgba(84, 45, 87, 0.7);
-  box-shadow: 0px -10px 10px rgba(0,0,0,0.9);
+  box-shadow: 0px -10px 10px rgba(0,0,0,0.9); /*desplazamiento vertical 10px hacia arriba, desenfoque 10px, color negro con opacidad 0.9 */
   border: 5px groove var(--color-lila);
   border-radius: 25px;
   margin: 15px auto;
   font-family: "Pixelify Sans", sans-serif;
   color: white;
-  font-size: 30px;
-  width: 260px;
-  height: 80px;
+  font-size: 25px;
+  width: 170px;
+  height: 70px;
 }

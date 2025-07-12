@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/cartas.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
-    <title>Cartas</title>
-</head>
-<body>
-    <div id="header"></div>
-    <script src="/assets/js/header.js"></script>
-
-    <section class="cartas_section">
-        <h1 id="titulo_section">CARTAS ONÍRICAS</h1>
-        <div id="cartas_container"></div>
-        <script src="/assets/js/cartas.js"></script>
-    </section>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./assets/css/cartas.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
+        <title>Cartas</title>
+    </head>
+    <body>
+        <div id="header" style="border-bottom: 10px groove var(--color-lila);"></div>
+        <script src="/assets/js/header.js"></script>
+        <main id="cartas-main">
+            <section class="cartas-section">
+                <h1 id="cartas-titulo-section">CARTAS ONÍRICAS</h1>
+                <input type="text" id="cartas-busqueda" placeholder="Buscar por nombre, elemento o polaridad" />
+                <div id="cartas-contenedor"></div>
+                <script src="/assets/js/cartas.js"></script>
+            </section>
+        </main>
+    </body>
 </html>
