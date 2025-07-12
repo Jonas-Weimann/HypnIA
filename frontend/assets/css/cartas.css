@@ -10,14 +10,15 @@
 
 #cartas-main {
   background-image: url('../images/patron-estrellas.webp');
-  background-position: center;
   background-repeat: repeat;
   width: 100%;
+  padding: 80px 0px;
 }
 
 .cartas-section {
-  
-  background-color: var(--color-azul-grisaceo);
+  background-color: rgba(15, 15, 22, 0.9); /* --color-azul-grisaceo */
+  border: 10px groove var(--color-lila);
+  border-radius: 25px;
   margin: 0 auto;
   padding: 40px;
   min-height: 100vh;
