@@ -8,30 +8,54 @@
   --color-gris: #1A1A24;
 }
 
-.cartas-section {
-  border-top: 10px groove var(--color-lila);
-  background-color: var(--color-gris);
-  padding: 30px;
+#cartas-main {
+  background-image: url('../images/patron-estrellas.webp');
+  background-position: center;
+  background-repeat: repeat;
+  width: 100%;
+}
 
+.cartas-section {
+  
+  background-color: var(--color-azul-grisaceo);
+  margin: 0 auto;
+  padding: 40px;
+  min-height: 100vh;
+  width: 1400px;
+  max-width: 100%;
 }
 
 /* -------------- titulo de la pagina -------------- */
 
-#titulo-section {
-  max-width: 1100px;
+#cartas-titulo-section, #cartas-busqueda {
   margin: 0 auto;
   text-align: center;
-  font-size: 40px;
   font-family: "Pixelify Sans", sans-serif;
   color: white;
   background-color: rgba(84, 45, 87, 0.4);
   border: 10px groove var(--color-lila);
+  max-width: 100%;
   border-radius: 25px;
   padding: 15px;
   transition: transform 0.5s;
+
 }
 
-#titulo-section:hover {
+#cartas-titulo-section {
+  width: 1100px;
+  max-width: 100%;
+  font-size: 40px;
+  margin-bottom: 40px;
+}
+
+#cartas-busqueda {
+  width: 500px;
+  height: 60px;
+  font-size: 20px;
+  display: block;
+}
+
+#titulo-section:hover, #cartas-busqueda:hover {
   transform: scale(1.09);
 }
 
@@ -47,6 +71,13 @@
   gap: 50px;
   padding-top: 40px;
   padding-bottom: 40px;
+}
+
+#cartas-contenedor p {
+  font-family: "Pixelify Sans", sans-serif;
+  color: white;
+  max-width: 100%;
+  font-size: 20px;
 }
 
 /* -------------- carta -------------- */
