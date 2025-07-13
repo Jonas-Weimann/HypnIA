@@ -25,7 +25,7 @@ const mostrarEmociones = (emocionesAMostrar) => {
 	emocionesAMostrar.forEach(emocion => {
 		const emocionDiv = document.createElement("div");
 		emocionDiv.innerHTML = `
-			<div class="emocion" style="background-image: url('assets/images/emociones/${emocion.polaridad}.webp');">
+			<div class="emocion" style="background-image: url('assets/images/emociones/${emocion.intensidad}.webp'); backdrop-filter: blur(10px);">
 				<div class="nombre-emocion"><h2>${emocion.nombre.toUpperCase()}</h2></div>
 				<div class="informacion-emocion">
 					<p><u>INTENSIDAD</u>: ${emocion.intensidad}</p>
