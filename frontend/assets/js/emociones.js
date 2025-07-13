@@ -56,4 +56,19 @@ emocionesBusqueda.addEventListener("input", () => {
 	mostrarEmociones(filtradas);
 });
 
+const modificarLinks = () => {
+	const token = localStorage.getItem("token");
+	if (!token) return;
+
+	const contenedor = document.querySelector(".cartas-emociones-links");
+	if (!contenedor) return;
+
+	contenedor.innerHTML = `
+		<a href="cartas.html">CARTAS</a>
+        <a href="register-dream.html">REGISTRA TU SUEÑO</a>
+        <a href="emociones.html">EMOCIONES</a>
+	`;
+}
+
 obtenerEmociones();
+modificarLinks();
