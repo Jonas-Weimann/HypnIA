@@ -1,11 +1,7 @@
-
 const obtenerFechaActual = () => {
-  return new Intl.DateTimeFormat('es-AR', {
-    dateStyle: 'short',
-    timeZone: 'America/Argentina/Buenos_Aires'
-  }).format(new Date());
-}
+  const fechaActual = new Date();
+  return fechaActual.toISOString().split("T")[0];
+};
 
-export {
-    obtenerFechaActual
-}
+export { obtenerFechaActual };
+
