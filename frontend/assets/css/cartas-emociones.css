@@ -1,34 +1,54 @@
-:root {
-  --color-lila: #855988;
-  --color-purpura: #483475;
-  --color-azul-claro: #2B2F77;
-  --color-azul: #141852;
-  --color-azul-oscuro: #070B34;
-  --color-azul-grisaceo: #0f0f16;
-  --color-gris: #1A1A24;
+@media (max-width: 600px) {
+  .emocion {
+    flex-direction: column;
+    padding: 10px;
+    text-align: center;
+  }
 }
 
-#cartas-main {
+:root {
+  --color-lila: #855988;
+  --color-azul-grisaceo: #0f0f16;
+}
+
+#cartas-main, #emociones-main {
   background-image: url('../images/patron-estrellas.webp');
   background-repeat: repeat;
-  width: 100%;
   padding: 80px 0px;
 }
 
-.cartas-section {
+.cartas-section, .emociones-section, .cartas-emociones-links {
   background-color: rgba(15, 15, 22, 0.9); /* --color-azul-grisaceo */
   border: 10px groove var(--color-lila);
   border-radius: 25px;
   margin: 0 auto;
-  padding: 40px;
-  min-height: 100vh;
+  padding: 20px;
   width: 1400px;
   max-width: 100%;
 }
 
-/* -------------- titulo de la pagina -------------- */
+.cartas-section, .emociones-section {
+  min-height: 100vh;
+  padding: 40px;
+}
 
-#cartas-titulo-section, #cartas-busqueda {
+.cartas-emociones-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+/* -------------- redirecciones -------------- */
+
+
+
+/* -------------- titulo y busqueda de la pagina -------------- */
+
+#cartas-titulo-section, #cartas-busqueda,
+#emociones-titulo-section, #emociones-busqueda,
+.cartas-emociones-links a {
   margin: 0 auto;
   text-align: center;
   font-family: "Pixelify Sans", sans-serif;
@@ -39,28 +59,43 @@
   border-radius: 25px;
   padding: 15px;
   transition: transform 0.5s;
-
 }
 
-#cartas-titulo-section {
+.cartas-emociones-links a {
+  width: 300px;
+  text-decoration: none;
+  font-size: 30px;
+}
+
+#cartas-titulo-section, #emociones-titulo-section {
   width: 1100px;
   max-width: 100%;
   font-size: 40px;
   margin-bottom: 40px;
 }
 
-#cartas-busqueda {
+#cartas-busqueda, #emociones-busqueda {
   width: 500px;
   height: 60px;
   font-size: 20px;
   display: block;
 }
 
-#titulo-section:hover, #cartas-busqueda:hover {
+#cartas-titulo-section:hover, #cartas-busqueda:hover, 
+#emociones-titulo-section:hover, #emociones-busqueda:hover,
+.cartas-emociones-links a:hover {
   transform: scale(1.09);
 }
 
-/* -------------- contenedor de cartas -------------- */
+#cartas-emociones-descripcion {
+  /* font-family: "Pixelify Sans", sans-serif; */
+  font-size: 20px;
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
+}
+
+/* -------------- contenedor de cartas / emociones -------------- */
 
 #cartas-contenedor {
   display: flex;
@@ -74,11 +109,48 @@
   padding-bottom: 40px;
 }
 
-#cartas-contenedor p {
+#cartas-contenedor p, #emociones-contenedor {
   font-family: "Pixelify Sans", sans-serif;
   color: white;
   max-width: 100%;
   font-size: 20px;
+}
+
+#emociones-contenedor {
+  padding: 40px 0px;
+}
+
+/* -------------- emocion -------------- */
+
+.emocion {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  padding: 5px;
+  border: 10px groove var(--color-lila);
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  transition: transform 0.5s;
+  border-radius: 25px;
+}
+
+.emocion:hover {
+  transform: scale(1.09);
+}
+
+.informacion-emocion p {
+  padding: 3px;
+  text-align: center;
+  font-size: 25px;
+}
+
+.nombre-emocion h2 {
+  text-align: center;
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: 50px;
 }
 
 /* -------------- carta -------------- */
