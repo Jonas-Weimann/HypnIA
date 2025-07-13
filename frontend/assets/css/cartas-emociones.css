@@ -17,10 +17,17 @@
   padding: 80px 0px;
 }
 
-.cartas-section, .emociones-section, .cartas-emociones-links {
+.cartas-section, .emociones-section {
   background-color: rgba(15, 15, 22, 0.9); /* --color-azul-grisaceo */
   border: 10px groove var(--color-lila);
   border-radius: 25px;
+  margin: 0 auto;
+  padding: 20px;
+  width: 1400px;
+  max-width: 100%;
+}
+
+.cartas-emociones-links {
   margin: 0 auto;
   padding: 20px;
   width: 1400px;
@@ -35,14 +42,10 @@
 .cartas-emociones-links {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 40px;
 }
-
-/* -------------- redirecciones -------------- */
-
-
 
 /* -------------- titulo y busqueda de la pagina -------------- */
 
@@ -62,9 +65,11 @@
 }
 
 .cartas-emociones-links a {
-  width: 300px;
+  background-color: rgba(15, 15, 22, 0.9); /* --color-azul-grisaceo */
+  width: 350px;
   text-decoration: none;
   font-size: 30px;
+  margin-bottom: 40px;
 }
 
 #cartas-titulo-section, #emociones-titulo-section {
@@ -88,7 +93,6 @@
 }
 
 #cartas-emociones-descripcion {
-  /* font-family: "Pixelify Sans", sans-serif; */
   font-size: 20px;
   text-align: center;
   color: white;
