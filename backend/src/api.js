@@ -1,6 +1,6 @@
-const express = require("express");
-const cors = require("cors");
-const apiRutas = require("./rutas");
+import express from "express";
+import cors from "cors";
+import apiRutas from "./rutas/index.js";
 
 const app = express();
 app.use(express.json());

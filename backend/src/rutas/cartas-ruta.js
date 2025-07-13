@@ -1,12 +1,12 @@
-const { Router } = require("express");
-const {
+import { Router } from "express";
+import {
   getAllCartas,
   getCartaById,
   createCarta,
   updateCarta,
   deleteCarta,
-} = require("../controladores/cartas-controlador.js");
-const { autenticarAdmin } = require("../middlewares/autenticacion.js");
+} from "../controladores/cartas-controlador.js";
+import { autenticarAdmin } from "../middlewares/autenticacion.js";
 
 const router = Router();
 
@@ -16,4 +16,4 @@ router.post("/", autenticarAdmin, createCarta);
 router.put("/:cid", autenticarAdmin, updateCarta);
 router.delete("/:cid", autenticarAdmin, deleteCarta);
 
-module.exports = router;
+export default router;

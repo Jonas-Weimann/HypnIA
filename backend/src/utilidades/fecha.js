@@ -6,6 +6,6 @@ const obtenerFechaActual = () => {
   }).format(new Date());
 }
 
-module.exports = {
+export {
     obtenerFechaActual
 }

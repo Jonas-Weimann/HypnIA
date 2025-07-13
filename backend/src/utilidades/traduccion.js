@@ -1,4 +1,4 @@
-const dbClient = require("../config/dbClient.js");
+import dbClient from "../config/dbClient.js";
 
 const obtenerIdEmociones = async (emociones) => {
   if (!Array.isArray(emociones)) return [];
@@ -29,4 +29,4 @@ const obtenerIdCartas = async (cartas) => {
   return resultados;
 };
 
-module.exports = { obtenerIdEmociones, obtenerIdCartas };
+export { obtenerIdEmociones, obtenerIdCartas };

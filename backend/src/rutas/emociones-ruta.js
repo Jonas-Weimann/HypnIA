@@ -1,12 +1,12 @@
-const { Router } = require("express");
-const {
+import { Router } from "express";
+import {
   getAllEmociones,
   getEmocionById,
   createEmocion,
   updateEmocion,
   deleteEmocion,
-} = require("../controladores/emociones-controlador.js");
-const { autenticarAdmin } = require("../middlewares/autenticacion.js");
+} from "../controladores/emociones-controlador.js";
+import { autenticarAdmin } from "../middlewares/autenticacion.js";
 
 const router = Router();
 
@@ -16,4 +16,4 @@ router.post("/", autenticarAdmin, createEmocion);
 router.put("/:eid", autenticarAdmin, updateEmocion);
 router.delete("/:eid", autenticarAdmin, deleteEmocion);
 
-module.exports = router;
+export default router;
