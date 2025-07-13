@@ -1,7 +1,7 @@
-const dbClient = require('../config/dbClient.js');
-const { obtenerFechaActual } = require('../utilidades/fecha.js');
-const { generarHash, compararHash } = require('../utilidades/encriptacion.js');
-const { generarToken } = require('../utilidades/jsonwebtoken.js');
+import dbClient from '../config/dbClient.js';
+import { obtenerFechaActual } from '../utilidades/fecha.js';
+import { generarHash, compararHash } from '../utilidades/encriptacion.js';
+import { generarToken } from '../utilidades/jsonwebtoken.js';
 
 const getAllUsuarios = async (req, res) => {
     try {
@@ -51,9 +51,9 @@ const getSuenosByUsuario = async (req, res)=>{
         if (!uid || isNaN(uid)) {
             throw { status: 400, message: 'ID de usuario inválido' };
         }
-        // if (!id_usuario || id_usuario !== parseInt(uid)) {
-        //     throw { status: 403, message: 'No tienes permiso para acceder a los sueños de este usuario' };
-        // }
+        if (!id_usuario || id_usuario !== parseInt(uid)) {
+            throw { status: 403, message: 'No tienes permiso para acceder a los sueños de este usuario' };
+        }
         const suenos = await dbClient.query('SELECT * FROM suenos WHERE id_usuario = $1', [uid]);
         if (suenos.rows.length === 0) {
             throw { status: 404, message: 'No se encontraron sueños para este usuario' };
@@ -85,15 +85,6 @@ const getSuenosPublicosByUsuario = async (req, res) => {
     }
 }
 
-/*
-CREATE TABLE usuarios (
-    id_usuario SERIAL PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
-    contrasena VARCHAR(255) NOT NULL,
-    fecha_registro DATE NOT NULL
-);
-*/
 
 const registrarUsuario = async (req, res) => {
     const { nombre, email, contrasena } = req.body;
@@ -156,7 +147,7 @@ const iniciarSesion = async (req, res) => {
 }
 
 
-module.exports = {
+export {
     getAllUsuarios,
     getUsuarioById,
     getUsuarioByEmail,
