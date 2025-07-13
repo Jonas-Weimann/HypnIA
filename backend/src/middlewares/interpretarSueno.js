@@ -1,7 +1,8 @@
-const { gptclient } = require("../config/openai.mjs");
-const {
+
+import { gptclient } from "../config/openai.js";
+import {
   generarPromptInterpretacion,
-} = require("../utilidades/interpretacion.js");
+}  from "../utilidades/interpretacion.js";
 
 const interpretarSueno = async (req, res, next) => {
   try {
@@ -56,4 +57,5 @@ const interpretarSueno = async (req, res, next) => {
   }
 };
 
-module.exports = { interpretarSueno };
+export { interpretarSueno };
+

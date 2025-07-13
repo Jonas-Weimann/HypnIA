@@ -21,8 +21,4 @@ const esEmocionValida = (emociones) => {
     return emociones.every(emocion => typeof emocion === 'number' && emocion > 0 && emocion <= 30);
 };
 
-module.exports = {
-    esPolaridadValida,
-    esElementoValido,
-    esEmocionValida
-};
+export { esPolaridadValida, esElementoValido, esEmocionValida };

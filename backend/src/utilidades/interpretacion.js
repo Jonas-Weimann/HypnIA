@@ -1,4 +1,4 @@
-const dbClient = require("../config/dbClient");
+import dbClient from "../config/dbClient.js";
 
 const obtenerDatosParaInterpretacion = async () => {
   const emociones = await dbClient.query(
@@ -79,7 +79,7 @@ const generarPromptInterpretacion = async (descripcion) => {
   ];
 };
 
-module.exports = {
+export {
   obtenerDatosParaInterpretacion,
   generarPromptInterpretacion,
 };

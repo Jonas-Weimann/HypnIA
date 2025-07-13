@@ -1,10 +1,11 @@
-const dbClient = require("../config/dbClient.js");
-const { obtenerFechaActual } = require("../utilidades/fecha.js");
-const {
+
+import dbClient from "../config/dbClient.js";
+import { obtenerFechaActual } from "../utilidades/fecha.js";
+import {
   obtenerIdEmociones,
   obtenerIdCartas,
-} = require("../utilidades/traduccion.js");
-const { esEmocionValida } = require("../utilidades/validacion.js");
+} from "../utilidades/traduccion.js";
+import { esEmocionValida } from "../utilidades/validacion.js";
 
 const getAllSuenos = async (req, res) => {
   try {
@@ -186,7 +187,7 @@ const deleteSueno = async (req, res) => {
   }
 };
 
-module.exports = {
+export {
   getAllSuenos,
   getSuenoById,
   getSuenosPublicos,

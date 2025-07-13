@@ -1,16 +1,16 @@
-const { Router } = require("express");
-const {
+import { Router } from "express";
+import {
   getAllUsuarios,
   getUsuarioById,
   registrarUsuario,
   getSuenosPublicosByUsuario,
   getSuenosByUsuario,
   iniciarSesion,
-} = require("../controladores/usuarios-controlador.js");
-const {
+} from "../controladores/usuarios-controlador.js";
+import {
   autenticarUsuario,
   autenticarAdmin,
-} = require("../middlewares/autenticacion.js");
+} from "../middlewares/autenticacion.js";
 
 const router = Router();
 
@@ -21,4 +21,4 @@ router.get("/:uid/suenos-publicos", getSuenosPublicosByUsuario);
 router.post("/registrar", registrarUsuario);
 router.post("/iniciar-sesion", iniciarSesion);
 
-module.exports = router;
+export default router;

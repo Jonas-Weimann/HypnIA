@@ -1,5 +1,5 @@
-const dbClient = require('../config/dbClient.js');
-const { esElementoValido, esEmocionValida, esPolaridadValida } = require('../utilidades/validacion.js');
+import dbClient from '../config/dbClient.js';
+import  { esElementoValido, esEmocionValida, esPolaridadValida } from '../utilidades/validacion.js';
 
 const getAllCartas = async (req, res)=>{
     try {
@@ -120,7 +120,7 @@ const deleteCarta = async (req, res) => {
     }
 }
 
-module.exports = {
+export {
     getAllCartas,
     getCartaById,
     createCarta,

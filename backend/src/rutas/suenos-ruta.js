@@ -1,17 +1,17 @@
-const { Router } = require("express");
-const {
+import { Router } from "express";
+import {
   getAllSuenos,
   getSuenosPublicos,
   getSuenoById,
   createSueno,
   updateSueno,
   deleteSueno,
-} = require("../controladores/suenos-controlador.js");
-const {
+} from "../controladores/suenos-controlador.js";
+import {
   autenticarUsuario,
   autenticarAdmin,
-} = require("../middlewares/autenticacion.js");
-const { interpretarSueno } = require("../middlewares/interpretarSueno.js");
+} from "../middlewares/autenticacion.js";
+import { interpretarSueno } from "../middlewares/interpretarSueno.js";
 
 const router = Router();
 
@@ -22,4 +22,4 @@ router.post("/", autenticarUsuario, interpretarSueno, createSueno);
 router.put("/:sid", autenticarUsuario, interpretarSueno, updateSueno);
 router.delete("/:sid", autenticarUsuario, deleteSueno);
 
-module.exports = router;
+export default router;
