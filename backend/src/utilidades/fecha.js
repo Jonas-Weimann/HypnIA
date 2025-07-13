@@ -4,3 +4,4 @@ const obtenerFechaActual = () => {
 };
 
 export { obtenerFechaActual };
+
