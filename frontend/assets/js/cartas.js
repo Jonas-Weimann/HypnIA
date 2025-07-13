@@ -5,7 +5,7 @@ let cartas = [];
 
 const obtenerCartas = async () => {
 	try {
-		const respuesta = await fetch("http://localhost:3000/api/cartas");
+		const respuesta = await fetch(cartasURL);
 		const data = await respuesta.json();
 		cartas = data;
 		mostrarCartas(cartas);
