@@ -1,7 +1,49 @@
-<div id="zona-interpretacion" class="zona-interpretacion .oculto">
+                
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./assets/css/register-dream.css">
+        <link rel="stylesheet" href="./assets/css/cartas-emociones.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
+        <title>Último sueño</title>
+    </head>
+    <body>
+        <div id="header" style="border-bottom: 5px solid #332233;"></div>
+        <script src="/assets/js/header.js"></script>
+
+        <main id="interpretacion-main">
+            <div class="cartas-emociones-links">
+                <a href="cartas.html">CARTAS</a>
+                <a href="inicio.html">VOLVER A INICIO</a>
+                <a href="emociones.html">EMOCIONES</a>
+            </div>
+
+            <section class="interpretacion-section">
+                <h1 id="interpretacion-titulo-section">ÚLTIMO SUEÑO</h1>
+                <p id="cartas-emociones-descripcion">Cada carta onírica es un fragmento de tu viaje interno. <br /> <br />
+                    Cuando soñás, tu mente habla en símbolos, y estas cartas son la voz visual de tu subconsciente. <br />
+                    La IA las selecciona según lo que tu sueño quiere decirte. Usalas como guía para descubrir lo que no estás viendo a simple vista. <br /> <br />
+                    Si una carta o emoción se repite en varios sueños, puede estar señalando algo que necesitás atender conscientemente. </p>
+                <input type="text" id="cartas-busqueda" placeholder="Buscar por nombre, elemento o polaridad" />
+                <div id="cartas-contenedor"></div>
+                <script src="/assets/js/cartas.js"></script>
+            </section>
+        </main>
+
+        <div id="footer" style="border-top: 5px solid #332233;"></div>
+        <script src="/assets/js/footer.js"></script>
+
+                <!-- <div id="zona-interpretacion" class="zona-interpretacion .oculto">
+
                     <div class="publicacion">
                         <div class="perfil-nombre">
-                            <!-- <a href="#"><img src="assets/images/perfil-default.webp" alt="Perfil">Nombre largo largo largo largo largo</a> -->
+                            <a href="#"><img src="assets/images/perfil-default.webp" alt="Perfil">Nombre largo largo largo largo largo</a>
                         </div>
                         <div class="apartado-descripcion">
                             <h1>Descripción</h1>
@@ -79,3 +121,40 @@
                         <a href="#">Explora</a>
                         <a href="inicio.html">Inicio</a>
                     </div>
+                </div> -->
+        <script src="/assets/js/cartas.js"></script>
+    </body>
+    <script>
+        const suenoGuardado = JSON.parse(localStorage.getItem("suenoInterpretado"));
+        const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+
+        if (suenoGuardado) {
+            const resultado = document.getElementById("resultado-sueno");
+            resultado.innerHTML = `
+                <h2>Interpretación de tu sueño</h2>
+                <p><strong>Descripción:</strong> ${suenoGuardado.descripcion}</p>
+                <p><strong>Interpretación:</strong> ${suenoGuardado.interpretacion}</p>
+                <h3>Emociones:</h3>
+                <ul>
+                ${suenoGuardado.emociones
+                    .map(
+                    (emocion) =>
+                        `<li>${emocion.nombre} (intensidad: ${emocion.intensidad})</li>`
+                    )
+                    .join("")}
+                </ul>
+                <h3>Cartas:</h3>
+                <ul>
+                ${suenoGuardado.cartas
+                    .map(
+                    (carta) =>
+                        `<li><strong>${carta.nombre}</strong>: ${carta.descripcion}</li>`
+                    )
+                    .join("")}
+                </ul>
+            `;
+        }
+
+    </script>
+</html>
