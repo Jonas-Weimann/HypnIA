@@ -22,7 +22,7 @@ h2 {
 /* -------- colores del contenedor y titulo -------- */
 
 .login-container,
-.register-container {
+.register-container, .recovery-container {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -37,8 +37,16 @@ h2 {
   border-radius: 5px;
 }
 
+.recovery-container b {
+  margin-top: 10px;
+  text-align: center;
+  color: #855988;
+}
+
 .login-container h1,
-.register-container h1 {
+.register-container h1,
+.recovery-container h1
+{
   text-align: center;
   color: #855988;
   letter-spacing: 1px;
@@ -48,7 +56,8 @@ h2 {
 /* -------- campos para completar -------- */
 
 .login-container input,
-.register-container input {
+.register-container input, 
+.recovery-container input {
   color: #ae95af;
   width: 260px;
   margin-top: 15px;
@@ -58,8 +67,7 @@ h2 {
   border-radius: 5px;
 }
 
-.login-container input::placeholder,
-.register-container input::placeholder {
+ input::placeholder {
   color: #a787acd5;
   opacity: 0.5;
 }
@@ -159,14 +167,16 @@ h2 {
 /* -------- boton de registro/ iniciar sesion -------- */
 
 .registrar,
-.iniciar-sesion {
+.iniciar-sesion,
+.enviar-correo {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .registrar input,
-.iniciar-sesion input {
+.iniciar-sesion input,
+.enviar-correo input {
   color: #855988;
   text-align: center;
   width: 260px;
@@ -180,16 +190,14 @@ h2 {
 }
 
 .registrar input:hover,
-.iniciar-sesion input:hover {
+.iniciar-sesion input:hover
+.enviar-correo input:hover {
   background-color: #855988;
   color: #0f0f16;
+  cursor: pointer;
 }
 
 /* -------- redireccion a inicio de sesion/registrarse -------- */
-
-.registrarse {
-  margin-top: -16px;
-}
 
 .iniciar-sesion a,
 .registrarse a {
@@ -199,12 +207,15 @@ h2 {
   padding: 10px;
   border-radius: 5px;
   font-size: 16px;
-  margin-top: 10px;
   border: 1px solid #734775;
   cursor: pointer;
   text-decoration: none;
   transition: background-color 0.5s ease;
   display: block;
+}
+
+.register-container .iniciar-sesion{
+  margin-top: 16px;
 }
 
 .mensaje-resultado {
