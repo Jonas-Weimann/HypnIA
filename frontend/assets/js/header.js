@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (logout) {
 			logout.addEventListener("click", e => {
 			e.preventDefault();
-			localStorage.removeItem("token");
+			localStorage.clear()
 			window.location.reload();
 			});
 		}
