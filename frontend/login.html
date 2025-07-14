@@ -32,7 +32,9 @@
 
 					<br />
 					<div class="recordar">
-						<a href="#">¿Olvidó su contraseña?</a>
+
+						<a href="recovery.html">¿Olvidó su contraseña?</a>
+
 					</div>
 
 					<div class="iniciar-sesion">
@@ -68,14 +70,19 @@
 			const resultado = await respuesta.json();
 			if (respuesta.ok && resultado.token) {
 				localStorage.setItem("token", resultado.token);
+
+				const datosUsuario = {...resultado.usuario, pfp: 'perfil-default.webp'}
+				localStorage.setItem('usuario', JSON.stringify(datosUsuario))
+
 				mensaje.style.backgroundImage =
 				'url("./assets/images/mensaje-registro.webp")';
 				mensaje.innerHTML =
 				"<b>Inicio de sesión exitoso</b><span>El velo entre mundos se ha desvanecido. <br/> Adelante, la noche te pertenece...</span>";
 				mensaje.style.display = "flex";
 				setTimeout(() => {
-				//Provisorio, proximamente cambiar a ruta de registro de sueños.
-				window.location.href = "inicio.html";
+
+				window.location.href = "/frontend/register-dream.html";
+
 				}, 3000);
 			} else {
 				mensaje.style.backgroundImage =

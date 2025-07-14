@@ -28,12 +28,16 @@
 				<form action="http://localhost:3000/api/usuarios/registrar" id="register-form" method="post">
 
 					<div class="input-box">
-						<input type="text" id="nombre-usuario" name="nombre" required placeholder="Nombre de usuario"/>
+
+						<input type="text" id="nombre-usuario" name="nombre" required placeholder="Nombre de usuario" minlength="3" maxlength="30"/>
+
 						<br />
 					</div>
 
 					<div class="input-box">
-						<input type="text" id="email" name="email" required placeholder="Email"/>
+
+						<input type="email" id="email" name="email" required placeholder="Email"/>
+
 						<br />
 					</div>
 
@@ -97,87 +101,99 @@
 				<br /><a href="login.html">Iniciar sesion</a><br />
 				</div>
 			</div>
-		</main>
+    </main>
 		
 		<script>
-		const checkPassword = () => {
-			let password = document.getElementById("password").value;
-			let confirmPassword = document.getElementById("confirmPassword").value;
-			let message = document.getElementById("message");
-			if (password.length < 8) {
-			message.innerHTML =
-				"La contraseña debe tener al menos 8 caracteres<br/>";
-			message.style.color = "red";
-			return false;
-			}
-			if (password !== confirmPassword) {
-			message.innerHTML = "Las contraseñas no coinciden<br/>";
-			message.style.color = "red";
-			return false;
-			}
-			message.innerHTML = "";
-			return true;
-		};
-
-		const form = document.getElementById("register-form");
-		const mensaje = document.querySelector(".mensaje-resultado");
-		form.addEventListener("submit", async (e) => {
-			e.preventDefault();
-			if (!checkPassword()) return;
-			const formData = new FormData(form);
-			const data = Object.fromEntries(formData);
-			try {
-			const respuesta = await fetch(
-				"http://localhost:3000/api/usuarios/registrar",
-				{
-				method: "POST",
+			const enviarMailBienvenida = async (nombre, email)=>{
+				await fetch('http://localhost:3000/api/emails/registro-exitoso', {
+				method: 'POST',
 				headers: {
-					"Content-Type": "application/json",
+						"Content-Type": "application/json",
 				},
-				body: JSON.stringify(data),
+				body: JSON.stringify({nombre, email})
+				})
+			}
+			
+			const checkPassword = () => {
+				let password = document.getElementById("password").value;
+				let confirmPassword = document.getElementById("confirmPassword").value;
+				let message = document.getElementById("message");
+				if (password.length < 8) {
+				message.innerHTML =
+					"La contraseña debe tener al menos 8 caracteres<br/>";
+				message.style.color = "red";
+				return false;
 				}
-			);
-			const resultado = await respuesta.json();
-			if (respuesta.ok) {
-				mensaje.style.backgroundImage =
-				'url("./assets/images/mensaje-registro.webp")';
-				mensaje.innerHTML =
-				"<b>Registro exitoso</b><span>Una nueva estrella ha llegado al mundo de los sueños. <br/> Inicie sesión para empezar su aventura onírica...</span>";
-				mensaje.style.display = "flex";
-				setTimeout(() => {
-				window.location.href = "/frontend/login.html";
-				}, 3000);
-			} else {
-				mensaje.style.backgroundImage =
-				'url("./assets/images/mensaje-error.webp")';
-				mensaje.innerHTML =
-				"<b>Registro fallido</b><span>Las puertas del mundo onírico no se han abierto aún.<br/>Tal vez una estrella ya ocupa su lugar...</span>";
-				mensaje.style.display = "flex";
-				setTimeout(() => {
-				window.location.reload();
-				}, 3000);
-			}
-			} catch (error) {
-			mensaje.style.backgroundImage =
-				'url("./assets/images/mensaje-error.webp")';
-			mensaje.innerHTML =
-				"<b>Error interno</b><span>Algo explotó en la dimensión del servidor. <br/>Estamos tratando de recomponer el tejido de la realidad.</span>";
-			mensaje.style.display = "flex";
-			setTimeout(() => {
-				window.location.reload();
-			}, 3000);
-			}
-		});
+				if (password !== confirmPassword) {
+				message.innerHTML = "Las contraseñas no coinciden<br/>";
+				message.style.color = "red";
+				return false;
+				}
+				message.innerHTML = "";
+				return true;
+			};
 
-		const divTerminos = document.querySelector(".terminos-condiciones");
-		const verTerminos = document.querySelector(".ver-terminos");
-		const aceptarTerminos = document.querySelector(".terminos-leidos");
-		verTerminos.addEventListener("click", () => {
-			divTerminos.classList.toggle("active");
-		});
-		aceptarTerminos.addEventListener("click", () => {
-			divTerminos.classList.toggle("active");
-		});
+			const form = document.getElementById("register-form");
+			const mensaje = document.querySelector(".mensaje-resultado");
+			form.addEventListener("submit", async (e) => {
+				e.preventDefault();
+				if (!checkPassword()) return;
+				const formData = new FormData(form);
+				const data = Object.fromEntries(formData);
+				try {
+				const respuesta = await fetch(
+					"http://localhost:3000/api/usuarios/registrar",
+					{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(data),
+					}
+				);
+				if (respuesta.ok) {
+				const resultado = await respuesta.json();
+					enviarMailBienvenida(resultado.nombre, resultado.email);	
+					mensaje.style.backgroundImage =
+					'url("./assets/images/mensaje-registro.webp")';
+					mensaje.innerHTML =
+					"<b>Registro exitoso</b><span>Una nueva estrella ha llegado al mundo de los sueños. <br/> Inicie sesión para empezar su aventura onírica...</span>";
+					mensaje.style.display = "flex";
+					setTimeout(() => {
+					window.location.href = "/frontend/login.html";
+					}, 3000);
+				} else {
+					mensaje.style.backgroundImage =
+					'url("./assets/images/mensaje-error.webp")';
+					mensaje.innerHTML =
+					"<b>Registro fallido</b><span>Las puertas del mundo onírico no se han abierto aún.<br/>Tal vez una estrella ya ocupa su lugar...</span>";
+					mensaje.style.display = "flex";
+					setTimeout(() => {
+					window.location.reload();
+					}, 3000);
+				}
+				} catch (error) {
+				mensaje.style.backgroundImage =
+					'url("./assets/images/mensaje-error.webp")';
+				mensaje.innerHTML =
+					"<b>Error interno</b><span>Algo explotó en la dimensión del servidor. <br/>Estamos tratando de recomponer el tejido de la realidad.</span>";
+				mensaje.style.display = "flex";
+				setTimeout(() => {
+					window.location.reload();
+				}, 3000);
+				}
+			});
+
+			const divTerminos = document.querySelector(".terminos-condiciones");
+			const verTerminos = document.querySelector(".ver-terminos");
+			const aceptarTerminos = document.querySelector(".terminos-leidos");
+			verTerminos.addEventListener("click", () => {
+				divTerminos.classList.toggle("active");
+			});
+			aceptarTerminos.addEventListener("click", () => {
+				divTerminos.classList.toggle("active");
+			});
+
 		</script>
 	</body>
 </html>
