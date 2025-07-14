@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		const token = localStorage.getItem("token");
 		if (!token) return;
 
+
 		const headerLinks = header.querySelector(".header-links");
 		if (!headerLinks) return;
 
@@ -31,8 +32,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		if (logout) {
 			logout.addEventListener("click", e => {
 			e.preventDefault();
-			localStorage.removeItem("token");
-			window.location.reload();
+        localStorage.clear()
+        window.location.reload();
 			});
 		}
 		})
