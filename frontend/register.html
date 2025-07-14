@@ -28,12 +28,16 @@
 				<form action="http://localhost:3000/api/usuarios/registrar" id="register-form" method="post">
 
 					<div class="input-box">
+
 						<input type="text" id="nombre-usuario" name="nombre" required placeholder="Nombre de usuario" minlength="3" maxlength="30"/>
+
 						<br />
 					</div>
 
 					<div class="input-box">
+
 						<input type="email" id="email" name="email" required placeholder="Email"/>
+
 						<br />
 					</div>
 
@@ -97,8 +101,7 @@
 				<br /><a href="login.html">Iniciar sesion</a><br />
 				</div>
 			</div>
-		</main>
-		
+    </main>
 		
 		<script>
 			const enviarMailBienvenida = async (nombre, email)=>{
@@ -190,6 +193,7 @@
 			aceptarTerminos.addEventListener("click", () => {
 				divTerminos.classList.toggle("active");
 			});
+
 		</script>
 	</body>
 </html>
