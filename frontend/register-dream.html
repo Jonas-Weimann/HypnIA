@@ -15,86 +15,7 @@
         <div id="header"></div>
         <script src="./assets/js/header.js"></script>
         <main>
-            <section class="registro-de-suenos">
-                <div id="zona-interpretacion" class="zona-interpretacion">
-                    <div class="publicacion">
-                        <div class="perfil-nombre">
-                            <a href="#"><img src="assets/images/perfil-default.webp" alt="Perfil">Nombre largo largo largo largo largo</a>
-                        </div>
-                        <div class="apartado-descripcion">
-                            <h1>Descripción</h1>
-                            <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum </p>
-                        </div>
-                        <div class="apartado-interpretacion">
-                            <h1>Interpretación</h1>
-                            <p>Tu sueño de estar perdido en una balsa en medio del océano simboliza un viaje introspectivo y de autodescubrimiento. El océano, vasto y sin límites, representa tus emociones profundas y desconocidas, mientras que la balsa es un símbolo de tu yo consciente, navegando a través de estas aguas desconocidas. Este sueño puede estar sugiriendo que te sientes a la deriva en tu vida, sin un rumbo claro, y que estás luchando por encontrar tu camino y comprender tus emociones profundas. </p>
-                        </div>
-                    </div>
-                    <div class="emociones-cartas-visibilidad">
-                        <div class="zona-emociones">
-                            <div class="emocion" style="background-image: url('assets/images/emociones/${emocion.intensidad}.webp'); backdrop-filter: blur(10px);">
-                                <div class="nombre-emocion"><h2>${emocion.nombre.toUpperCase()}</h2></div>
-                                <div class="informacion-emocion">
-                                    <p><u>INTENSIDAD</u>: ${emocion.intensidad}</p>
-                                    <p><u>POLARIDAD</u>: ${emocion.polaridad}</p>
-                                </div>
-                            </div>
-                            <div class="emocion" style="background-image: url('assets/images/emociones/${emocion.intensidad}.webp'); backdrop-filter: blur(10px);">
-                                <div class="nombre-emocion"><h2>${emocion.nombre.toUpperCase()}</h2></div>
-                                <div class="informacion-emocion">
-                                    <p><u>INTENSIDAD</u>: ${emocion.intensidad}</p>
-                                    <p><u>POLARIDAD</u>: ${emocion.polaridad}</p>
-                                </div>
-                            </div>
-                            <div class="emocion" style="background-image: url('assets/images/emociones/${emocion.intensidad}.webp'); backdrop-filter: blur(10px);">
-                                <div class="nombre-emocion"><h2>${emocion.nombre.toUpperCase()}</h2></div>
-                                <div class="informacion-emocion">
-                                    <p><u>INTENSIDAD</u>: ${emocion.intensidad}</p>
-                                    <p><u>POLARIDAD</u>: ${emocion.polaridad}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="zona-cartas-visibilidad">
-                            <div class="zona-visibilidad"><h2>Visibilidad:</h2></div>
-
-                            <div class="zona-cartas">
-                                <div class="carta">
-                                    <img id="imagen-carta" src="./assets/images/cartas/${carta.imagen}">
-                                    <div class="nombre-carta"><h2>${carta.nombre}</h2></div>
-                                    <div class="informacion-carta">
-                                        <p><u>ELEMENTO</u>: ${carta.elemento}</p>
-                                        <p><u>POLARIDAD</u>: ${carta.polaridad}</p>
-                                        <p style="border-top: 1px solid white">${carta.descripcion}</p>
-                                    </div>
-                                </div>
-                                <div class="carta">
-                                    <img id="imagen-carta" src="./assets/images/cartas/${carta.imagen}">
-                                    <div class="nombre-carta"><h2>${carta.nombre}</h2></div>
-                                    <div class="informacion-carta">
-                                        <p><u>ELEMENTO</u>: ${carta.elemento}</p>
-                                        <p><u>POLARIDAD</u>: ${carta.polaridad}</p>
-                                        <p style="border-top: 1px solid white">${carta.descripcion}</p>
-                                    </div>
-                                </div>
-                                <div class="carta">
-                                    <img id="imagen-carta" src="./assets/images/cartas/${carta.imagen}">
-                                    <div class="nombre-carta"><h2>${carta.nombre}</h2></div>
-                                    <div class="informacion-carta">
-                                        <p><u>ELEMENTO</u>: ${carta.elemento}</p>
-                                        <p><u>POLARIDAD</u>: ${carta.polaridad}</p>
-                                        <p style="border-top: 1px solid white">${carta.descripcion}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="zona-links">
-                        <a href="">Perfil</a>
-                        <a href="register-dream.html">Registra otro sueño</a>
-                        <a href="#">Explora</a>
-                        <a href="inicio.html">Inicio</a>
-                    </div>
-                </div>
+            <section id="registro-de-suenos">
                 <div class="contenedor-form">
                 <h1>DESCRIBE TU SUEÑO Y PRESIONA "INTERPRETAR"</h1>
                     <form action="http://localhost:3000/api/suenos" id="form-sueno" method="post">
@@ -119,10 +40,7 @@
                                 Si eso pasa, no te preocupes. <br/>
                                 ¡Podés intentarlo otra vez!</p>
                         </div>
-
-                        <div id="mensaje-resultado" class="mensaje-resultado oculto"></div>
-
-                        
+                        <div id="mensaje-resultado" class="mensaje-resultado oculto"></div>  
                     </form>
                 </div>
             </section>

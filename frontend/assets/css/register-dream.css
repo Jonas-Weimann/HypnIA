@@ -8,13 +8,11 @@
   --color-gris: #1A1A24;
 }
 
-.registro-de-suenos {
+#registro-de-suenos {
   display: inline-block;
   position: relative;
-  background-image: url('../images/fondo-inicio.webp');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background-image: url('../images/patron-estrellas.webp');
+  background-repeat: repeat;
   display: flex;
   justify-content: center;
   align-items: center;
