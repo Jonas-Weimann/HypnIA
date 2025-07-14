@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="preconnect" href="https://fonts.googleapis.com"/>
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet"/>
+		<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet"/>
+		<link rel="stylesheet" href="assets/css/login-register.css" />
+        <link rel="icon" type="image/x-icon" href="assets/images/luna-logo-header.webp">
+		<title>Recuperación</title>
+	</head>
+	<body>
+		<div id="header"></div>
+		<script src="./assets/js/header.js"></script>
+		
+		<main class="recovery">
+			<div class="mensaje-resultado"></div>
+			<div class="recovery-container">
+				
+				<br />
+				<h1>Restablecer <br>contraseña</h1>
+                <b>Ingresa una nueva contraseña con al menos 8 caracteres</b>
+				<form action="http://localhost:3000/api/emails/recuperar-contrasena" id="recovery-form" method="post">
+					<div class="input-box">
+						<input type="password" id="password" name="contrasena" required placeholder="Contraseña"/>
+						<br />
+					</div>
+
+					<div class="input-box">
+						<input type="password" id="confirmPassword" name="confirmar-contrasena" required placeholder="Confirmar contraseña"/>
+					</div>
+                    <div id="message"></div>  
+					<div class="cambiar-contrasena" id="cambiar-contrasena">
+						<input type="submit"  value="Cambiar Contrasena" />
+					</div>
+	
+				</form>
+
+			</div>
+		</main>
+
+		<script>
+			const checkPassword = () => {
+				let password = document.getElementById("password").value;
+				let confirmPassword = document.getElementById("confirmPassword").value;
+				let message = document.getElementById("message");
+				if (password.length < 8) {
+				message.innerHTML =
+					"La contraseña debe tener al menos 8 caracteres<br/>";
+				message.style.color = "red";
+				return false;
+				}
+				if (password !== confirmPassword) {
+				message.innerHTML = "Las contraseñas no coinciden<br/>";
+				message.style.color = "red";
+				return false;
+				}
+				message.innerHTML = "";
+				return true;
+			};
+
+			const form = document.getElementById("recovery-form");
+			const mensaje = document.querySelector(".mensaje-resultado");
+			form.addEventListener("submit", async (e) => {
+				e.preventDefault();
+				if (!checkPassword()) return;
+				const formData = new FormData(form);
+				const data = Object.fromEntries(formData);
+                const token = new URLSearchParams(location.search).get("token")
+                console.log(data, token)
+				try {
+				const respuesta = await fetch(
+					"http://localhost:3000/api/usuarios/cambiar-contrasena",
+					{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({...data, token: token}),
+					}
+				);
+				if (respuesta.ok) {
+				const resultado = await respuesta.json();
+                console.log(resultado)
+					mensaje.style.backgroundImage =
+					'url("./assets/images/mensaje-registro.webp")';
+					mensaje.innerHTML =
+					"<b>Cambio de contraseña exitoso</b><span>El umbral fue restaurado. <br/>HypnIA te abre sus puertas una vez más. </span>";
+					mensaje.style.display = "flex";
+					setTimeout(() => {
+					window.location.href = "/frontend/login.html";
+					}, 3000);
+				} else {
+					mensaje.style.backgroundImage =
+					'url("./assets/images/mensaje-error.webp")';
+					mensaje.innerHTML =
+					"<b>Cambio de contraseña fallido</b><span>El ritual de cambio fue interrumpido.<br/> Intentá una vez más.</span>";
+					mensaje.style.display = "flex";
+					setTimeout(() => {
+					window.location.reload();
+					}, 3000);
+				}
+				} catch (error) {
+				mensaje.style.backgroundImage =
+					'url("./assets/images/mensaje-error.webp")';
+				mensaje.innerHTML =
+					"<b>Error interno</b><span>Algo explotó en la dimensión del servidor. <br/>Estamos tratando de recomponer el tejido de la realidad.</span>";
+				mensaje.style.display = "flex";
+				setTimeout(() => {
+					window.location.reload();
+				}, 3000);
+				}
+			});
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="preconnect" href="https://fonts.googleapis.com"/>
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet"/>
+		<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet"/>
+		<link rel="stylesheet" href="assets/css/login-register.css" />
+        <link rel="icon" type="image/x-icon" href="assets/images/luna-logo-header.webp">
+		<title>Recuperación</title>
+	</head>
+	<body>
+		<div id="header"></div>
+		<script src="./assets/js/header.js"></script>
+		
+		<main class="recovery">
+			<div class="mensaje-resultado"></div>
+			<div class="recovery-container">
+				
+				<br />
+				<h1>Recuperar <br>contraseña</h1>
+                <b>Ingresa tu email para recibir un correo de recuperación.</b>
+				<form action="http://localhost:3000/api/emails/recuperar-contrasena" id="recovery-form" method="post">
+					<div class="input-box">
+						<input type="text" id="email" name="email" required placeholder="Email"/><br />
+					</div>
+
+					<div class="enviar-correo">
+						<input type="submit" id="#enviar-correo" value="Enviar correo" />
+					</div>
+	
+				</form>
+
+				<div class="registrarse">
+					<br /><a href="register.html">Registrarse</a><br />
+				</div>
+			</div>
+		</main>
+
+		<script>
+		const form = document.getElementById("recovery-form");
+		const mensaje = document.querySelector(".mensaje-resultado");
+		form.addEventListener("submit", async (e) => {
+			e.preventDefault();
+			const email = document.getElementById('email').value
+			try {
+			const respuesta = await fetch(
+				"http://localhost:3000/api/emails/recuperar-contrasena",
+				{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({email}),
+				}
+			);
+			const resultado = await respuesta.json();
+			if (respuesta.ok) {
+				mensaje.style.backgroundImage =
+				'url("./assets/images/mensaje-registro.webp")';
+				mensaje.innerHTML =
+				"<b>Recuperación iniciada</b><span>El olvido es parte del sueño.<br/> La recuperación, parte del despertar.</span>";
+				mensaje.style.display = "flex";
+				setTimeout(() => {
+				window.location.href = "/frontend/login.html";
+				}, 3000);
+			} else {
+				mensaje.style.backgroundImage =
+				'url("./assets/images/mensaje-error.webp")';
+				mensaje.innerHTML =
+				"<b>Recuperación fallida</b><span>Las puertas del mundo onírico no se han abierto para usted.<br/>Verifique su email y vuelva a intentarlo</span>";
+				mensaje.style.display = "flex";
+				setTimeout(() => {
+				window.location.reload();
+				}, 3000);
+			}
+			} catch (error) {
+			mensaje.style.backgroundImage =
+				'url("./assets/images/mensaje-error.webp")';
+			mensaje.innerHTML =
+				"<b>Error interno</b><span>Algo explotó en la dimensión del servidor. <br/>Estamos tratando de recomponer el tejido de la realidad.</span>";
+			mensaje.style.display = "flex";
+			setTimeout(() => {
+				window.location.reload();
+			}, 3000);
+			}
+		});
+		</script>
+	</body>
+</html>
