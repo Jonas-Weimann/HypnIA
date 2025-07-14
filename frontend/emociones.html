@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./assets/css/cartas-emociones.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
+        <title>Emociones</title>
+    </head>
+    <body>
+        <div id="header" style="border-bottom: 5px solid #332233;"></div>
+        <script src="/assets/js/header.js"></script>
+
+        <main id="emociones-main">
+            <div class="cartas-emociones-links">
+                <a href="cartas.html">CARTAS</a>
+                <a href="inicio.html">VOLVER A INICIO</a>
+                <a href="emociones.html">EMOCIONES</a>
+            </div>
+
+            <section class="emociones-section">
+                <h1 id="emociones-titulo-section">EMOCIONES ONÍRICAS</h1>
+                <p id="cartas-emociones-descripcion">Las emociones oníricas son sentimientos que tu subconsciente procesa durante el sueño. <br /> <br />
+                    Nuestra IA identifica las tres emociones predominantes en tu relato, clasificándolas según su intensidad y polaridad
+                     (positiva, negativa o neutra). Estas emociones te ayudan a entender cómo te sentís en lo más profundo, incluso si no sos consciente de ello. <br /> <br />
+                    Si una carta o emoción se repite en varios sueños, puede estar señalando algo que necesitás atender conscientemente.</p>
+                <input type="text" id="emociones-busqueda" placeholder="Buscar por nombre, intensidad o polaridad" />
+                <div id="emociones-contenedor"></div>
+                <script src="/assets/js/emociones.js"></script>
+            </section>
+        </main>
+
+        <div id="footer" style="border-top: 5px solid #332233;"></div>
+        <script src="/assets/js/footer.js"></script>
+
+    </body>
+</html>

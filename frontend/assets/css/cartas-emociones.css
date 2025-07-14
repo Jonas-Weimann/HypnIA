@@ -1,0 +1,241 @@
+@media (max-width: 600px) {
+  .emocion {
+    flex-direction: column;
+    padding: 10px;
+    text-align: center;
+  }
+}
+
+:root {
+  --color-lila: #855988;
+  --color-azul-grisaceo: #0f0f16;
+}
+
+#cartas-main, #emociones-main {
+  background-image: url('../images/patron-estrellas.webp');
+  background-repeat: repeat;
+  padding: 80px 0px;
+}
+
+.cartas-section, .emociones-section {
+  background-color: rgba(15, 15, 22, 0.9); /* --color-azul-grisaceo */
+  border: 10px groove var(--color-lila);
+  border-radius: 25px;
+  margin: 0 auto;
+  padding: 20px;
+  width: 1400px;
+  max-width: 100%;
+}
+
+.cartas-emociones-links {
+  margin: 0 auto;
+  padding: 20px;
+  width: 1400px;
+  max-width: 100%;
+}
+
+.cartas-section, .emociones-section {
+  min-height: 100vh;
+  padding: 40px;
+}
+
+.cartas-emociones-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+/* -------------- titulo y busqueda de la pagina -------------- */
+
+#cartas-titulo-section, #cartas-busqueda,
+#emociones-titulo-section, #emociones-busqueda,
+.cartas-emociones-links a {
+  margin: 0 auto;
+  text-align: center;
+  font-family: "Pixelify Sans", sans-serif;
+  color: white;
+  background-color: rgba(84, 45, 87, 0.4);
+  border: 10px groove var(--color-lila);
+  max-width: 100%;
+  border-radius: 25px;
+  padding: 15px;
+  transition: transform 0.5s;
+}
+
+.cartas-emociones-links a {
+  background-color: rgba(15, 15, 22, 0.9); /* --color-azul-grisaceo */
+  width: 350px;
+  text-decoration: none;
+  font-size: 30px;
+  margin-bottom: 40px;
+}
+
+#cartas-titulo-section, #emociones-titulo-section {
+  width: 1100px;
+  max-width: 100%;
+  font-size: 40px;
+  margin-bottom: 40px;
+}
+
+#cartas-busqueda, #emociones-busqueda {
+  width: 500px;
+  height: 60px;
+  font-size: 20px;
+  display: block;
+}
+
+#cartas-titulo-section:hover, #cartas-busqueda:hover, 
+#emociones-titulo-section:hover, #emociones-busqueda:hover,
+.cartas-emociones-links a:hover {
+  transform: scale(1.09);
+}
+
+#cartas-emociones-descripcion {
+  font-size: 20px;
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
+}
+
+/* -------------- contenedor de cartas / emociones -------------- */
+
+#cartas-contenedor {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  max-width: 1000px;
+  gap: 50px;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+#cartas-contenedor p, #emociones-contenedor {
+  font-family: "Pixelify Sans", sans-serif;
+  color: white;
+  max-width: 100%;
+  font-size: 20px;
+}
+
+#emociones-contenedor {
+  padding: 40px 0px;
+}
+
+/* -------------- emocion -------------- */
+
+.emocion {
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  padding: 5px;
+  border: 10px groove var(--color-lila);
+  width: 100%;
+  max-width: 900px;
+  height: auto;
+  transition: transform 0.5s;
+  border-radius: 25px;
+}
+
+.emocion:hover {
+  transform: scale(1.09);
+}
+
+.informacion-emocion p {
+  padding: 3px;
+  text-align: center;
+  font-size: 25px;
+}
+
+.nombre-emocion h2 {
+  text-align: center;
+  font-family: "Pixelify Sans", sans-serif;
+  font-size: 50px;
+}
+
+/* -------------- carta -------------- */
+
+.carta {
+  display: inline-block;
+  position: relative;
+  transition: transform 0.5s;
+  border-radius: 25px;
+}
+
+.carta:hover {
+  transform: scale(1.09);
+}
+
+#imagen-carta {
+  box-shadow: 10px 10px 20px rgba(0,0,0,0.9); /* desplazamiento horizontal 10px, vertical 10px, desenfoque 20px, color negro con opacidad 0.9 */
+  width: 200px;
+  height: 300px;
+  display: block;
+  border-radius: 25px;
+  border: 10px groove var(--color-lila);
+}
+
+.informacion-carta {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(84, 45, 87, 0.7);
+  display: block;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  border-radius: 25px;
+  border: 10px groove var(--color-lila);
+}
+
+.carta:hover .informacion-carta {
+  opacity: 1;
+}
+
+.informacion-carta p {
+  color: white;
+  font-size: 20px;
+  font-family: "Pixelify Sans", sans-serif;
+  padding: 2px 5px;
+  text-align: center;
+}
+
+.nombre-carta {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transition: opacity 0.5s ease;
+}
+
+.carta:hover .nombre-carta {
+  opacity: 0;
+}
+
+.nombre-carta h2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background-color: rgba(84, 45, 87, 0.7);
+  box-shadow: 0px -10px 10px rgba(0,0,0,0.9); /*desplazamiento vertical 10px hacia arriba, desenfoque 10px, color negro con opacidad 0.9 */
+  border: 5px groove var(--color-lila);
+  border-radius: 25px;
+  margin: 15px auto;
+  font-family: "Pixelify Sans", sans-serif;
+  color: white;
+  font-size: 25px;
+  width: 170px;
+  height: 70px;
+}
