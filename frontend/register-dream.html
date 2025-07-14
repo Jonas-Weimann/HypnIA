@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./assets/css/register-dream.css">
+        <link rel="stylesheet" href="./assets/css/cartas-emociones.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
@@ -15,8 +16,85 @@
         <script src="./assets/js/header.js"></script>
         <main>
             <section class="registro-de-suenos">
-                <div class="mensaje-resultado"></div>
-                
+                <div id="zona-interpretacion" class="zona-interpretacion">
+                    <div class="publicacion">
+                        <div class="perfil-nombre">
+                            <a href="#"><img src="assets/images/perfil-default.webp" alt="Perfil">Nombre largo largo largo largo largo</a>
+                        </div>
+                        <div class="apartado-descripcion">
+                            <h1>Descripción</h1>
+                            <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum </p>
+                        </div>
+                        <div class="apartado-interpretacion">
+                            <h1>Interpretación</h1>
+                            <p>Tu sueño de estar perdido en una balsa en medio del océano simboliza un viaje introspectivo y de autodescubrimiento. El océano, vasto y sin límites, representa tus emociones profundas y desconocidas, mientras que la balsa es un símbolo de tu yo consciente, navegando a través de estas aguas desconocidas. Este sueño puede estar sugiriendo que te sientes a la deriva en tu vida, sin un rumbo claro, y que estás luchando por encontrar tu camino y comprender tus emociones profundas. </p>
+                        </div>
+                    </div>
+                    <div class="emociones-cartas-visibilidad">
+                        <div class="zona-emociones">
+                            <div class="emocion" style="background-image: url('assets/images/emociones/${emocion.intensidad}.webp'); backdrop-filter: blur(10px);">
+                                <div class="nombre-emocion"><h2>${emocion.nombre.toUpperCase()}</h2></div>
+                                <div class="informacion-emocion">
+                                    <p><u>INTENSIDAD</u>: ${emocion.intensidad}</p>
+                                    <p><u>POLARIDAD</u>: ${emocion.polaridad}</p>
+                                </div>
+                            </div>
+                            <div class="emocion" style="background-image: url('assets/images/emociones/${emocion.intensidad}.webp'); backdrop-filter: blur(10px);">
+                                <div class="nombre-emocion"><h2>${emocion.nombre.toUpperCase()}</h2></div>
+                                <div class="informacion-emocion">
+                                    <p><u>INTENSIDAD</u>: ${emocion.intensidad}</p>
+                                    <p><u>POLARIDAD</u>: ${emocion.polaridad}</p>
+                                </div>
+                            </div>
+                            <div class="emocion" style="background-image: url('assets/images/emociones/${emocion.intensidad}.webp'); backdrop-filter: blur(10px);">
+                                <div class="nombre-emocion"><h2>${emocion.nombre.toUpperCase()}</h2></div>
+                                <div class="informacion-emocion">
+                                    <p><u>INTENSIDAD</u>: ${emocion.intensidad}</p>
+                                    <p><u>POLARIDAD</u>: ${emocion.polaridad}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="zona-cartas-visibilidad">
+                            <div class="zona-visibilidad"><h2>Visibilidad:</h2></div>
+
+                            <div class="zona-cartas">
+                                <div class="carta">
+                                    <img id="imagen-carta" src="./assets/images/cartas/${carta.imagen}">
+                                    <div class="nombre-carta"><h2>${carta.nombre}</h2></div>
+                                    <div class="informacion-carta">
+                                        <p><u>ELEMENTO</u>: ${carta.elemento}</p>
+                                        <p><u>POLARIDAD</u>: ${carta.polaridad}</p>
+                                        <p style="border-top: 1px solid white">${carta.descripcion}</p>
+                                    </div>
+                                </div>
+                                <div class="carta">
+                                    <img id="imagen-carta" src="./assets/images/cartas/${carta.imagen}">
+                                    <div class="nombre-carta"><h2>${carta.nombre}</h2></div>
+                                    <div class="informacion-carta">
+                                        <p><u>ELEMENTO</u>: ${carta.elemento}</p>
+                                        <p><u>POLARIDAD</u>: ${carta.polaridad}</p>
+                                        <p style="border-top: 1px solid white">${carta.descripcion}</p>
+                                    </div>
+                                </div>
+                                <div class="carta">
+                                    <img id="imagen-carta" src="./assets/images/cartas/${carta.imagen}">
+                                    <div class="nombre-carta"><h2>${carta.nombre}</h2></div>
+                                    <div class="informacion-carta">
+                                        <p><u>ELEMENTO</u>: ${carta.elemento}</p>
+                                        <p><u>POLARIDAD</u>: ${carta.polaridad}</p>
+                                        <p style="border-top: 1px solid white">${carta.descripcion}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="zona-links">
+                        <a href="">Perfil</a>
+                        <a href="register-dream.html">Registra otro sueño</a>
+                        <a href="#">Explora</a>
+                        <a href="inicio.html">Inicio</a>
+                    </div>
+                </div>
                 <div class="contenedor-form">
                 <h1>DESCRIBE TU SUEÑO Y PRESIONA "INTERPRETAR"</h1>
                     <form action="http://localhost:3000/api/suenos" id="form-sueno" method="post">
@@ -33,12 +111,35 @@
                             <button type="submit" class="boton-interpretar"><h2>INTERPRETAR<h2></button>
                         </div>
                         <div id="mensaje-descripcion"></div>
+
+                        <div id="spinner" class="spinner oculto">
+                            <img class="cargando" src="./assets/images/luna-logo-header.webp">
+                            <h2>Estamos interpretando tu sueño... <br/></h2>
+                            <p>Recordá que la IA puede fallar. <br/>
+                                Si eso pasa, no te preocupes. <br/>
+                                ¡Podés intentarlo otra vez!</p>
+                        </div>
+
+                        <div id="mensaje-resultado" class="mensaje-resultado oculto"></div>
+
+                        
                     </form>
                 </div>
             </section>
+
+            <div id="footer"></div>
+            <script src="./assets/js/footer.js"></script>
         </main>
     </body>
     <script>
+        const token = localStorage.getItem("token")
+        console.log(token);
+        const spinner = document.getElementById("spinner");
+        const mensaje = document.querySelector(".mensaje-resultado");
+        const zonaInterpretacion = document.querySelector(".zona-interpretacion");
+
+        let esPublico = false;
+
         document.addEventListener("DOMContentLoaded", () => {
             const token = localStorage.getItem("token");
             if (!token) {
@@ -67,7 +168,6 @@
             }
         });
 
-        let esPublico = false;
         document.addEventListener("DOMContentLoaded", () => {
             const token = localStorage.getItem("token");
             if(token) {
@@ -95,9 +195,9 @@
 			let mensajeDescripcion = document.getElementById("mensaje-descripcion");
             if(!mensajeDescripcion || !descripcion) return false;
 
-			if (descripcion.length < 20) {
+			if (descripcion.length < 40) {
                 mensajeDescripcion.innerHTML =
-                    "La descripción de tu sueño debe tener más de 20 letras.<br/>";
+                    "Para asegurar que la IA pueda darte una buena interpretración <br/> la descripción de tu sueño debe tener más de 40 letras.<br/>";
                 mensajeDescripcion.style.color = "red";
                 return false;
 			}
@@ -118,14 +218,14 @@
 
 		    form.addEventListener("submit", async (e) => {
                 e.preventDefault();
-                const token = localStorage.getItem("token");
-                const mensaje = document.querySelector(".mensaje-resultado");
+                const token = localStorage.getItem("token");      
                 const descripcion = document.getElementById("descripcion").value;
                 const publico = esPublico;
-                if (!checkDescriptionLength(descripcion) || !fecha || !mensaje || !token) return;
+                if (!checkDescriptionLength(descripcion) || !mensaje || !token) return;
 
                 try {
-                const respuesta = await fetch("http://localhost:3000/api/suenos", {
+                    spinner.classList.remove("oculto");
+                    const respuesta = await fetch("http://localhost:3000/api/suenos", {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -139,35 +239,47 @@
 
                 const resultado = await respuesta.json();
                 if (respuesta.ok) {
-                    mensaje.style.backgroundImage =
-                    'url("./assets/images/mensaje-registro.webp")';
+                    mensaje.classList.remove("oculto");;
                     mensaje.innerHTML =
-                    "<b>Se ha registrado tu sueño con éxito</b><span>Las estrellas continúan brillando en el cielo nocturno.</span>";
-                    mensaje.style.display = "flex";
+                    "<h2>¡Se ha registrado tu sueño con éxito!</h2> <p>Las estrellas continúan brillando en el cielo nocturno</p>";
                     setTimeout(() => {
-                    window.location.href = "/frontend/login.html";
+                        mensaje.classList.add("oculto");
                     }, 3000);
+                    // mostrarInterpretacion();
                 } else {
-                    mensaje.style.backgroundImage =
-                    'url("./assets/images/mensaje-error.webp")';
+                    mensaje.classList.remove("oculto");
                     mensaje.innerHTML =
-                    "<b>Ocurrió un error al registrar tu sueño</b><span>Las puertas del mundo onírico a veces se atascan...</span>";
-                    mensaje.style.display = "flex";
+                    "<h2>Ocurrió un error al registrar tu sueño</h2><p>Las puertas del mundo onírico a veces se atascan...</p>";
                     setTimeout(() => {
-                    window.location.reload();
+                        mensaje.classList.add("oculto");
+                        window.location.reload();
                     }, 3000);
                 }
                 } catch (error) {
-                mensaje.style.backgroundImage =
-                    'url("./assets/images/mensaje-error.webp")';
-                mensaje.innerHTML =
-                    "<b>Error interno</b><span>Algo explotó en la dimensión del servidor. <br/>Estamos tratando de recomponer el tejido de la realidad.</span>";
-                mensaje.style.display = "flex";
-                setTimeout(() => {
-                    window.location.reload();
-                }, 3000);
+                    mensaje.classList.remove("oculto");
+                    mensaje.innerHTML =
+                    "<h2>Error interno</h2><p>Algo explotó en la dimensión del servidor.<br/>Estamos tratando de recomponer el tejido de la realidad.</p>";
+                    setTimeout(() => {
+                        mensaje.classList.add("oculto");
+                        window.location.reload();
+                    }, 3000);
+                } finally {
+                    spinner.classList.add("oculto");
                 }
 		    });
         });
+
+        const mostrarInterpretacion = () => {
+            zonaInterpretacion.classList.remove("oculto");
+
+            zonaInterpretacion.innerHTML = `
+                <div class="sueno-guardado">
+                    <p><strong>Fecha:</strong> ${sueno.fecha}</p>
+                    <p><strong>Descripción:</strong> ${sueno.descripcion}</p>
+                    <p><strong>Interpretación IA:</strong> ${sueno.interpretacion}</p>
+                </div>
+            `;
+        };
+
     </script>
 </html>

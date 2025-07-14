@@ -9,6 +9,8 @@
 }
 
 .registro-de-suenos {
+  display: inline-block;
+  position: relative;
   background-image: url('../images/fondo-inicio.webp');
   background-size: cover;
   background-position: center;
@@ -21,6 +23,8 @@
 }
 
 .contenedor-form {
+  display: inline-block;
+  position: relative;
   background-color: rgba(15, 15, 22, 0.9); /*--color-azul-grisaceo*/
   padding: 24px;
   border-radius: 12px;
@@ -112,31 +116,155 @@
   border: 2px solid var(--color-lila);
 }
 
-.mensaje-resultado {
-  display: none;
-  background-size: cover;
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  z-index: 20;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-  border-radius: 32px;
-  color: white;
+/*----------------------- spiner --------------------*/
+
+.spinner, .mensaje-resultado {
+  display: flex;
+  justify-content: center;
   align-items: center;
   flex-direction: column;
-  justify-content: center;
-  gap: 350px;
+  position: absolute;
+  border: 5px solid white;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 12px;
+  z-index: 9999;
 }
 
-.mensaje-resultado b {
-  text-align: center;
-  font-size: 30px;
+.oculto {
+  display: none;
+}
+.spinner .cargando {
+  width: 70px;
+  height: 70px;
+  animation: girar 1s linear infinite;
+  margin-bottom: 15px;
 }
 
-.mensaje-resultado span {
+.spinner p, .spinner h2 {
+  margin-bottom: 15px;
   text-align: center;
-  padding: 10px;
-  font-size: 20px;
+  font-size: 18px;
+  color: white;
+}
+
+@keyframes girar {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.mensaje-resultado h2, .mensaje-resultado p {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 28px;
+  color: white;
+}
+.sueno-guardado {
+  border: 2px solid var(--color-lila);
+  border-radius: 15px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.05);
+  margin-top: 20px;
+}
+
+/* ------------------ zona de interpretación -------------------- */
+
+.zona-interpretacion {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  width: 1000px;
+  max-width: 100%;
+  height: 100%;
+  padding: 30px;
+  background-color: var(--color-azul-grisaceo);
+  z-index: 9999;
+  color: white;
+  font-size: 17px;
+}
+
+.publicacion {
+  display: flex; 
+  flex-wrap: wrap;
+  border: 2px solid var(--color-lila);
+  border-radius: 12px;
+  width: 100%;
+  padding: 15px 25px;
+}
+
+.perfil-nombre {
+  padding-bottom: 15px;
+  width: 900px;
+  max-width: 100%;
+  border-bottom: 2px solid var(--color-lila);
+}
+
+.perfil-nombre a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-weight: bold;
+  color: white;
+  
+}
+
+.perfil-nombre img {
+  width: 50px;
+  height: auto;
+  margin-right: 10px;
+  transition: transform 0.5s ease;
+}
+
+.perfil-nombre a:hover img {
+  transform: scale(1.2);
+}
+
+/* <div class="publicacion">
+      <div class="perfil-nombre">
+          <a href="#"><img src="assets/images/perfil-default.webp" alt="Perfil">Usernombrelargolarogoakdosd</a>
+      </div>
+      <div class="apartado-descripcion">
+          <h1>Descripción</h1>
+          <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum </p>
+      </div>
+      <div class="apartado-interpretacion">
+          <h1>Interpretación</h1>
+          <p>Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum </p>
+      </div>
+  </div> */
+
+.apartado-descripcion, .apartado-interpretacion {
+  display: block;
+  width: 900px;
+  max-width: 100%;
+  margin-top: 20px;
+  padding: 5px 15px;
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+  border-radius: 12px;
+  transition: all 0.5s ease;
+}
+
+.apartado-descripcion h1, .apartado-interpretacion h1 {
+  display: block;
+  padding-bottom: 4px;
+  border-bottom: 2px solid white;
+  margin-bottom: 8px;
+}
+
+.apartado-interpretacion:hover, .apartado-descripcion:hover {
+  background-color: var(--color-azul-grisaceo);
+  padding: 20px;
+  transform: scale(1.1);
+  border: 3px solid white;
+}
+
+.apartado-descripcion p, .apartado-interpretacion p {
+  display: block;
 }
