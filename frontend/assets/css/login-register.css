@@ -168,15 +168,19 @@ h2 {
 
 .registrar,
 .iniciar-sesion,
-.enviar-correo {
+.enviar-correo
+.cambiar-contrasen, #cambiar-contrasena {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+
+
 .registrar input,
 .iniciar-sesion input,
-.enviar-correo input {
+.enviar-correo input,
+.cambiar-contrasena input {
   color: #855988;
   text-align: center;
   width: 260px;
@@ -191,7 +195,8 @@ h2 {
 
 .registrar input:hover,
 .iniciar-sesion input:hover
-.enviar-correo input:hover {
+.enviar-correo input:hover,
+.cambiar-contrasena input:hover {
   background-color: #855988;
   color: #0f0f16;
   cursor: pointer;
