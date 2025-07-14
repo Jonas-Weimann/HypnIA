@@ -6,6 +6,7 @@ import {
   getSuenosPublicosByUsuario,
   getSuenosByUsuario,
   iniciarSesion,
+  cambiarContrasena,
 } from "../controladores/usuarios-controlador.js";
 import {
   autenticarUsuario,
@@ -20,5 +21,6 @@ router.get("/:uid/suenos", autenticarUsuario, getSuenosByUsuario);
 router.get("/:uid/suenos-publicos", getSuenosPublicosByUsuario);
 router.post("/registrar", registrarUsuario);
 router.post("/iniciar-sesion", iniciarSesion);
+router.post("/cambiar-contrasena", cambiarContrasena);
 
 export default router;
