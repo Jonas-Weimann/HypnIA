@@ -1,19 +1,12 @@
-import { Router } from "express";
-import {
-  getAllCartas,
-  getCartaById,
-  createCarta,
-  updateCarta,
-  deleteCarta,
-} from "../controladores/cartas-controlador.js";
-import { autenticarAdmin } from "../middlewares/autenticacion.js";
+const { Router } = require('express');
+const { getAllCartas, getCartaById, createCarta, updateCarta, deleteCarta } = require('../controladores/cartas-controlador.js');
 
 const router = Router();
 
-router.get("/", getAllCartas);
-router.get("/:cid", getCartaById);
-router.post("/", autenticarAdmin, createCarta);
-router.put("/:cid", autenticarAdmin, updateCarta);
-router.delete("/:cid", autenticarAdmin, deleteCarta);
+router.get('/', getAllCartas);
+router.get('/:cid', getCartaById);
+router.post('/', createCarta);
+router.put('/:cid', updateCarta);
+router.delete('/:cid', deleteCarta)
 
-export default router;
+module.exports = router;

@@ -1,10 +1,9 @@
-import express from "express";
-import cors from "cors";
-import apiRutas from "./rutas/index.js";
+const express = require("express");
+const cors = require("cors");
+const apiRutas = require("./rutas");
 
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded());
 app.use(cors());
 
 const PORT = process.env.PORT || 3000;
