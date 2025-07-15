@@ -273,11 +273,11 @@
   margin-bottom: 8px;
 }
 
-.apartados:hover {
+#apartado-interpretacion:hover {
   background-color: var(--color-azul-grisaceo);
   padding: 20px;
-  transform: scale(1.1);
   border: 3px solid white;
+  font-size: 25px;
 }
 
 .apartados p {

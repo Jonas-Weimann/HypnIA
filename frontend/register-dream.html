@@ -157,11 +157,11 @@
                     localStorage.setItem("ultimoSueno", JSON.stringify(resultado));
                     mensaje.classList.remove("oculto");
                     mensaje.innerHTML =
-                    "<h2>¡Se ha registrado tu sueño con éxito!</h2> <p>Las estrellas continúan brillando en el cielo nocturno</p>";
+                    "<h2>¡Se ha registrado tu sueño con éxito!</h2> <p>Las estrellas continúan brillando en el cielo nocturno <br/><br/> En unos segundos podrás ver lo que la IA interpretó de tu sueño</p>";
                     setTimeout(() => {
                         mensaje.classList.add("oculto");
                         window.location.href = "latest-dream.html";
-                    }, 2000);
+                    }, 3000);
                 } else {
                     mensaje.classList.remove("oculto");
                     mensaje.innerHTML =
@@ -183,6 +183,20 @@
                     spinner.classList.add("oculto");
                 }
 		    });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const token = localStorage.getItem("token");
+            const ultimoSueno = localStorage.getItem("ultimoSueno");
+            if (ultimoSueno && token) {
+                const formBoton = document.querySelector(".form-boton");
+                if (formBoton) {
+                formBoton.innerHTML = `
+                <button type="submit" class="boton-interpretar"><h2>INTERPRETAR<h2></button>
+                <a href="latest-dream.html" class="redireccion"><h2>SUEÑO RECIÉN INTERPRETADO</h2></a>
+                `;
+                }
+            }
         });
 
     </script>

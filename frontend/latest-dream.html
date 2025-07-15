@@ -33,9 +33,9 @@
                 </div>
 
                 <div class="sueno-interpretado-links" style="margin-bottom: 0px; padding: 0px">
-                    <a href="cartas.html" class="redireccion"><h2>CARTAS</h2></a>
+                    <a href="cards.html" class="redireccion"><h2>CARTAS</h2></a>
                     <a href="inicio.html" class="redireccion"><h2>VOLVER A INICIO</h2></a>
-                    <a href="emociones.html" class="redireccion"><h2>EMOCIONES</h2></a>
+                    <a href="emotions.html" class="redireccion"><h2>EMOCIONES</h2></a>
                 </div>
             </section>
         </main>
@@ -64,7 +64,7 @@
                     <h1>Tu Sueño</h1>
                     <p>${ultimoSueno.descripcion} </p>
                 </div>
-                <div class="apartados">
+                <div class="apartados" id="apartado-interpretacion">
                     <h1>Interpretación</h1>
                     <p>${ultimoSueno.interpretacion}</p>
                 </div>
@@ -137,9 +137,9 @@
             if (!contenedor) return;
 
             contenedor.innerHTML = `
-                <a href="cartas.html" class="redireccion"><h2>CARTAS</h2></a>
+                <a href="cards.html" class="redireccion"><h2>CARTAS</h2></a>
                 <a href="register-dream.html" class="redireccion"><h2>REGISTRA OTRO SUEÑO</h2></a>
-                <a href="emociones.html" class="redireccion"><h2>EMOCIONES</h2></a>
+                <a href="emotions.html" class="redireccion"><h2>EMOCIONES</h2></a>
             `;
         }
 

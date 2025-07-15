@@ -64,9 +64,9 @@ const modificarLinks = () => {
 	if (!contenedor) return;
 
 	contenedor.innerHTML = `
-		<a href="cartas.html">CARTAS</a>
+		<a href="cards.html">CARTAS</a>
         <a href="register-dream.html">REGISTRA TU SUEÑO</a>
-        <a href="emociones.html">EMOCIONES</a>
+        <a href="emotions.html">EMOCIONES</a>
 	`;
 }
 
