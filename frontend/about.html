@@ -4,53 +4,68 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Estilos -->
-  <link rel="stylesheet" href="assets/css/styless.css"> <!-- Estilo general del sitio -->
-  <link rel="stylesheet" href="assets/css/about.css">   <!-- Estilo específico de la página About -->
-
-  <!-- Fuentes -->
+  <link rel="stylesheet" href="assets/css/styless.css">
+  <link rel="stylesheet" href="assets/css/about.css">   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+  <link rel="icon" href="assets/images/luna-logo-header.webp" type="image/webp">
+  <title>Sobre HypnIA</title>
 
 </head>
 <body class="about-body">
-
-  <!-- Header -->
-  <div id="header"></div>
-  <script src="./assets/js/header.js"></script>
+    <div id="header"></div>
+    <script src="./assets/js/header.js"></script>
   
-  <!-- Contenido About Page -->
-  <main class="about-content">
-  <section class="about-section">
-      <h1>¿Qué es <span class="hypnia">HypnIA</span>?</h1>
-      <p>
-        HypnIA es una plataforma digital diseñada para que puedas registrar, interpretar y compartir tus sueños. 
-        Utilizando inteligencia artificial, te ayuda a descubrir el significado emocional y simbólico de tus experiencias oníricas, 
-        invitándote a una exploración más profunda de tu mundo interior.<br>
-        Podés guardar tus sueños de forma privada o, si lo preferís, compartirlos con una comunidad que también busca 
-        conocerse mejor a través de sus sueños.
-      </p>
-  </section>
-
-  <section class="about-section">
-      <h1>¿Cómo funciona?</h1>
-      <p>
-        Solo tenés que crear una cuenta, escribir tu sueño y recibirás al momento una interpretación simbólica guiada por inteligencia artificial.   
-      </p>
-  </section>
-
-        <div class="recuadros">
-        <div class="recuadro"></div>
-        <div class="recuadro"></div>
-        <div class="recuadro"></div>
-      </div>
-    </div>
-
-
-    <a href="inicio.html" class="back-button">Volver al inicio</a>
-  </div>
-
+    <main class="about-content">
+        <div class="glass-container">
+    
+            <section class="about-section">
+                <h1>¿Qué es <span class="hypnia">HypnIA</span>?</h1>
+                <p>
+                    HypnIA es la puerta a un universo donde tus sueños encuentran voz.
+                    Aquí podés registrar, interpretar y compartir tus sueños, dejando que la inteligencia artificial te revele sus significados ocultos.
+                    Guardalos en un rincón secreto solo para vos, o compartilos con quienes también buscan respuestas entre las estrellas.
+                    El mundo onírico siempre estuvo allí, HypnIA solo te muestra el camino para descubrirlo.
+                </p>
+            </section>
+    
+            <section class="carousel-section">
+                <h1>¿Cómo funciona?</h1>
+                <p>
+                    Solo necesitás abrir las puertas, creá una cuenta, escribí tu sueño y en instantes el oráculo de la inteligencia artificial te mostrará lo que se esconde entre las nubes del subconsciente.
+                    Tus sueños serán escuchados. Sus significados te serán devueltos.
+                    El resto ... depende de vos.
+                </p>
+    
+                <div class="carousel">
+                    <button class="carousel-btn prev">⟨</button>
+                    <div class="carousel-track">
+                        <div class="carousel-slide">
+                            <img src="assets/images/inicio-sesion.webp" alt="Pantalla de Inicio de Sesión">
+                            <p>Iniciá sesión para comenzar a registrar tus sueños.</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/images/registro-usuario.webp" alt="Pantalla de Registro usuario">
+                            <p>Si no tenes una cuenta, registrate.</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/images/home.webp" alt="Pantalla Principal">
+                            <p>Visualizá tus sueños y accedé a las interpretaciones.</p>
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="assets/images/perfil.webp" alt="Pantalla de Perfil">
+                            <p>Gestioná tu perfil y preferencias.</p>
+                        </div>
+                    </div>
+                    <button class="carousel-btn next">⟩</button>
+                </div>
+            </section>
+    
+            <a href="inicio.html" class="back-button">Volver al inicio</a>
+        </div>
+    </main>
+<script src="assets/js/about.js"></script>
 </body>
 </html>
