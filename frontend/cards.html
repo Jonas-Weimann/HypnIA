@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="assets/images/luna-logo-header.webp">
+        <link rel="stylesheet" href="./assets/css/cartas-emociones.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
+        <title>Cartas</title>
+    </head>
+    <body>
+        <div id="header" style="border-bottom: 5px solid #332233;"></div>
+        <script src="/assets/js/header.js"></script>
+
+        <main id="cartas-main">
+            <div class="cartas-emociones-links">
+                <a href="cards.html">CARTAS</a>
+                <a href="inicio.html">VOLVER A INICIO</a>
+                <a href="emotions.html">EMOCIONES</a>
+            </div>
+
+            <section class="cartas-section">
+                <h1 id="cartas-titulo-section">CARTAS ONÍRICAS</h1>
+                <p id="cartas-emociones-descripcion">Cada carta onírica es un fragmento de tu viaje interno. <br /> <br />
+                    Cuando soñás, tu mente habla en símbolos, y estas cartas son la voz visual de tu subconsciente. <br />
+                    La IA las selecciona según lo que tu sueño quiere decirte. Usalas como guía para descubrir lo que no estás viendo a simple vista. <br /> <br />
+                    Si una carta o emoción se repite en varios sueños, puede estar señalando algo que necesitás atender conscientemente. </p>
+                <input type="text" id="cartas-busqueda" placeholder="Buscar por nombre, elemento o polaridad" />
+                <div id="cartas-contenedor"></div>
+                <script src="/assets/js/cartas.js"></script>
+            </section>
+        </main>
+
+        <div id="footer" style="border-top: 5px solid #332233;"></div>
+        <script src="/assets/js/footer.js"></script>
+
+    </body>
+</html>

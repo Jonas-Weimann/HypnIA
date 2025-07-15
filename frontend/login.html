@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<link rel="preconnect" href="https://fonts.googleapis.com"/>
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet"/>
+		<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet"/>
+		<link rel="stylesheet" href="assets/css/login-register.css" />
+        <link rel="icon" type="image/x-icon" href="assets/images/luna-logo-header.webp">
+		<title>Iniciar Sesión</title>
+	</head>
+	<body>
+		<div id="header"></div>
+		<script src="./assets/js/header.js"></script>
+		
+		<main class="login">
+			<div class="mensaje-resultado"></div>
+			<div class="login-container">
+				
+				<br />
+				<h1>Bienvenido</h1>
+				<form action="http://localhost:3000/api/usuarios/iniciar-sesion" id="login-form" method="post">
+
+					<div class="input-box">
+						<input type="text" id="email" name="email" required placeholder="Email"/><br />
+					</div>
+					
+					<div class="input-box">
+						<input type="password" id="contrasena" name="contrasena" required placeholder="Contraseña"/><br />
+					</div>
+
+					<br />
+					<div class="recordar">
+
+						<a href="recovery.html">¿Olvidó su contraseña?</a>
+
+					</div>
+
+					<div class="iniciar-sesion">
+						<input type="submit" id="iniciar-sesion" value="Iniciar Sesión" />
+					</div>
+	
+				</form>
+
+				<div class="registrarse">
+					<br /><a href="register.html">Registrarse</a><br />
+				</div>
+			</div>
+		</main>
+
+		<script>
+		const form = document.getElementById("login-form");
+		const mensaje = document.querySelector(".mensaje-resultado");
+		form.addEventListener("submit", async (e) => {
+			e.preventDefault();
+			const formData = new FormData(form);
+			const data = Object.fromEntries(formData);
+			try {
+			const respuesta = await fetch(
+				"http://localhost:3000/api/usuarios/iniciar-sesion",
+				{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data),
+				}
+			);
+			const resultado = await respuesta.json();
+			if (respuesta.ok && resultado.token) {
+				localStorage.setItem("token", resultado.token);
+
+				const datosUsuario = {...resultado.usuario, pfp: 'perfil-default.webp'}
+				localStorage.setItem('usuario', JSON.stringify(datosUsuario))
+
+				mensaje.style.backgroundImage =
+				'url("./assets/images/mensaje-registro.webp")';
+				mensaje.innerHTML =
+				"<b>Inicio de sesión exitoso</b><span>El velo entre mundos se ha desvanecido. <br/> Adelante, la noche te pertenece...</span>";
+				mensaje.style.display = "flex";
+				setTimeout(() => {
+
+				window.location.href = "/frontend/register-dream.html";
+
+				}, 3000);
+			} else {
+				mensaje.style.backgroundImage =
+				'url("./assets/images/mensaje-error.webp")';
+				mensaje.innerHTML =
+				"<b>Inicio de sesión fallido</b><span>Las puertas del mundo onírico no se han abierto para usted.<br/>Verifique sus credenciales y vuelva a intentarlo</span>";
+				mensaje.style.display = "flex";
+				setTimeout(() => {
+				window.location.reload();
+				}, 3000);
+			}
+			} catch (error) {
+			mensaje.style.backgroundImage =
+				'url("./assets/images/mensaje-error.webp")';
+			mensaje.innerHTML =
+				"<b>Error interno</b><span>Algo explotó en la dimensión del servidor. <br/>Estamos tratando de recomponer el tejido de la realidad.</span>";
+			mensaje.style.display = "flex";
+			setTimeout(() => {
+				window.location.reload();
+			}, 3000);
+			}
+		});
+		</script>
+	</body>
+</html>
