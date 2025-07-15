@@ -19,16 +19,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		headerLinks.innerHTML = `
 			<ul>
-				<li><a href="login.html">Cartas</a></li>
-				<li><a href="login.html">Emociones</a></li>
-				<li><a href="login.html">Registra tu sueño</a></li>
+				<li><a href="cards.html">Cartas</a></li>
+				<li><a href="emotions.html">Emociones</a></li>
+				<li><a href="register-dream.html">Registra tu sueño</a></li>
 				<li><a href="login.html">Explora el mundo</a></li>
 				<li><a href="#" id="cerrar-sesion-header">Cerrar sesión</a></li>
 				<li style="padding: 0;" class="header-perfil"><a href="././profile.html">
 				<img id="foto-perfil" src="${usuario.pfp}" alt="Perfil" >
 				</a></li>
 			</ul>
-			
 		`;
 	
 		const logout = header.querySelector("#cerrar-sesion-header");

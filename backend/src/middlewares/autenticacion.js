@@ -1,3 +1,4 @@
+
 import  { verificarToken } from "../utilidades/jsonwebtoken.js";
 
 const autenticarUsuario = (req, res, next) => {

@@ -1,3 +1,4 @@
+
 import { gptclient } from "../config/openai.js";
 import {
   generarPromptInterpretacion,
@@ -57,3 +58,4 @@ const interpretarSueno = async (req, res, next) => {
 };
 
 export { interpretarSueno };
+
