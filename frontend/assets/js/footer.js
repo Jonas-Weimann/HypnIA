@@ -52,7 +52,7 @@ const modificarFooter = (footer) => {
 	if (!contenedor) return;
 
 	contenedor.innerHTML = `
-		<li><a href="inicio.html">Inicio</a></li>
+		<li><a href="index.html">Inicio</a></li>
 		<li><a href="profile.html">Perfil</a></li>
 		<li><a href="#" id="cerrar-sesion-footer">Cerrar sesión</a></li>
 		
