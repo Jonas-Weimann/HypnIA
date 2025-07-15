@@ -1,0 +1,150 @@
+                
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="assets/images/luna-logo-header.webp">
+        <link rel="stylesheet" href="./assets/css/cartas-emociones.css">
+        <link rel="stylesheet" href="./assets/css/register-latest-dream.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
+        <title>Interpretación</title>
+    </head>
+    <body>
+        <div id="header" style="border-bottom: 5px solid #332233;"></div>
+        <script src="/assets/js/header.js"></script>
+
+        <main id="interpretacion-main">
+
+            <section class="interpretacion-section">
+                <h1 id="interpretacion-titulo-section">SUEÑO INTERPRETADO</h1>
+                <div class="publicacion"></div>
+
+                <div class="zona-emociones-cartas">
+                    <h1>Emociones relacionadas</h1>
+                    <div id="emociones-contenedor" style="padding-bottom: 0px;"></div>
+
+                    <h1>Cartas relacionadas</h1>
+                    <div id="cartas-contenedor"></div>
+                </div>
+
+                <div class="sueno-interpretado-links" style="margin-bottom: 0px; padding: 0px">
+                    <a href="cards.html" class="redireccion"><h2>CARTAS</h2></a>
+                    <a href="inicio.html" class="redireccion"><h2>VOLVER A INICIO</h2></a>
+                    <a href="emotions.html" class="redireccion"><h2>EMOCIONES</h2></a>
+                </div>
+            </section>
+        </main>
+
+        <div id="footer" style="border-top: 5px solid #332233;"></div>
+        <script src="/assets/js/footer.js"></script>
+        
+    </body>
+    <script>
+        const ultimoSueno = JSON.parse(localStorage.getItem("ultimoSueno"));
+        const usuario = JSON.parse(localStorage.getItem("usuario"));
+        const token = localStorage.getItem("token");
+        
+        if (!ultimoSueno) {
+            window.location.href = "register-dream.html";
+        }
+
+        const mostrarUltimoSueno = () => {
+            if(!ultimoSueno || !usuario) return;
+            const publicacion = document.querySelector(".publicacion");
+            publicacion.innerHTML = `
+                <div class="perfil-usuario">
+                    <a href="#"><img src="assets/images/${usuario.pfp}" alt="Perfil">${usuario.nombre}</a>
+                </div>
+                <div class="apartados">
+                    <h1>Tu Sueño</h1>
+                    <p>${ultimoSueno.descripcion} </p>
+                </div>
+                <div class="apartados" id="apartado-interpretacion">
+                    <h1>Interpretación</h1>
+                    <p>${ultimoSueno.interpretacion}</p>
+                </div>
+                <div class="apartados">
+                    <h1>Visibilidad</h1>
+                    <p>${mostrarVisibilidad(ultimoSueno.publico)}</p>
+                </div>
+                <div class="apartados">
+                    <h1>Fecha</h1>
+                    <p>${convertirFecha(ultimoSueno.fecha)}</p>
+                </div> `;
+            
+            mostrarSuenoEmociones(ultimoSueno.emociones);
+            mostrarSuenoCartas(ultimoSueno.cartas);
+        }
+
+        const mostrarVisibilidad = (publico) => {
+            let visibilidad = "Privado";
+            if(publico) {
+                visibilidad = "Público";
+            }
+            return visibilidad;
+        } 
+
+        const convertirFecha = (fecha) => {
+            return new Date(fecha).toLocaleDateString("es-AR");
+        }
+
+        const mostrarSuenoEmociones = (emociones) => {
+            if(!emociones) return;
+            const contenedorEmociones = document.getElementById("emociones-contenedor");
+            const htmlEmociones = emociones.map((emocion) => {
+                return `
+                    <div class="emocion" style="background-image: url('assets/images/emociones/${emocion.intensidad}.webp'); backdrop-filter: blur(10px);">
+                        <div class="nombre-emocion"><h2>${emocion.nombre.toUpperCase()}</h2></div>
+                        <div class="informacion-emocion">
+                            <p><u>INTENSIDAD</u>: ${emocion.intensidad}</p>
+                            <p><u>POLARIDAD</u>: ${emocion.polaridad}</p>
+                        </div>
+                    </div> `;
+            }).join("")
+
+            contenedorEmociones.innerHTML = htmlEmociones;
+        }
+
+        const mostrarSuenoCartas = (cartas) => {
+            if(!cartas) return;
+            const contenedorCartas = document.getElementById("cartas-contenedor");
+            const htmlCartas = cartas.map((carta) => {
+                return `
+                    <div class="carta">
+                        <img id="imagen-carta" src="./assets/images/cartas/${carta.imagen}">
+                        <div class="nombre-carta"><h2>${carta.nombre}</h2></div>
+                        <div class="informacion-carta">
+                            <p><u>ELEMENTO</u>: ${carta.elemento}</p>
+                            <p><u>POLARIDAD</u>: ${carta.polaridad}</p>
+                            <p style="border-top: 1px solid white">${carta.descripcion}</p>
+                        </div>
+                    </div>`
+            }).join("")
+
+            contenedorCartas.innerHTML = htmlCartas;
+        }
+
+        const modificarLinks = () => {
+            const token = localStorage.getItem("token");
+            if (!token) return;
+
+            const contenedor = document.querySelector(".sueno-interpretado-links");
+            if (!contenedor) return;
+
+            contenedor.innerHTML = `
+                <a href="cards.html" class="redireccion"><h2>CARTAS</h2></a>
+                <a href="register-dream.html" class="redireccion"><h2>REGISTRA OTRO SUEÑO</h2></a>
+                <a href="emotions.html" class="redireccion"><h2>EMOCIONES</h2></a>
+            `;
+        }
+
+        modificarLinks();
+        mostrarUltimoSueno();
+
+    </script>
+</html>
