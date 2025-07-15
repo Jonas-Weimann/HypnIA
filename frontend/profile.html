@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="assets/css/profile.css">
+        <link rel="stylesheet" href="assets/css/styless.css">
+        <link rel="icon" type="image/x-icon" href="assets/images/luna-logo-header.webp">
+        <title>Profile</title>
+    </head>
+    <body>
+        <div id="header"></div>
+        <script src="./assets/js/header.js"></script>
+
+        <main id="main">
+
+            <!-- contenedor del perfil -->
+
+            <div class="container-profile">
+
+                <div class="profile-info">
+                    
+                    <h2>
+                        <img src="assets/images/perfil-default.webp" id="perfilUsuario" alt="icono">
+                        <span id="nombreUsuario">@usuario</span>
+                    </h2>
+
+                    <!-- cambiar el perfil -->
+
+                    <div class="container-changePfp">
+
+                        <img src="assets/images/icono-cambiarPerfil.webp" class="changePfp" onclick="abrirModal()">
+                        <div id="profileModal" class="modal">
+
+                            <div class="modal-content">
+                                <span class="close-modal" onclick="cerrarModal()">↩</span>
+                                <h3> ˗ˏˋ ¡ Elige un perfil ! ´ˎ˗</h3> <br>
+
+                                <div class="profile-options">
+                                    <img src="assets/images/profile-img/perfil-1.webp" alt="Perfil 1" onclick="cambiarPerfil('assets/images/profile-img/perfil-1.webp')">
+                                    <img src="assets/images/profile-img/perfil-2.webp" alt="Perfil 2" onclick="cambiarPerfil('assets/images/profile-img/perfil-2.webp')">
+                                    <img src="assets/images/profile-img/perfil-3.webp" alt="Perfil 3" onclick="cambiarPerfil('assets/images/profile-img/perfil-3.webp')">
+                                    <img src="assets/images/profile-img/perfil-4.webp" alt="Perfil 4" onclick="cambiarPerfil('assets/images/profile-img/perfil-4.webp')">
+                                    <img src="assets/images/profile-img/perfil-5.webp" alt="Perfil 5" onclick="cambiarPerfil('assets/images/profile-img/perfil-5.webp')">
+                                    <img src="assets/images/profile-img/perfil-6.webp" alt="Perfil 6" onclick="cambiarPerfil('assets/images/profile-img/perfil-6.webp')">
+                                    <img src="assets/images/profile-img/perfil-7.webp" alt="Perfil 7" onclick="cambiarPerfil('assets/images/profile-img/perfil-7.webp')">
+                                    <img src="assets/images/profile-img/perfil-8.webp" alt="Perfil 8" onclick="cambiarPerfil('assets/images/profile-img/perfil-8.webp')">
+                                    <img src="assets/images/profile-img/perfil-9.webp" alt="Perfil 9" onclick="cambiarPerfil('assets/images/profile-img/perfil-9.webp')">
+                                    <img src="assets/images/profile-img/perfil-10.webp" alt="Perfil 10" onclick="cambiarPerfil('assets/images/profile-img/perfil-10.webp')">
+                                    <img src="assets/images/profile-img/perfil-11.webp" alt="Perfil 11" onclick="cambiarPerfil('assets/images/profile-img/perfil-11.webp')">
+                                    <img src="assets/images/profile-img/perfil-12.webp" alt="Perfil 12" onclick="cambiarPerfil('assets/images/profile-img/perfil-12.webp')">
+                                    <img src="assets/images/profile-img/perfil-13.webp" alt="Perfil 13" onclick="cambiarPerfil('assets/images/profile-img/perfil-13.webp')">
+                                    <img src="assets/images/profile-img/perfil-14.webp" alt="Perfil 14" onclick="cambiarPerfil('assets/images/profile-img/perfil-14.webp')">
+                                    <img src="assets/images/profile-img/perfil-15.webp" alt="Perfil 15" onclick="cambiarPerfil('assets/images/profile-img/perfil-15.webp')">
+                                    <img src="assets/images/profile-img/perfil-16.webp" alt="Perfil 16" onclick="cambiarPerfil('assets/images/profile-img/perfil-16.webp')">
+                                    <img src="assets/images/profile-img/perfil-17.webp" alt="Perfil 17" onclick="cambiarPerfil('assets/images/profile-img/perfil-17.webp')">
+                                    <img src="assets/images/profile-img/perfil-18.webp" alt="Perfil 18" onclick="cambiarPerfil('assets/images/profile-img/perfil-18.webp')">
+                                    <img src="assets/images/profile-img/perfil-19.webp" alt="Perfil 19" onclick="cambiarPerfil('assets/images/profile-img/perfil-19.webp')">
+                                    <img src="assets/images/profile-img/perfil-20.webp" alt="Perfil 20" onclick="cambiarPerfil('assets/images/profile-img/perfil-20.webp')">
+                                    <img src="assets/images/perfil-default.webp" alt="Perfil Default" onclick="cambiarPerfil('assets/images/perfil-default.webp')">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- contenedor de los registros del usuario -->
+
+            <div class="container-registers">
+
+                <div class="registers-info">
+                    <h2>SUEÑOS REGISTRADOS :</h2>
+
+                    <!-- registros -->
+
+                    <div class="registers" id="usuarioRegistros"></div>
+
+                    <!-- --------- -->
+
+                </div>
+
+            </div>
+        </main>
+
+        <!-- footer -->
+
+        <div id="footer"></div>
+        <script src="./assets/js/footer.js"></script>
+
+        <!-- scripts para la pagina -->
+
+        <script>
+
+
+            // Verificar si el usuario está autenticado
+
+            document.addEventListener("DOMContentLoaded", () => {
+                const token = localStorage.getItem("token");
+
+                if (!token) {
+                    console.log("No token found in localStorage");
+                    const contenido = document.getElementById("main");
+                    contenido.classList.add("fondo-borroso");
+                    
+                    // redireccion al login
+                }
+            });
+
+            document.addEventListener("DOMContentLoaded", async () => {
+                const token = localStorage.getItem("token");
+
+                if (token) {
+
+                    // ------- carga los datos del usuario ---------
+
+                    const datosUsuario = localStorage.getItem("usuario");
+
+                    if (datosUsuario) {
+                        const usuario = JSON.parse(datosUsuario);
+                        const nombreUsuario = document.getElementById("nombreUsuario");
+                        nombreUsuario.textContent = `@${usuario.nombre}`; 
+                    } else {
+                        console.log("No hay datos de usuario en localStorage");
+                    }
+
+                    // ------- Funciones para modal ---------
+
+                    window.abrirModal = function() {
+                        document.getElementById("profileModal").style.display = "block";
+                    }
+
+                    window.cerrarModal = function() {
+                        document.getElementById("profileModal").style.display = "none";
+                    }
+
+                    // ------- Funcion para elegir/guardar/cambiar el perfil ---------
+
+                    window.cambiarPerfil = function(imagen) {
+                        cambiarPfp(imagen);
+                    }
+
+                    window.addEventListener('DOMContentLoaded', () => {
+                        const usuario = JSON.parse(datosUsuario);
+
+                        if (usuario.pfp) {
+                            document.getElementById("perfilUsuario").src = usuario.pfp;
+                        }
+                    });
+
+                    function cambiarPfp(imagenGuardada) {
+                        const usuario = JSON.parse(datosUsuario);
+                        console.log("Imagen guardada:", imagenGuardada);
+                        console.log("usuario:", usuario);
+
+                        usuario.pfp = imagenGuardada;
+                        localStorage.setItem('usuario', JSON.stringify(usuario));
+                        document.getElementById("perfilUsuario").src = imagenGuardada;
+
+                        console.log("Perfil actualizado en el servidor y localStorage", usuario);
+                    }
+
+                    // -------- Cargar los registros del usuario ---------
+
+                    try {
+                        const usuario = JSON.parse(datosUsuario);
+                        const contenedorRegistros = document.getElementById("usuarioRegistros");
+                        const id_usuario = usuario.id_usuario;
+                        const url = `http://localhost:3000/api/usuarios/${id_usuario}/suenos`;
+                    
+                        const res = await fetch(url)
+                        const suenos = await res.json();
+
+                        suenos.forEach(sueno => {
+                            const visibilidad = sueno.visibilidad === true ? "Público" : "Privado";
+                            const suenoDiv = document.createElement("div");
+                            suenoDiv.classList.add("sueno");
+                            suenoDiv.innerHTML = `
+                                <h3 class="visibilidad">${visibilidad}</h3> <br>
+                                <p class="descripcion">${sueno.descripcion}</p>
+                                <span class="fecha">${sueno.fecha}</span>
+                            `;
+                            contenedorRegistros.appendChild(suenoDiv);
+                        })
+                    } catch (error) {
+                        console.error("Error al obtener los registros del usuario:", error);
+                    }
+
+                }
+                
+            });
+        </script>
+
+    </body>
+
+</html>

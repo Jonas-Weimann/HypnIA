@@ -1,0 +1,290 @@
+:root {
+  --color-lila: #855988;
+  --color-lila-oscuro: #6B4984;
+  --color-purpura: #483475;
+  --color-azul-claro: #2B2F77;
+  --color-azul: #141852;
+  --color-azul-oscuro: #070B34;
+  --color-azul-grisaceo: #0f0f16;
+}
+
+body {
+    background-image: linear-gradient(rgba(59, 15, 71, 0.521), rgba(0, 0, 0, 0.295)), url(../images/fondo-profile-page.webp);
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-repeat: repeat;
+}
+
+
+/* ----------- estilo del scrollbar principal -------------*/
+
+
+body::-webkit-scrollbar {
+  width: 10px;
+  background-color: var(--color-azul-grisaceo);
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--color-azul-grisaceo);
+  border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color:var(--color-lila)  ;
+  border-radius: 5px;
+}
+
+
+/* ----------------- fondo borroso ----------------- */
+
+.fondo-borroso {
+  background: rgba(14, 8, 17, 0.274);
+  filter: blur(5px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ----------------------- Perfil ---------------------- */
+
+
+.container-profile {
+    background-color:rgba(11, 1, 24, 0.801);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: 50;
+    width: 80%;
+    height: 50px;
+    border-radius: 75px;
+    margin: auto;
+    margin-bottom: 30px;
+    margin-top: 50px;
+}
+
+.profile-info {
+    color: var(--color-lila);
+    position: relative;
+    bottom: 10px;
+    right: 40px;
+}
+
+.profile-info h2 img {
+    border-radius: 50%;
+    float: left;
+    width: 145px;
+    height: 145px;
+    border: 4px solid rgba(11, 1, 24, 0.363);
+}
+
+#nombreUsuario {
+    background: linear-gradient(to right, var(--color-lila), var(--color-purpura));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0.9;
+    position: relative;
+    top: 20px;
+    left: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+
+/* ------------------ cambiar perfil -------------------- */
+
+.container-changePfp {
+    position: relative;
+    display: inline-block;
+}
+
+.changePfp {
+    position: relative;
+    display: inline-block;
+    opacity: 0.7;
+    width: 35px;
+    height: 35px;
+    top: 50px;
+    right: 20px;
+    border-radius: 50%;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.changePfp:hover {
+    transform: scale(1.1);
+}
+
+/* ------------------ modal -------------------- */
+
+.modal {
+    position: absolute;
+    z-index: 1;
+    top: auto;
+    background-color: rgba(61, 51, 70, 0);
+    overflow: auto;
+    display: none;
+}
+
+.close-modal {
+    color: var(--color-lila);
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-content {
+    background-color: rgba(10, 1, 19, 0.884);
+    padding: 20px;
+    width: 300px;
+    height: 260px;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+    border-radius: 20px;
+}
+
+.modal-content h3 {
+    color: var(--color-lila);
+    text-align: center;
+}
+
+/* ---------- scrollbar style modal ----------- */
+
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #1a0b2200;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: var(--color-lila);
+  border-radius: 5px;
+}
+
+/* ------------ Icono para cambiar perfil ------------ */
+
+.profile-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.profile-options img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.profile-options img:hover {
+    transform: scale(1.1);
+}
+
+
+/* ---------------- Sueños registrados ----------------- */
+
+.container-registers {
+    background: linear-gradient(rgba(11, 1, 24, 0.801), rgba(31, 16, 70, 0.5));
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    gap: 30px;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.registers-info {
+    color: rgba(218, 210, 226, 0.849);
+    position: relative;
+    text-align: left;
+    padding: 15px;
+    width: 80%;
+    height: 400px;
+    margin: auto;
+    border-radius: 2%; 
+}
+
+.registers-info h2 {
+    padding-bottom: 10px;
+    border-bottom: 4px solid var(--color-lila);
+    border-radius: 2%;
+}
+
+.registers {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    width: auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* ------------ estilos de cada registro --------------- */
+
+.sueno {
+    background-color: #00000033;
+    color: #ffffffa1;
+    border: 1px solid var(--color-lila);
+    text-align: left;
+    width: 250px;
+    height: 300px;
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.visibilidad {
+    color: var(--color-lila);
+}
+
+.descripcion {
+    color: #ffffffa1;
+    opacity: 0.8;
+    display: -webkit-box;
+    white-space: normal;
+    word-wrap: break-word;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 9;
+    text-overflow: ellipsis;
+}
+
+.fecha {
+    color: #ffffffa1;
+    font-size: 0.8em;
+    margin-top: 10px;
+    text-align: right;
+    padding-top: 20px;
+}
+
+
+/* ------------- estilo scrollbar registros --------------- */
+
+.registers::-webkit-scrollbar {
+    height: 10px;
+}
+
+.registers::-webkit-scrollbar-track {
+    background: rgba(11, 1, 24, 0.733);
+    border-radius: 5px;
+}
+
+.registers::-webkit-scrollbar-thumb {
+    background-color: rgba(164, 109, 168, 0.733);
+    border-radius: 5px;
+}
