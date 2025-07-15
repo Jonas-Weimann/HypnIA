@@ -22,19 +22,8 @@
   border: 10px groove var(--color-lila);
   border-radius: 25px;
   margin: 0 auto;
-  padding: 20px;
   width: 1400px;
   max-width: 100%;
-}
-
-.cartas-emociones-links {
-  margin: 0 auto;
-  padding: 20px;
-  width: 1400px;
-  max-width: 100%;
-}
-
-.cartas-section, .emociones-section {
   min-height: 100vh;
   padding: 40px;
 }
@@ -44,7 +33,11 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  margin: 0 auto;
   margin-bottom: 40px;
+  padding: 20px;
+  width: 1400px;
+  max-width: 100%;
 }
 
 /* -------------- titulo y busqueda de la pagina -------------- */
@@ -66,7 +59,7 @@
 
 .cartas-emociones-links a {
   background-color: rgba(15, 15, 22, 0.9); /* --color-azul-grisaceo */
-  width: 350px;
+  width: auto;
   text-decoration: none;
   font-size: 30px;
   margin-bottom: 40px;
