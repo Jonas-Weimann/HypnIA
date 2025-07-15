@@ -1,5 +1,5 @@
-import dbClient from '../config/dbClient.js';
-import { esPolaridadValida } from '../utilidades/validacion.js';
+const dbClient = require('../config/dbClient.js');
+const { esPolaridadValida } = require('../utilidades/validacion.js');
 
 const getAllEmociones = async (req, res)=>{
     try {
@@ -93,7 +93,7 @@ const deleteEmocion = async (req, res)=>{
     }
 }
 
-export {
+module.exports = {
     getAllEmociones,
     getEmocionById,
     createEmocion,

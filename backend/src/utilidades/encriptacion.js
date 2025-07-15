@@ -1,4 +1,4 @@
-import { hash, compare } from  'bcrypt';
+const { hash, compare } = require('bcrypt');
 const SALT = 10;
 
 const generarHash = async (contrasena)=>{
@@ -17,7 +17,7 @@ const compararHash = async (contrasena, hash)=>{
     }
 }
 
-export {
+module.exports = {
     generarHash,
     compararHash
 }
