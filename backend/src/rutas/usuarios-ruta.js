@@ -10,6 +10,7 @@ import {
 import {
   autenticarUsuario,
   autenticarAdmin,
+  esUsuarioActivo,
 } from "../middlewares/autenticacion.js";
 
 const router = Router();
@@ -20,5 +21,6 @@ router.get("/:uid/suenos", autenticarUsuario, getSuenosByUsuario);
 router.get("/:uid/suenos-publicos", getSuenosPublicosByUsuario);
 router.post("/registrar", registrarUsuario);
 router.post("/iniciar-sesion", iniciarSesion);
+router.get('/activo', esUsuarioActivo)
 
 export default router;
