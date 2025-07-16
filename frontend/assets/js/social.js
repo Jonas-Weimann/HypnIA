@@ -92,12 +92,10 @@ function openModal(dream) {
 
 function renderDreams(dreams) {
     dreamGrid.innerHTML = "";
-    const usuarios = JSON.parse(localStorage.getItem("usuarios")) || {};
 
     dreams.forEach(dream => {
-        const datosUsuario = usuarios[dream.id_usuario] || {};
-        const nombre = datosUsuario.nombre || dream.nombre_usuario || "Usuario desconocido";
-        const foto = datosUsuario.foto_perfil || "perfil-default.webp";
+        const nombre = dream.nombre_usuario || "Usuario desconocido";
+        const foto = dream.foto_perfil || "perfil-default.webp";
 
         const card = document.createElement("div");
         card.className = "dream-card";
