@@ -8,6 +8,7 @@
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet"/>
 		<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet"/>
 		<link rel="stylesheet" href="assets/css/login-register.css" />
+        <link rel="icon" type="image/x-icon" href="assets/images/luna-logo-header.webp">
 		<title>Iniciar Sesión</title>
 	</head>
 	<body>
@@ -72,7 +73,11 @@
 				localStorage.setItem("token", resultado.token);
 
 				const datosUsuario = {...resultado.usuario, pfp: 'perfil-default.webp'}
+<<<<<<< HEAD
 				localStorage.setItem('usuario', JSON.stringify(datosUsuario))
+=======
+				localStorage.setItem('usuario', JSON.stringify(datosUsuario));
+>>>>>>> bb7e42e94273524f94e1fe7cce0b52bdd3e2c432
 
 				mensaje.style.backgroundImage =
 				'url("./assets/images/mensaje-registro.webp")';
@@ -81,7 +86,11 @@
 				mensaje.style.display = "flex";
 				setTimeout(() => {
 
+<<<<<<< HEAD
 				window.location.href = "/frontend/register-dream.html";
+=======
+				window.location.href = "register-dream.html";
+>>>>>>> bb7e42e94273524f94e1fe7cce0b52bdd3e2c432
 
 				}, 3000);
 			} else {

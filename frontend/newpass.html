@@ -8,6 +8,7 @@
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet"/>
 		<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet"/>
 		<link rel="stylesheet" href="assets/css/login-register.css" />
+        <link rel="icon" type="image/x-icon" href="assets/images/luna-logo-header.webp">
 		<title>Recuperación</title>
 	</head>
 	<body>
@@ -73,7 +74,7 @@
 				const respuesta = await fetch(
 					"http://localhost:3000/api/usuarios/cambiar-contrasena",
 					{
-					method: "POST",
+					method: "PUT",
 					headers: {
 						"Content-Type": "application/json",
 					},

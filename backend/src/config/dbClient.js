@@ -1,5 +1,5 @@
-const { Pool } = require('pg');
-const dotenv = require('dotenv');
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
 dotenv.config();
 
 const config = {
@@ -12,4 +12,4 @@ const config = {
 
 const dbClient = new Pool(config)
 
-module.exports = dbClient;
+export default dbClient;

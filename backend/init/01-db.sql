@@ -13,7 +13,8 @@ CREATE TABLE usuarios (
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     contrasena VARCHAR(255) NOT NULL,
-    fecha_registro DATE NOT NULL
+    fecha_registro DATE NOT NULL,
+    foto_perfil TEXT DEFAULT 'perfil-default.webp'
 );
 
 CREATE TABLE suenos (

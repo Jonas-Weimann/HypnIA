@@ -12,22 +12,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 		const headerLinks = header.querySelector(".header-links");
+		const datosUsuario = localStorage.getItem("usuario");
+		const usuario = JSON.parse(datosUsuario);
+
 		if (!headerLinks) return;
 
 		headerLinks.innerHTML = `
 			<ul>
-				<li><a href="login.html">Cartas</a></li>
-				<li><a href="login.html">Emociones</a></li>
-				<li><a href="login.html">Registra tu sueño</a></li>
-				<li><a href="login.html">Explora el mundo</a></li>
+				<li><a href="cards.html">Cartas</a></li>
+				<li><a href="emotions.html">Emociones</a></li>
+				<li><a href="register-dream.html">Registra tu sueño</a></li>
+				<li><a href="social.html">Explora el mundo</a></li>
 				<li><a href="#" id="cerrar-sesion-header">Cerrar sesión</a></li>
-				<li style="padding: 0;" class="header-perfil"><a href="#Perfil">
-					<img src="assets/images/perfil-default.webp" alt="Perfil" >
+				<li style="padding: 0;" class="header-perfil"><a href="profile.html">
+					<img id="foto-perfil" src="./assets/images/${usuario.pfp}" alt="Perfil" >
 				</a></li>
 			</ul>
-			
 		`;
-
+	
 		const logout = header.querySelector("#cerrar-sesion-header");
 		if (logout) {
 			logout.addEventListener("click", e => {
