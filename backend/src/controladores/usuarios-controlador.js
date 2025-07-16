@@ -1,10 +1,8 @@
-
 import dbClient from "../config/dbClient.js";
 import { obtenerFechaActual } from "../utilidades/fecha.js";
 import { generarHash, compararHash } from "../utilidades/encriptacion.js";
-import { generarToken } from "../utilidades/jsonwebtoken.js";
+import { generarToken, verificarToken } from "../utilidades/jsonwebtoken.js";
 import { datosDeSueno } from "../utilidades/datosDeSueno.js";
-
 
 const getAllUsuarios = async (req, res) => {
   try {
@@ -57,7 +55,6 @@ const getUsuarioByEmail = async (req, res) => {
   }
 };
 
-
 const getSuenosByUsuario = async (req, res) => {
   const { uid } = req.params;
   const { id_usuario } = req.usuario || {};
@@ -70,7 +67,6 @@ const getSuenosByUsuario = async (req, res) => {
         status: 403,
         message: "No tienes permiso para acceder a los sueños de este usuario",
       };
-
     }
     const suenos = await dbClient.query(
       "SELECT * FROM suenos WHERE id_usuario = $1",
@@ -123,7 +119,7 @@ const getSuenosPublicosByUsuario = async (req, res) => {
       };
     }
 
- const suenosPublicosCompletos = await Promise.all(
+    const suenosPublicosCompletos = await Promise.all(
       suenosPublicos.rows.map(async (sueno) => {
         const { emociones, cartas } = await datosDeSueno(
           sueno.id_sueno,
@@ -143,7 +139,6 @@ const getSuenosPublicosByUsuario = async (req, res) => {
     });
   }
 };
-
 
 const registrarUsuario = async (req, res) => {
   const { nombre, email, contrasena } = req.body;
@@ -212,6 +207,28 @@ const iniciarSesion = async (req, res) => {
   }
 };
 
+const cambiarContrasena = async (req, res) => {
+  try {
+    const { contrasena, token } = req.body;
+    if (!contrasena || !token) {
+      throw { status: 400, message: "Faltan datos obligatorios" };
+    }
+    const datos = verificarToken(token);
+    if (!datos) throw { status: 401, message: "Token inválido o expirado" };
+
+    const contrasenaHasheada = await generarHash(contrasena);
+    await dbClient.query(
+      "UPDATE usuarios SET contrasena = $1 WHERE id_usuario = $2",
+      [contrasenaHasheada, datos.id]
+    );
+    res.status(200).json({ message: "Contraseña actualizada correctamente" });
+  } catch (error) {
+    res
+      .status(error.status || 500)
+      .json({ message: error.message || "Error iniciando sesión" });
+  }
+};
+
 export {
   getAllUsuarios,
   getUsuarioById,
@@ -220,5 +237,5 @@ export {
   getSuenosPublicosByUsuario,
   registrarUsuario,
   iniciarSesion,
+  cambiarContrasena,
 };
-
