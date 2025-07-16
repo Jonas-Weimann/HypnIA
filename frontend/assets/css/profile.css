@@ -18,6 +18,7 @@ body {
 }
 
 
+
 /* ----------- estilo del scrollbar principal -------------*/
 
 
@@ -233,8 +234,8 @@ body::-webkit-scrollbar-thumb {
 /* ------------ estilos de cada registro --------------- */
 
 .sueno {
-    background-color: #00000033;
-    color: #ffffffa1;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: #ffffffcc;
     border: 1px solid var(--color-lila);
     text-align: left;
     width: 250px;
@@ -245,15 +246,27 @@ body::-webkit-scrollbar-thumb {
     flex-direction: column;
     flex-shrink: 0;
     border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
+}
+
+.sueno:hover {
+    transform: scale(1.05);
 }
 
 .visibilidad {
     color: var(--color-lila);
 }
 
+.icono-candado {
+    width: 20px;
+    height: 20px;
+    float: right;
+    margin-right: 5px;
+}
+
 .descripcion {
-    color: #ffffffa1;
+    color: #ffffffd3;
     opacity: 0.8;
     display: -webkit-box;
     white-space: normal;
