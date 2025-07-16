@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   getAllUsuarios,
   getUsuarioById,
+  getPerfilDeUsuario,
   registrarUsuario,
   getSuenosPublicosByUsuario,
   getSuenosByUsuario,
@@ -22,6 +23,7 @@ const router = Router();
 
 router.get("/", autenticarAdmin, getAllUsuarios);
 router.get("/estado/activo", esUsuarioActivo);
+router.get("/perfil", autenticarUsuario, getPerfilDeUsuario);
 router.get("/:uid", autenticarAdmin, getUsuarioById);
 router.get("/:uid/suenos", autenticarUsuario, getSuenosByUsuario);
 router.get("/:uid/suenos-publicos", getSuenosPublicosByUsuario);
