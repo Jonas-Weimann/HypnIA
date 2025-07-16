@@ -103,6 +103,10 @@
   font-family: "Raleway", sans-serif;
 }
 
+.popup {
+  display: none;
+}
+
 .popup.activo {
   width: 300px;
   height: 200px;
@@ -122,6 +126,7 @@
 
 .popup.activo h2 {
   color: #855988;
+  text-align: center;
 }
 
 .popup.activo span {
