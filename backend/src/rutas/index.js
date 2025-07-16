@@ -1,15 +1,16 @@
-const express = require('express');
-const usuariosRuta = require('./usuarios-ruta.js');
-const cartasRuta = require('./cartas-ruta.js');
-const suenosRuta = require('./suenos-ruta.js');
-const emocionesRuta = require('./emociones-ruta.js');
+import { Router } from "express";
+import usuariosRuta from "./usuarios-ruta.js";
+import cartasRuta from "./cartas-ruta.js";
+import suenosRuta from "./suenos-ruta.js";
+import emocionesRuta from "./emociones-ruta.js";
+import emailsRuta from "./emails-ruta.js";
 
-const router = express.Router();
+const router = Router();
 
-router.use('/usuarios', usuariosRuta);
-router.use('/cartas', cartasRuta);
-router.use('/suenos', suenosRuta);
-router.use('/emociones', emocionesRuta);
+router.use("/usuarios", usuariosRuta);
+router.use("/cartas", cartasRuta);
+router.use("/suenos", suenosRuta);
+router.use("/emociones", emocionesRuta);
+router.use("/emails", emailsRuta);
 
-module.exports = router;
-
+export default router;

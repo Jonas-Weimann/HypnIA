@@ -1,14 +1,28 @@
-const { Router } = require('express');
-const { getAllUsuarios, getUsuarioById, registrarUsuario, getSuenosPublicosByUsuario, getSuenosByUsuario, iniciarSesion } = require('../controladores/usuarios-controlador.js');
-const { autenticarUsuario, autenticarAdmin } = require('../middlewares/autenticacion.js');
+import { Router } from "express";
+import {
+  getAllUsuarios,
+  getUsuarioById,
+  registrarUsuario,
+  getSuenosPublicosByUsuario,
+  getSuenosByUsuario,
+  iniciarSesion,
+  cambiarContrasena,
+} from "../controladores/usuarios-controlador.js";
+import {
+  autenticarUsuario,
+  autenticarAdmin,
+  esUsuarioActivo,
+} from "../middlewares/autenticacion.js";
 
 const router = Router();
 
-router.get('/', /*autenticarAdmin,*/ getAllUsuarios);
-router.get('/:uid', /*autenticarAdmin,*/ getUsuarioById);
-router.get('/:uid/suenos', /*autenticarUsuario,*/ getSuenosByUsuario);
-router.get('/:uid/suenos-publicos', getSuenosPublicosByUsuario);
-router.post('/registrar', registrarUsuario);
-router.post('/iniciar-sesion', iniciarSesion)
+router.get("/", autenticarAdmin, getAllUsuarios);
+router.get("/:uid", autenticarAdmin, getUsuarioById);
+router.get("/:uid/suenos", autenticarUsuario, getSuenosByUsuario);
+router.get("/:uid/suenos-publicos", getSuenosPublicosByUsuario);
+router.post("/registrar", registrarUsuario);
+router.post("/iniciar-sesion", iniciarSesion);
+router.get('/activo', esUsuarioActivo)
+router.post("/cambiar-contrasena", cambiarContrasena);
 
-module.exports = router;
+export default router;
