@@ -30,12 +30,12 @@
 
 .logo_condenedor {
   text-align: center;
-  background-color: rgba(15, 15, 22, 0.9); /* --color-azul-grisaceo */
+  background-color: rgba(15, 15, 22, 0.3);
   padding: 40px;
   border: 2px solid var(--color-lila);
   border-radius: 20px;
-  margin-left: 150px;
-  width: 500px; /* Hacelo más ancho */
+  margin-left: 120px;
+  width: 600px;
 }
 
 #logo_principal {
@@ -51,6 +51,7 @@
 }
 
 .acciones a {
+  font-size: 22px;
   margin: 10px auto;
   padding: 10px 20px;
   background-color: var(--color-lila);
