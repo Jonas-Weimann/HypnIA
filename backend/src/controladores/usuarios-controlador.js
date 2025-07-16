@@ -229,6 +229,65 @@ const cambiarContrasena = async (req, res) => {
   }
 };
 
+const cambiarFoto = async (req, res) => {
+  try {
+    const { fotoPerfil } = req.body;
+    const { id_usuario } = req.usuario;
+    if (!fotoPerfil || !id_usuario) {
+      throw { status: 400, message: "Datos faltantes" };
+    }
+    await dbClient.query(
+      "UPDATE usuarios SET foto_perfil = $1 WHERE id_usuario = $2",
+      [fotoPerfil, id_usuario]
+    );
+    res
+      .status(200)
+      .json({ message: "Foto de perfil actualizada correctamente" });
+  } catch (error) {
+    res
+      .status(error.status || 500)
+      .json({ message: error.message || "Error al actualizar foto de perfil" });
+  }
+};
+
+const cambiarNombre = async (req, res) => {
+  try {
+    const { nuevoNombre } = req.body;
+    const { id_usuario } = req.usuario;
+    if (!nuevoNombre || !id_usuario) {
+      throw { status: 400, message: "Datos faltantes" };
+    }
+    await dbClient.query(
+      "UPDATE usuarios SET nombre = $1 WHERE id_usuario = $2",
+      [nuevoNombre, id_usuario]
+    );
+    res
+      .status(200)
+      .json({ message: "Nombre de usuario actualizado correctamente" });
+  } catch (error) {
+    res.status(error.status || 500).json({
+      message: error.message || "Error al actualizar nombre de usuario",
+    });
+  }
+};
+
+const borrarCuenta = async (req, res) => {
+  try {
+    const { id_usuario } = req.usuario;
+    if (!id_usuario) {
+      throw { status: 400, message: "Datos faltantes" };
+    }
+    await dbClient.query("DELETE FROM usuarios WHERE id_usuario = $1", [
+      id_usuario,
+    ]);
+    res.status(200).json({ message: "Cuenta eliminada correctamente" });
+  } catch (error) {
+    res.status(error.status || 500).json({
+      message: error.message || "Error al eliminar cuenta",
+    });
+  }
+};
+
 export {
   getAllUsuarios,
   getUsuarioById,
@@ -238,4 +297,7 @@ export {
   registrarUsuario,
   iniciarSesion,
   cambiarContrasena,
+  cambiarFoto,
+  cambiarNombre,
+  borrarCuenta,
 };

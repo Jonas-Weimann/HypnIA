@@ -7,6 +7,9 @@ import {
   getSuenosByUsuario,
   iniciarSesion,
   cambiarContrasena,
+  cambiarFoto,
+  cambiarNombre,
+  borrarCuenta,
 } from "../controladores/usuarios-controlador.js";
 import {
   autenticarUsuario,
@@ -22,7 +25,10 @@ router.get("/:uid/suenos", autenticarUsuario, getSuenosByUsuario);
 router.get("/:uid/suenos-publicos", getSuenosPublicosByUsuario);
 router.post("/registrar", registrarUsuario);
 router.post("/iniciar-sesion", iniciarSesion);
-router.get('/activo', esUsuarioActivo)
-router.post("/cambiar-contrasena", cambiarContrasena);
+router.get("/activo", esUsuarioActivo);
+router.put("/cambiar-contrasena", cambiarContrasena);
+router.put("/cambiar-foto", autenticarUsuario, cambiarFoto);
+router.put("/cambiar-nombre", autenticarUsuario, cambiarNombre);
+router.delete("/borrar-cuenta", autenticarUsuario, borrarCuenta);
 
 export default router;
