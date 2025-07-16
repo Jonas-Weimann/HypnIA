@@ -20,6 +20,9 @@ h2 {
 }
 
 /* -------- colores del contenedor y titulo -------- */
+.login, .register{
+  height: 100vh;
+}
 
 .login-container,
 .register-container, .recovery-container {
