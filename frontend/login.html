@@ -71,9 +71,7 @@
 			const resultado = await respuesta.json();
 			if (respuesta.ok && resultado.token) {
 				localStorage.setItem("token", resultado.token);
-
-				const datosUsuario = {...resultado.usuario, pfp: 'perfil-default.webp'}
-				localStorage.setItem('usuario', JSON.stringify(datosUsuario));
+				localStorage.setItem('usuario', JSON.stringify(resultado.usuario));
 
 				mensaje.style.backgroundImage =
 				'url("./assets/images/mensaje-registro.webp")';
