@@ -94,8 +94,8 @@ function renderDreams(dreams) {
     dreamGrid.innerHTML = "";
 
     dreams.forEach(dream => {
-        const nombre = dream.nombre_usuario || "Usuario desconocido";
-        const foto = dream.foto_perfil || "perfil-default.webp";
+        const nombre = dream.usuario.nombre || "Usuario desconocido";
+        const foto = dream.usuario.foto_perfil || "perfil-default.webp";
 
         const card = document.createElement("div");
         card.className = "dream-card";
