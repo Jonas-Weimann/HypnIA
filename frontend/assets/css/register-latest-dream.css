@@ -11,8 +11,11 @@
 #registro-de-suenos {
   display: inline-block;
   position: relative;
-  background-image: url('../images/patron-estrellas.webp');
-  background-repeat: repeat;
+  background-image: url(../images/fondo-social2.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -175,8 +178,11 @@
 /* ------------------ interpretación -------------------- */
 
 #interpretacion-main {
-  background-image: url('../images/patron-estrellas.webp');
-  background-repeat: repeat;
+  background-image: url(../images/fondo-social2.webp);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
   padding: 80px 0px;
   color: white;
   font-size: 20px;
