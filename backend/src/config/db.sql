@@ -1,3 +1,13 @@
+CREATE TABLE suenos (
+    id_sueno SERIAL PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    descripcion TEXT NOT NULL,
+    fecha DATE NOT NULL,
+    publico BOOLEAN NOT NULL DEFAULT FALSE,
+    interpretacion TEXT,
+    FOREIGN KEY (id_usuario)
+    REFERENCES usuarios(id_usuario) ON DELETE CASCADE
+);
 
 CREATE TABLE cartas (
     id_carta SERIAL PRIMARY KEY,
@@ -13,19 +23,7 @@ CREATE TABLE usuarios (
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     contrasena VARCHAR(255) NOT NULL,
-    fecha_registro DATE NOT NULL,
-    foto_perfil TEXT DEFAULT 'perfil-default.webp'
-);
-
-CREATE TABLE suenos (
-    id_sueno SERIAL PRIMARY KEY,
-    id_usuario INT NOT NULL,
-    descripcion TEXT NOT NULL,
-    fecha DATE NOT NULL,
-    publico BOOLEAN NOT NULL DEFAULT FALSE,
-    interpretacion TEXT,
-    FOREIGN KEY (id_usuario)
-    REFERENCES usuarios(id_usuario) ON DELETE CASCADE
+    fecha_registro DATE NOT NULL
 );
 
 CREATE TABLE emociones (
@@ -50,11 +48,3 @@ CREATE TABLE cartas_emociones (
     FOREIGN KEY (id_carta) REFERENCES cartas(id_carta) ON DELETE CASCADE,
     FOREIGN KEY (id_emocion) REFERENCES emociones(id_emocion) ON DELETE CASCADE
 );
-
-CREATE TABLE suenos_cartas (
-    id_sueno INT,
-    id_carta INT,
-    PRIMARY KEY (id_sueno, id_carta),
-    FOREIGN KEY (id_sueno) REFERENCES suenos(id_sueno) ON DELETE CASCADE,
-    FOREIGN KEY (id_carta) REFERENCES cartas(id_carta) ON DELETE CASCADE
-)
