@@ -1,0 +1,151 @@
+.eliminar-carta {
+  position: absolute;
+  right: -30px;
+  top: 0;
+  background: none;
+  border: none;
+  color: red;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.editar-carta {
+  position: absolute;
+  right: -30px;
+  top: 40px;
+  background: none;
+  border: none;
+  color: red;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+#admin-main {
+  background-image: url("../images/admin.webp");
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.admin-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#cartas-main,
+#emociones-main {
+  background-image: url("../images/patron-estrellas.webp");
+  background-repeat: repeat;
+  padding: 80px 0px;
+}
+
+#admin-titulo-section {
+  font-size: 30px;
+  color: #855988;
+}
+
+.carta:hover {
+  transform: none;
+}
+
+.admin-section {
+  background-color: rgba(15, 15, 22, 0.9);
+  border: 10px groove var(--color-lila);
+  border-radius: 25px;
+  margin: 0 auto;
+  width: 1400px;
+  max-width: 100%;
+  min-height: 100vh;
+  padding: 40px;
+  margin: 50px 0;
+}
+
+.cartas-emociones-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  padding: 20px;
+  width: 1400px;
+  max-width: 100%;
+}
+
+#cartas-contenedor {
+  display: none;
+}
+
+#cartas-contenedor.activo {
+  display: flex;
+}
+
+.acciones-contenedor {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+.acciones-contenedor button {
+  border: none;
+  font-size: 20px;
+  padding: 10px 16px;
+  border-radius: 5px;
+  background-color: #855988;
+  color: white;
+  cursor: pointer;
+  width: 150px;
+  font-family: "Raleway", sans-serif;
+}
+
+.popup.activo {
+  width: 300px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: #855988 4px solid;
+  background-color: #0f0f16;
+  border-radius: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+}
+
+.popup.activo h2 {
+  color: #855988;
+}
+
+.popup.activo span {
+  color: white;
+  text-align: center;
+}
+
+.popup.activo .confirmaciones {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.popup.activo button {
+  padding: 6px 10px;
+  background-color: #855988;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Raleway", sans-serif;
+}
