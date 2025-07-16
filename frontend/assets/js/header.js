@@ -24,7 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
 				<li><a href="social.html">Explora el mundo</a></li>
 				<li><a href="#" id="cerrar-sesion-header">Cerrar sesión</a></li>
 				<li style="padding: 0;" class="header-perfil"><a href="profile.html">
-					<img id="foto-perfil" src="./assets/images/profile-img/${usuario.foto_perfil}" alt="Perfil" >
+				<img id="foto-perfil" src="./assets/images/profile-img/${usuario.foto_perfil}" alt="Perfil" >
+
 				</a></li>
 			</ul>
 		`;
