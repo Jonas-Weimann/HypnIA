@@ -102,8 +102,9 @@
 				<br /><a href="login.html">Iniciar sesion</a><br />
 				</div>
 			</div>
-    </main>
-		
+    	</main>
+		<div id="footer"></div>
+		<script src="./assets/js/footer.js"></script>
 		<script>
 			const enviarMailBienvenida = async (nombre, email)=>{
 				await fetch('http://localhost:3000/api/emails/registro-exitoso', {

@@ -49,7 +49,8 @@
 				</div>
 			</div>
 		</main>
-
+		<div id="footer"></div>
+		<script src="./assets/js/footer.js"></script>
 		<script>
 		const form = document.getElementById("login-form");
 		const mensaje = document.querySelector(".mensaje-resultado");
@@ -71,13 +72,7 @@
 			const resultado = await respuesta.json();
 			if (respuesta.ok && resultado.token) {
 				localStorage.setItem("token", resultado.token);
-
-				const datosUsuario = {...resultado.usuario, pfp: 'perfil-default.webp'}
-<<<<<<< HEAD
-				localStorage.setItem('usuario', JSON.stringify(datosUsuario))
-=======
-				localStorage.setItem('usuario', JSON.stringify(datosUsuario));
->>>>>>> bb7e42e94273524f94e1fe7cce0b52bdd3e2c432
+				localStorage.setItem('usuario', JSON.stringify(resultado.usuario));
 
 				mensaje.style.backgroundImage =
 				'url("./assets/images/mensaje-registro.webp")';
@@ -85,13 +80,7 @@
 				"<b>Inicio de sesión exitoso</b><span>El velo entre mundos se ha desvanecido. <br/> Adelante, la noche te pertenece...</span>";
 				mensaje.style.display = "flex";
 				setTimeout(() => {
-
-<<<<<<< HEAD
-				window.location.href = "/frontend/register-dream.html";
-=======
 				window.location.href = "register-dream.html";
->>>>>>> bb7e42e94273524f94e1fe7cce0b52bdd3e2c432
-
 				}, 3000);
 			} else {
 				mensaje.style.backgroundImage =
