@@ -72,10 +72,8 @@
 			if (respuesta.ok && resultado.token) {
 				localStorage.setItem("token", resultado.token);
 
-				const datosUsuario = {...resultado.usuario, pfp: 'assets/images/perfil-default.webp'}
+				const datosUsuario = {...resultado.usuario, pfp: 'perfil-default.webp'}
 				localStorage.setItem('usuario', JSON.stringify(datosUsuario));
-
-
 
 				mensaje.style.backgroundImage =
 				'url("./assets/images/mensaje-registro.webp")';
@@ -84,7 +82,7 @@
 				mensaje.style.display = "flex";
 				setTimeout(() => {
 
-				window.location.href = "/frontend/register-dream.html";
+				window.location.href = "register-dream.html";
 
 				}, 3000);
 			} else {
