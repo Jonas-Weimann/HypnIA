@@ -21,7 +21,7 @@ import {
 const router = Router();
 
 router.get("/", autenticarAdmin, getAllUsuarios);
-router.get("/activo", esUsuarioActivo);
+router.get("/estado/activo", esUsuarioActivo);
 router.get("/:uid", autenticarAdmin, getUsuarioById);
 router.get("/:uid/suenos", autenticarUsuario, getSuenosByUsuario);
 router.get("/:uid/suenos-publicos", getSuenosPublicosByUsuario);
