@@ -126,9 +126,18 @@ function renderDreams(dreams) {
 
 closeModal.onclick = () => modal.classList.add("hidden");
 
+function normalizeText(text) {
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+}
+
 searchInput.addEventListener("input", e => {
-    const value = e.target.value.toLowerCase();
-    const filtered = allDreams.filter(d => d.descripcion.toLowerCase().includes(value));
+    const value = normalizeText(e.target.value);
+    const filtered = allDreams.filter(d => 
+        normalizeText(d.descripcion).includes(value)
+    );
     renderDreams(filtered);
 });
 
