@@ -22,10 +22,19 @@ const cartasDeSueno = async (id_sueno, dbClient) => {
   return result.rows;
 };
 
+const usuarioDeSueno = async (id_sueno, dbClient) => {
+  const result = await dbClient.query(
+    "SELECT u.id_usuario, u.nombre, u.foto_perfil FROM usuarios u JOIN suenos s ON s.id_usuario = u.id_usuario WHERE s.id_sueno = $1",
+    [id_sueno]
+  );
+  return result.rows[0];
+};
+
 const datosDeSueno = async (id_sueno, dbClient) => {
   const emociones = await emocionesDeSueno(id_sueno, dbClient);
   const cartas = await cartasDeSueno(id_sueno, dbClient);
-  return { emociones, cartas };
+  const usuario = await usuarioDeSueno(id_sueno, dbClient);
+  return { emociones, cartas, usuario };
 };
 
-export { emocionesDeSueno, cartasDeSueno, datosDeSueno };
+export { emocionesDeSueno, cartasDeSueno, usuarioDeSueno, datosDeSueno };
