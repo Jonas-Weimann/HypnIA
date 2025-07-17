@@ -56,4 +56,33 @@ const esUsuarioActivo = (req, res) => {
   }
 };
 
-export { autenticarUsuario, autenticarAdmin, esUsuarioActivo };
+const esAdministrador = (req, res) => {
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res
+        .status(401)
+        .json({ esAdmin: false, message: "Token no provisto" });
+    }
+
+    const token = authHeader.split(" ")[1];
+    const usuarioActivo = verificarToken(token);
+    if (!usuarioActivo) {
+      return res
+        .status(401)
+        .json({ esAdmin: false, message: "Token inválido o expirado" });
+    }
+
+    const esAdmin =
+      usuarioActivo.email === "admin@admin.com" &&
+      usuarioActivo.nombre === "Admin";
+
+    return res.status(200).json({ esAdmin });
+  } catch (error) {
+    res
+      .status(401)
+      .json({ esAdmin: false, message: "Token inválido o expirado" });
+  }
+};
+
+export { autenticarUsuario, autenticarAdmin, esUsuarioActivo, esAdministrador };
