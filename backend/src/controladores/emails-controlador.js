@@ -33,7 +33,7 @@ const enviarEmailRecuperacion = async (req, res) => {
     const token = jwt.sign({ id: usuario.id_usuario }, process.env.JWT_KEY, {
       expiresIn: "15m",
     });
-    const resetLink = `http://127.0.0.1:5500/frontend/newpass.html?token=${token}`;
+    const resetLink = `http://localhost:8080/frontend/newpass.html?token=${token}`;
     await transporter.sendMail({
       from: `"HypnIA: Tu diario de sueños" <${process.env.GMAIL_USER}>`,
       to: email,
