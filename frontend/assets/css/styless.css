@@ -215,3 +215,21 @@ footer {
   align-items: center;
   gap: 8px;
 }
+
+/* ----------- estilo del scrollbar principal -------------*/
+
+
+body::-webkit-scrollbar {
+  width: 10px;
+  background-color: var(--color-azul-grisaceo);
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--color-azul-grisaceo);
+  border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color:var(--color-lila)  ;
+  border-radius: 5px;
+}
