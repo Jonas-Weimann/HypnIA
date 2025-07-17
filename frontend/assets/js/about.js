@@ -21,3 +21,4 @@ prevButton.addEventListener('click', () => {
 });
 
 window.addEventListener('resize', updateCarousel);
+mostrarMensajeExpirado();

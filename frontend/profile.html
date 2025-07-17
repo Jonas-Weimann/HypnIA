@@ -94,7 +94,7 @@
 
             </div>
         </main>
-    
+        
         <div id="dreamModal" class="modal hidden" style="z-index: 9999;">
             <div class="modal-content">
               <span id="closeModal" class="close-button">&times;</span>
@@ -134,6 +134,7 @@
                 // redireccion al login
                 }
 
+
                 // ------- carga los datos del usuario ---------
 
                 const datosUsuario = localStorage.getItem("usuario");
@@ -144,6 +145,7 @@
                 nombreUsuario.textContent = `@${usuario.nombre}`;
                 } else {
                 console.log("No hay datos de usuario en localStorage");
+
                 }
 
                 // ------- Funciones para modal ---------
@@ -159,7 +161,9 @@
 
                 // ------- Cambios para el perfil ---------
 
+
                 const rutaImagen = "assets/images/profile-img/";
+
 
                 window.cambiarPerfil = async function (imagen) {
                 try {
@@ -297,9 +301,11 @@
                 }
                 }
 
+
                 popupEliminar.addEventListener("click", async (e) => {
                     const token = localStorage.getItem("token");
                     const urlSuenos = `http://localhost:3000/api/suenos`;
+
 
                     if (e.target.classList.contains("volver")) {
                         popupEliminar.classList.remove("activo");
