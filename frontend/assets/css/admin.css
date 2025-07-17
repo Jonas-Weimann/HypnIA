@@ -1,4 +1,5 @@
-.eliminar-carta {
+.eliminar-carta,
+.eliminar-emocion {
   position: absolute;
   right: -30px;
   top: 0;
@@ -9,7 +10,12 @@
   cursor: pointer;
 }
 
-.editar-carta {
+.eliminar-emocion {
+  right: -50px;
+}
+
+.editar-carta,
+.editar-emocion {
   position: absolute;
   right: -30px;
   top: 40px;
@@ -18,6 +24,10 @@
   color: red;
   font-size: 1.2rem;
   cursor: pointer;
+}
+
+.editar-emocion {
+  right: -50px;
 }
 
 #admin-main {
@@ -47,7 +57,8 @@
   color: #855988;
 }
 
-.carta:hover {
+.carta:hover,
+.emocion:hover {
   transform: none;
 }
 
@@ -75,12 +86,21 @@
   max-width: 100%;
 }
 
-#cartas-contenedor {
+#cartas-contenedor,
+#emociones-contenedor {
   display: none;
 }
 
-#cartas-contenedor.activo {
+#cartas-contenedor.activo,
+#emociones-contenedor.activo {
   display: flex;
+}
+
+#emociones-contenedor.activo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .acciones-contenedor {
