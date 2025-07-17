@@ -120,9 +120,9 @@ body::-webkit-scrollbar-thumb {
     transform: scale(1.1);
 }
 
-/* ------------------ modal -------------------- */
+/* ------------------ modal del perfil -------------------- */
 
-.modal {
+.profileModal {
     position: absolute;
     z-index: 1;
     top: auto;
@@ -131,13 +131,13 @@ body::-webkit-scrollbar-thumb {
     display: none;
 }
 
-.close-modal {
+.close-modal-profile {
     color: var(--color-lila);
     font-size: 20px;
     cursor: pointer;
 }
 
-.modal-content {
+.modal-content-profile {
     background-color: rgba(10, 1, 19, 0.884);
     padding: 20px;
     width: 300px;
@@ -148,22 +148,22 @@ body::-webkit-scrollbar-thumb {
     border-radius: 20px;
 }
 
-.modal-content h3 {
+.modal-content-profile h3 {
     color: var(--color-lila);
     text-align: center;
 }
 
 /* ---------- scrollbar style modal ----------- */
 
-.modal-content::-webkit-scrollbar {
+.modal-content-profile::-webkit-scrollbar {
   width: 8px;
 }
 
-.modal-content::-webkit-scrollbar-track {
+.modal-content-profile::-webkit-scrollbar-track {
   background: #1a0b2200;
 }
 
-.modal-content::-webkit-scrollbar-thumb {
+.modal-content-profile::-webkit-scrollbar-thumb {
   background-color: var(--color-lila);
   border-radius: 5px;
 }
@@ -285,6 +285,38 @@ body::-webkit-scrollbar-thumb {
     padding-top: 20px;
 }
 
+/* ------------------ modal de sueños -------------------- */
+
+.modal {
+    backdrop-filter: blur(1px);
+}
+
+.modal-content {
+    background: linear-gradient(rgba(19, 3, 41, 0.801), rgba(31, 16, 70, 0.5));
+    border: 10px;
+    border: 1px solid var(--color-lila);
+}
+
+.modal-content h3, .modal-content h1 {
+    font-size: 30px;
+}
+
+.modal-content p {
+    font-size: 20px;
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+  background: #1a0b2200;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+  background-color: var(--color-lila);
+  border-radius: 5px;
+}
 
 /* ------------- estilo scrollbar registros --------------- */
 

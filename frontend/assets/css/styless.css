@@ -189,12 +189,47 @@ footer {
   z-index: 9999; /*pone el elemento por encima de todo lo demás.*/
 }
 
-.mensaje-copiado.visible {
+.mensaje-copiado.visible, .mensaje-expirado.visible {
   opacity: 1;
   transform: translateY(0);
 }
 
-.mensaje-copiado.oculto {
+.mensaje-copiado.oculto, .mensaje-expirado.oculto {
   display: none;
+}
 
+.mensaje-expirado {
+  font-size: 23px;
+  font-family: "Raleway", sans-serif;
+  border: 2px solid var(--color-lila);
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: var(--color-azul-grisaceo);
+  color: var(--color-lila);
+  padding: 12px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(133, 89, 136, 0.3);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ----------- estilo del scrollbar principal -------------*/
+
+
+body::-webkit-scrollbar {
+  width: 10px;
+  background-color: var(--color-azul-grisaceo);
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--color-azul-grisaceo);
+  border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color:var(--color-lila)  ;
+  border-radius: 5px;
 }
