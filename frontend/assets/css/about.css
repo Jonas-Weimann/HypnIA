@@ -10,11 +10,10 @@
 
 /* -------------------- TIPOGRAFIAS GENERALES -------------------- */
 .about-body {
-
   background-image: url("../images/fondo-about2.webp");
-  background-size: 145%;
-  background-position: 0% 50%;
-  background-repeat: no-repeat;
+  background-size: cover;                /* ✅ Ocupa todo el contenedor */
+  background-position: center;
+  background-repeat: no-repeat;          /* ✅ No repite */
   color: white;
   font-family: 'Raleway', sans-serif;
   min-height: 100vh;
