@@ -5,12 +5,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="./assets/css/social.css">
+        <link rel="stylesheet" href="assets/css/cartas-emociones.css">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="assets/css/profile.css">
         <link rel="stylesheet" href="assets/css/styless.css">
         <link rel="icon" type="image/x-icon" href="assets/images/luna-logo-header.webp">
-        <title>Profile</title>
+        <title>Perfil</title>
     </head>
     <body>
         <div class="estrellas"></div>
@@ -34,10 +37,10 @@
                     <div class="container-changePfp">
 
                         <img src="assets/images/icono-cambiarPerfil.webp" class="changePfp" onclick="abrirModal()">
-                        <div id="profileModal" class="modal">
+                        <div id="profileModal" class="profileModal">
 
-                            <div class="modal-content">
-                                <span class="close-modal" onclick="cerrarModal()">↩</span>
+                            <div class="modal-content-profile">
+                                <span class="close-modal-profile" onclick="cerrarModal()">↩</span>
                                 <h3> ˗ˏˋ ¡ Elige un perfil ! ´ˎ˗</h3> <br>
 
                                 <div class="profile-options">
@@ -91,6 +94,25 @@
 
             </div>
         </main>
+    
+        <div id="dreamModal" class="modal hidden" style="z-index: 9999;">
+            <div class="modal-content">
+              <span id="closeModal" class="close-button">&times;</span>
+              
+              <h1 id="modalUser"></h1>
+              <p id="modalDate"></p>
+              <p id="modalDream"></p>
+          
+              <h3>Interpretación</h3>
+              <p id="modalInterpretation"></p>
+          
+              <h3>Cartas asociadas</h3>
+              <div id="modalCarta" class="cartas-wrapper"></div>
+          
+              <h3>Emociones</h3>
+              <div id="modalEmotions" class="emocion-wrapper"></div>
+            </div>
+          </div>
 
         <!-- footer -->
 
@@ -98,9 +120,9 @@
         <script src="./assets/js/footer.js"></script>
 
         <!-- scripts para la pagina -->
-
+        <script src="./assets/js/social.js"></script>
         <script>
-
+            
 
             // Verificar si el usuario está autenticado
 
@@ -141,6 +163,7 @@
 
                     window.cerrarModal = function() {
                         document.getElementById("profileModal").style.display = "none";
+                        window.location.reload();
                     }
 
                     // ------- Cambios para el perfil ---------
@@ -218,6 +241,7 @@
                                     <p class="descripcion">${sueno.descripcion}</p>
                                     <span class="fecha">${sueno.fecha.slice(0,10)}</span>
                                 `;
+                                suenoDiv.onclick = () => openModal({ ...sueno, nombre_usuario: `˗ˏˋ @${usuario.nombre} ´ˎ˗`, foto_perfil: usuario.foto_perfil });
                                 contenedorRegistros.appendChild(suenoDiv);
                             });
                         } catch (error) {

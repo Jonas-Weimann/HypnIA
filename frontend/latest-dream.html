@@ -16,7 +16,7 @@
     </head>
     <body>
         <div id="header" style="border-bottom: 5px solid #332233;"></div>
-        <script src="/assets/js/header.js"></script>
+        <script src="assets/js/header.js"></script>
 
         <main id="interpretacion-main">
 
@@ -41,17 +41,22 @@
         </main>
 
         <div id="footer" style="border-top: 5px solid #332233;"></div>
-        <script src="/assets/js/footer.js"></script>
+        <script src="assets/js/footer.js"></script>
         
     </body>
     <script>
         const ultimoSueno = JSON.parse(localStorage.getItem("ultimoSueno"));
         const usuario = JSON.parse(localStorage.getItem("usuario"));
         const token = localStorage.getItem("token");
-        
-        if (!ultimoSueno) {
-            window.location.href = "register-dream.html";
-        }
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const sesionActiva = await verificarSesion();
+            
+            if (!ultimoSueno || !sesionActiva) {    
+                window.location.href = "register-dream.html";
+            }
+        });
+	    
 
         const mostrarUltimoSueno = () => {
             if(!ultimoSueno || !usuario) return;
