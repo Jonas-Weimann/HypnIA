@@ -18,6 +18,7 @@ import {
   autenticarUsuario,
   autenticarAdmin,
   esUsuarioActivo,
+  esAdministrador,
 } from "../middlewares/autenticacion.js";
 
 const router = Router();
@@ -25,6 +26,7 @@ const router = Router();
 router.get("/", autenticarAdmin, getAllUsuarios);
 router.get("/estado/activo", esUsuarioActivo);
 router.get("/perfil", autenticarUsuario, getPerfilDeUsuario);
+router.get("/admin", esAdministrador);
 router.get("/:uid", autenticarAdmin, getUsuarioById);
 router.get("/:uid/suenos", autenticarUsuario, getSuenosByUsuario);
 router.get("/:uid/suenos-publicos", getSuenosPublicosByUsuario);
