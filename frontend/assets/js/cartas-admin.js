@@ -3,10 +3,12 @@ const contenedor = document.getElementById("cartas-contenedor");
 let cartas = [];
 
 const btnGestionarCartas = document.querySelector(".gestionar-cartas");
-const popup = document.querySelector(".popup");
+const popupCarta = document.querySelector(".popup-carta");
 
 btnGestionarCartas.addEventListener("click", () => {
   contenedor.classList.toggle("activo");
+  contenedorEmociones.classList.remove("activo");
+  contenedorUsuarios.classList.remove("activo");
 });
 
 const obtenerCartas = async () => {
@@ -48,8 +50,8 @@ const mostrarCartas = (cartasAMostrar) => {
 
     const btnEliminar = cartaDiv.querySelector(".eliminar-carta");
     btnEliminar.addEventListener("click", async () => {
-      popup.classList.add("activo");
-      popup.innerHTML = `<h2>¿Eliminar Carta?</h2> <br/> <span>Esta acción no puede ser revertida ni desde el más allá.</span> <div class="confirmaciones"> <button class="volver">Volver</button> <button class="confirmar-eliminar" data-id="${carta.id_carta}">Eliminar</button></div>`;
+      popupCarta.classList.add("activo");
+      popupCarta.innerHTML = `<h2>¿Eliminar Carta?</h2> <br/> <span>Esta acción no puede ser revertida ni desde el más allá.</span> <div class="confirmaciones"> <button class="volver">Volver</button> <button class="confirmar-eliminar" data-id="${carta.id_carta}">Eliminar</button></div>`;
     });
 
     // const btnEditar = cartaDiv.querySelector(".eliminar-carta");
@@ -75,10 +77,10 @@ const mostrarCartas = (cartasAMostrar) => {
   });
 };
 
-popup.addEventListener("click", async (e) => {
+popupCarta.addEventListener("click", async (e) => {
   const token = localStorage.getItem("token");
   if (e.target.classList.contains("volver")) {
-    popup.classList.remove("activo");
+    popupCarta.classList.remove("activo");
     return;
   }
 
@@ -93,11 +95,11 @@ popup.addEventListener("click", async (e) => {
         },
       });
       if (respuesta.ok) {
-        popup.innerHTML = `<h2>Carta eliminada con éxito</h2>`;
+        popupCarta.innerHTML = `<h2>Carta eliminada con éxito</h2>`;
         cartas = cartas.filter((c) => c.id_carta !== parseInt(cid));
         mostrarCartas(cartas);
         setTimeout(() => {
-          popup.classList.remove("activo");
+          popupCarta.classList.remove("activo");
         }, 1500);
       } else {
         console.error("Error al eliminar carta");
