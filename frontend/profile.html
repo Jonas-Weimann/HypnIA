@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="./assets/css/social.css">
+        <link rel="stylesheet" href="assets/css/cartas-emociones.css">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="assets/css/profile.css">
+        <link rel="stylesheet" href="assets/css/styless.css">
+        <link rel="icon" type="image/x-icon" href="assets/images/luna-logo-header.webp">
+        <title>Perfil</title>
+    </head>
+    <body>
+
+        <div id="header"></div>
+        <script src="./assets/js/header.js"></script>
+
+        <main id="main">
+            <div class="popup-eliminar popup"></div>
+            <div class="popup-editar popup"></div>
+            <div class="container-profile">
+
+                <div class="profile-info">
+                    
+                    <h2>
+                        <img src="assets/images/profile-img/perfil-default.webp" id="perfilUsuario" alt="icono">
+                        <span id="nombreUsuario">@Usuario</span>
+                    </h2>
+
+                    <!-- cambiar el perfil -->
+
+                    <div class="container-changePfp">
+
+                        <img src="assets/images/icono-cambiarPerfil.webp" class="changePfp" onclick="abrirModal()">
+                        <div id="profileModal" class="profileModal">
+
+                            <div class="modal-content-profile">
+                                <span class="close-modal-profile" onclick="cerrarModal()">↩</span>
+                                <h3> ˗ˏˋ ¡ Elige un perfil ! ´ˎ˗</h3> <br>
+
+                                <div class="profile-options">
+                                    <img src="assets/images/profile-img/perfil-1.webp" alt="Perfil 1" onclick="cambiarPerfil('perfil-1.webp')">
+                                    <img src="assets/images/profile-img/perfil-2.webp" alt="Perfil 2" onclick="cambiarPerfil('perfil-2.webp')">
+                                    <img src="assets/images/profile-img/perfil-3.webp" alt="Perfil 3" onclick="cambiarPerfil('perfil-3.webp')">
+                                    <img src="assets/images/profile-img/perfil-4.webp" alt="Perfil 4" onclick="cambiarPerfil('perfil-4.webp')">
+                                    <img src="assets/images/profile-img/perfil-5.webp" alt="Perfil 5" onclick="cambiarPerfil('perfil-5.webp')">
+                                    <img src="assets/images/profile-img/perfil-6.webp" alt="Perfil 6" onclick="cambiarPerfil('perfil-6.webp')">
+                                    <img src="assets/images/profile-img/perfil-7.webp" alt="Perfil 7" onclick="cambiarPerfil('perfil-7.webp')">
+                                    <img src="assets/images/profile-img/perfil-8.webp" alt="Perfil 8" onclick="cambiarPerfil('perfil-8.webp')">
+                                    <img src="assets/images/profile-img/perfil-9.webp" alt="Perfil 9" onclick="cambiarPerfil('perfil-9.webp')">
+                                    <img src="assets/images/profile-img/perfil-10.webp" alt="Perfil 10" onclick="cambiarPerfil('perfil-10.webp')">
+                                    <img src="assets/images/profile-img/perfil-11.webp" alt="Perfil 11" onclick="cambiarPerfil('perfil-11.webp')">
+                                    <img src="assets/images/profile-img/perfil-12.webp" alt="Perfil 12" onclick="cambiarPerfil('perfil-12.webp')">
+                                    <img src="assets/images/profile-img/perfil-13.webp" alt="Perfil 13" onclick="cambiarPerfil('perfil-13.webp')">
+                                    <img src="assets/images/profile-img/perfil-14.webp" alt="Perfil 14" onclick="cambiarPerfil('perfil-14.webp')">
+                                    <img src="assets/images/profile-img/perfil-15.webp" alt="Perfil 15" onclick="cambiarPerfil('perfil-15.webp')">
+                                    <img src="assets/images/profile-img/perfil-16.webp" alt="Perfil 16" onclick="cambiarPerfil('perfil-16.webp')">
+                                    <img src="assets/images/profile-img/perfil-17.webp" alt="Perfil 17" onclick="cambiarPerfil('perfil-17.webp')">
+                                    <img src="assets/images/profile-img/perfil-18.webp" alt="Perfil 18" onclick="cambiarPerfil('perfil-18.webp')">
+                                    <img src="assets/images/profile-img/perfil-19.webp" alt="Perfil 19" onclick="cambiarPerfil('perfil-19.webp')">
+                                    <img src="assets/images/profile-img/perfil-20.webp" alt="Perfil 20" onclick="cambiarPerfil('perfil-20.webp')">
+                                    <img src="assets/images/profile-img/perfil-default.webp" alt="Perfil Default" onclick="cambiarPerfil('perfil-default.webp')">
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- contenedor de los registros del usuario -->
+
+            <div class="container-registers">
+
+                <div class="registers-info">
+                    <h2>SUEÑOS REGISTRADOS :</h2>
+
+                    <!-- registros -->
+
+                    <div class="registers" id="usuarioRegistros"></div>
+
+                    <!-- --------- -->
+
+                </div>
+
+            </div>
+        </main>
+        
+        <div id="dreamModal" class="modal hidden" style="z-index: 9999;">
+            <div class="modal-content">
+              <span id="closeModal" class="close-button">&times;</span>
+              
+              <h1 id="modalUser"></h1>
+              <p id="modalDate"></p>
+              <p id="modalDream"></p>
+          
+              <h3>Interpretación</h3>
+              <p id="modalInterpretation"></p>
+          
+              <h3>Cartas asociadas</h3>
+              <div id="modalCarta" class="cartas-wrapper"></div>
+          
+              <h3>Emociones</h3>
+              <div id="modalEmotions" class="emocion-wrapper"></div>
+            </div>
+          </div>
+
+        <!-- footer -->
+
+        <div id="footer"></div>
+        <script src="./assets/js/footer.js"></script>
+
+        <!-- scripts para la pagina -->
+        <script src="./assets/js/social.js"></script>
+        <script>
+            const popupEditar = document.querySelector(".popup-editar");
+            const popupEliminar = document.querySelector(".popup-eliminar");
+
+            // Verificar si el usuario está autenticado
+            (async ()=>{
+                if (!token) {
+                const contenido = document.getElementById("main");
+                contenido.classList.add("fondo-borroso");
+                window.location = "login.html";
+                // redireccion al login
+                }
+
+
+                // ------- carga los datos del usuario ---------
+
+                const datosUsuario = localStorage.getItem("usuario");
+                const usuario = JSON.parse(datosUsuario);
+
+                if (datosUsuario) {
+                const nombreUsuario = document.getElementById("nombreUsuario");
+                nombreUsuario.textContent = `@${usuario.nombre}`;
+                } else {
+                console.log("No hay datos de usuario en localStorage");
+
+                }
+
+                // ------- Funciones para modal ---------
+
+                window.abrirModal = function () {
+                document.getElementById("profileModal").style.display = "block";
+                };
+
+                window.cerrarModal = function () {
+                document.getElementById("profileModal").style.display = "none";
+                window.location.reload();
+                };
+
+                // ------- Cambios para el perfil ---------
+
+
+                const rutaImagen = "assets/images/profile-img/";
+
+
+                window.cambiarPerfil = async function (imagen) {
+                try {
+                    const urlPerfil = `http://localhost:3000/api/usuarios/cambiar-foto`;
+                    const respuesta = await fetch(urlPerfil, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ fotoPerfil: imagen }),
+                    });
+
+                    const data = await respuesta.json();
+
+                    document.getElementById("perfilUsuario").src = rutaImagen + imagen;
+                } catch (error) {
+                    console.error("Error al cambiar la foto de perfil:", error);
+                }
+                };
+
+                async function obtenerPerfil() {
+                try {
+                    const urlPerfil = `http://localhost:3000/api/usuarios/perfil`;
+
+                    const response = await fetch(urlPerfil, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                    });
+
+                    const data = await response.json();
+                    document.getElementById("perfilUsuario").src =
+                    rutaImagen + data.foto_perfil;
+                    localStorage.setItem('usuario', JSON.stringify(data))
+                } catch (error) {
+                    console.error("Error al obtener el perfil del usuario:", error);
+                }
+                }
+
+                // -------- Cargar los registros del usuario ---------
+
+                const contenedorRegistros = document.getElementById("usuarioRegistros");
+                const id_usuario = usuario.id_usuario;
+                const urlSuenos = `http://localhost:3000/api/usuarios/${id_usuario}/suenos`;
+
+                async function obtenerSuenos() {
+                try {
+                    contenedorRegistros.innerHTML = "";
+                    const response = await fetch(urlSuenos, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                    });
+                    if(!response.ok){
+                        return;
+                    }
+
+                    const suenos = await response.json();
+
+                    suenos.forEach((sueno) => {
+                    const visibilidad =
+                        sueno.publico === true
+                        ? "<img src='assets/images/sueno-publico.webp' alt='publico' class='icono-candado'> Público"
+                        : "<img src='assets/images/sueno-privado.webp' alt='privado' class='icono-candado'> Privado";
+                    const suenoDiv = document.createElement("div");
+                    suenoDiv.classList.add("sueno");
+                    suenoDiv.innerHTML = `
+                                                    <button class="eliminar-sueno" data-id="${
+                                                    sueno.id_sueno
+                                                    }">❌</button>
+                                                    <button class="editar-sueno" data-id="${
+                                                    sueno.id_sueno
+                                                    }">🖊️</button>
+                                                    <h3 class="visibilidad">${visibilidad}</h3> <br>
+                                                    <p class="descripcion">${
+                                                    sueno.descripcion
+                                                    }</p>
+                                                    <span class="fecha">${sueno.fecha.slice(
+                                                    0,
+                                                    10
+                                                    )}</span>
+                                                `;
+                    contenedorRegistros.appendChild(suenoDiv);
+
+                    suenoDiv.onclick = () =>
+                        openModal({
+                        ...sueno,
+                        nombre_usuario: `˗ˏˋ @${usuario.nombre} ´ˎ˗`,
+                        foto_perfil: usuario.foto_perfil,
+                        });
+                    const btnEliminar = suenoDiv.querySelector(".eliminar-sueno");
+                    btnEliminar.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        popupEliminar.classList.add("activo");
+                        popupEliminar.innerHTML = `
+                                                    <h2>¿Eliminar Sueño?</h2>
+                                                    <br/>
+                                                    <span>Esta acción no puede ser revertida ni desde el más allá.</span>
+                                                    <div class="confirmaciones">
+                                                        <button class="volver">Volver</button>
+                                                        <button class="confirmar-eliminar" data-id="${sueno.id_sueno}">Eliminar</button>
+                                                    </div>
+                                                    `;
+                    });
+                    const btnEditar = suenoDiv.querySelector('.editar-sueno')
+                    btnEditar.addEventListener('click', (e)=>{
+                        e.stopPropagation()
+                        popupEditar.classList.add('activo')
+                        popupEditar.innerHTML = `
+                                                    <h2>Editar Sueño</h2>
+                                                    <form id="form-editar-sueno">
+                                                        <label>Descripción:</label>
+                                                        <textarea name="descripcion" maxlength="300" id="descripcion-editar" rows="5" required>${sueno.descripcion}</textarea>
+                                                        <label>Hacer mi sueño visible para todos:<input type="checkbox" id="publico"></input></label>
+                                                        <div class="confirmaciones">
+                                                        <button type="button" class="volver">Volver</button>
+                                                        <button type="submit" class="guardar-cambios" data-id="${sueno.id_sueno}">Guardar cambios</button>
+                                                        </div>
+                                                        <div id="spinner" class="spinner oculto">
+                                                        <img class="cargando" src="./assets/images/luna-logo-header.webp">
+                                                        <h2>Estamos interpretando tu sueño... <br/></h2>
+                                                        <p>Recordá que la IA puede fallar. <br/>
+                                                            Si eso pasa, no te preocupes. <br/>
+                                                            ¡Podés intentarlo otra vez!</p>
+                                                        </div>
+                                                    </form>
+                                                    `
+                    })
+                    });
+                } catch (error) {
+                    console.error("Error al obtener los sueños:", error);
+                }
+                }
+
+
+                popupEliminar.addEventListener("click", async (e) => {
+                    const token = localStorage.getItem("token");
+                    const urlSuenos = `http://localhost:3000/api/suenos`;
+
+
+                    if (e.target.classList.contains("volver")) {
+                        popupEliminar.classList.remove("activo");
+                        return;
+                    }
+
+                    if (e.target.classList.contains("confirmar-eliminar")) {
+                        const sid = e.target.dataset.id;
+                        try {
+                        const respuesta = await fetch(`${urlSuenos}/${sid}`, {
+                            method: "DELETE",
+                            headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                            },
+                        });
+                        if (respuesta.ok) {
+                            popupEliminar.innerHTML = `<h2>Sueño eliminado con éxito</h2>`;
+                            obtenerSuenos();
+                            setTimeout(() => {
+                            popupEliminar.classList.remove("activo");
+                            }, 1500);
+                        } else {
+                            console.error("Error al eliminar sueño");
+                        }
+                        } catch (error) {
+                        console.error("Error en la petición de eliminación:", error);
+                        }
+                    }
+                });
+
+                popupEditar.addEventListener('click', async (e)=>{
+                    const token = localStorage.getItem("token");
+                    const urlSuenos = `http://localhost:3000/api/suenos`;
+                    const spinner = popupEditar.querySelector('#spinner')
+
+                    if (e.target.classList.contains("volver")) {
+                        popupEditar.classList.remove("activo");
+                        return;
+                    }
+                    if(e.target.classList.contains('guardar-cambios')) {
+                        e.preventDefault()
+                        const sid = e.target.dataset.id;
+                        const descripcion = popupEditar.querySelector('#descripcion-editar').value
+                        const publico = popupEditar.querySelector('#publico').checked
+                        spinner.classList.remove('oculto')
+                        try {
+                        const respuesta = await fetch(`${urlSuenos}/${sid}`, {
+                            method: "PUT",
+                            headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                            },
+                            body: JSON.stringify({descripcion: descripcion, publico: publico})
+                        });
+                        if (respuesta.ok) {
+                            spinner.classList.add('oculto')
+                            popupEditar.innerHTML = `<h2>Sueño actualizado con éxito</h2>`;
+                        } else {
+                            spinner.classList.add('oculto')
+                            popupEditar.innerHTML = `<h2>Error al actualizar sueño</h2>`;
+                        }
+                        } catch (error) {
+                            spinner.classList.add('oculto')
+                            popupEditar.innerHTML = `<h2>Error al actualizar sueño</h2>`;
+                        }
+                        finally {
+                            spinner.classList.add('oculto')
+                            setTimeout(() => {
+                            popupEditar.classList.remove("activo");
+                            }, 1500);
+                        }
+                    }
+                })
+                await obtenerSuenos();
+                await obtenerPerfil();   
+            })()
+            
+        </script>
+
+    </body>
+
+</html>

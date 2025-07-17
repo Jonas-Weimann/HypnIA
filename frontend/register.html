@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"/>
+		<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet"/>
+		<link rel="stylesheet" href="assets/css/login-register.css" />
+        <link rel="icon" type="image/x-icon" href="assets/images/luna-logo-header.webp">
+    	<title>Registrarse</title>
+	</head>
+	<body>
+		<div id="header"></div>
+		<script src="./assets/js/header.js"></script>
+
+		<main class="register">
+			<div class="mensaje-resultado">
+				<b>Registro fallido</b>
+				<span>Las puertas del mundo onírico no se han abierto aún.<br />Tal vez una
+				estrella ya ocupa su lugar...</span>
+			</div>
+
+			<div class="register-container">
+				<br />
+				<h1>Registro</h1>
+
+				<form action="http://localhost:3000/api/usuarios/registrar" id="register-form" method="post">
+
+					<div class="input-box">
+
+						<input type="text" id="nombre-usuario" name="nombre" required placeholder="Nombre de usuario" minlength="3" maxlength="30"/>
+
+						<br />
+					</div>
+
+					<div class="input-box">
+
+						<input type="email" id="email" name="email" required placeholder="Email"/>
+
+						<br />
+					</div>
+
+					<div class="input-box">
+						<input type="password" id="password" name="contrasena" required placeholder="Contraseña"/>
+						<br />
+					</div>
+
+					<div class="input-box">
+						<input type="password" id="confirmPassword" name="confirmar-contrasena" required placeholder="Confirmar contraseña"/>
+						<br /><br />
+					</div>
+
+					<div class="input-box terminos-container">
+						<input type="checkbox" id="aceptar-terminos" name="aceptar-terminos" value="terminos" required/>
+						<label id="aceptar-terminos-label" for="aceptar-terminos">
+							Aceptar <a href="#" class="ver-terminos">terminos y condiciones</a>
+						</label>
+
+						<div class="terminos-condiciones">
+							<strong>Términos y condiciones de uso para HypnIA</strong>
+							<p>
+								1. Los datos de uso de la aplicación pueden ser compartidos con
+								OpenAI para la mejora de sus modelos. Ninguna información
+								personal identificable será compartida.
+							</p>
+							<br />
+							<p>
+								2. Las interpretaciones generada no constituyen diagnósticos
+								médicos ni psicológicos. Para cualquier inquietud sobre salud
+								mental, consulte con un profesional.
+							</p>
+							<br />
+							<p>
+								3. La inteligencia artificial puede ofrecer respuestas inexactas
+								o inapropiadas. Hypnia no se responsabiliza por el contenido
+								generado ni por sus efectos.
+							</p>
+							<br />
+							<p>
+								4. El uso de la aplicación es responsabilidad del usuario. Está
+								prohibido utilizarla con fines ilícitos o perjudiciales.
+							</p>
+							<br />
+							<p>
+								5. Estos términos pueden actualizarse en cualquier momento. El
+								uso continuado implica la aceptación de las modificaciones.
+							</p>
+							<b class="terminos-leidos">Aceptar</b>
+						</div>
+					</div>
+
+					<div id="message"></div>
+
+					<div class="registrar">
+						<input type="submit" id="registrarse" name="registrarse" value="Registrarse"/>
+					</div>
+				</form>
+
+				<div class="iniciar-sesion">
+				<br /><a href="login.html">Iniciar sesion</a><br />
+				</div>
+			</div>
+    	</main>
+
+        <div class="mensaje-expirado oculto">Tu sesión ha expirado. Por favor, iniciá sesión nuevamente.</div>
+
+		<div id="footer"></div>
+		<script src="./assets/js/footer.js"></script>
+		<script>
+			const enviarMailBienvenida = async (nombre, email)=>{
+				await fetch('http://localhost:3000/api/emails/registro-exitoso', {
+				method: 'POST',
+				headers: {
+						"Content-Type": "application/json",
+				},
+				body: JSON.stringify({nombre, email})
+				})
+			}
+			
+			const checkPassword = () => {
+				let password = document.getElementById("password").value;
+				let confirmPassword = document.getElementById("confirmPassword").value;
+				let message = document.getElementById("message");
+				if (password.length < 8) {
+				message.innerHTML =
+					"La contraseña debe tener al menos 8 caracteres<br/>";
+				message.style.color = "red";
+				return false;
+				}
+				if (password !== confirmPassword) {
+				message.innerHTML = "Las contraseñas no coinciden<br/>";
+				message.style.color = "red";
+				return false;
+				}
+				message.innerHTML = "";
+				return true;
+			};
+
+			const form = document.getElementById("register-form");
+			const mensaje = document.querySelector(".mensaje-resultado");
+			form.addEventListener("submit", async (e) => {
+				e.preventDefault();
+				if (!checkPassword()) return;
+				const formData = new FormData(form);
+				const data = Object.fromEntries(formData);
+				try {
+				const respuesta = await fetch(
+					"http://localhost:3000/api/usuarios/registrar",
+					{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(data),
+					}
+				);
+				if (respuesta.ok) {
+				const resultado = await respuesta.json();
+					enviarMailBienvenida(resultado.nombre, resultado.email);	
+					mensaje.style.backgroundImage =
+					'url("./assets/images/mensaje-registro.webp")';
+					mensaje.innerHTML =
+					"<b>Registro exitoso</b><span>Una nueva estrella ha llegado al mundo de los sueños. <br/> Inicie sesión para empezar su aventura onírica...</span>";
+					mensaje.style.display = "flex";
+					setTimeout(() => {
+					window.location.href = "/frontend/login.html";
+					}, 3000);
+				} else {
+					mensaje.style.backgroundImage =
+					'url("./assets/images/mensaje-error.webp")';
+					mensaje.innerHTML =
+					"<b>Registro fallido</b><span>Las puertas del mundo onírico no se han abierto aún.<br/>Tal vez una estrella ya ocupa su lugar...</span>";
+					mensaje.style.display = "flex";
+					setTimeout(() => {
+					window.location.reload();
+					}, 3000);
+				}
+				} catch (error) {
+				mensaje.style.backgroundImage =
+					'url("./assets/images/mensaje-error.webp")';
+				mensaje.innerHTML =
+					"<b>Error interno</b><span>Algo explotó en la dimensión del servidor. <br/>Estamos tratando de recomponer el tejido de la realidad.</span>";
+				mensaje.style.display = "flex";
+				setTimeout(() => {
+					window.location.reload();
+				}, 3000);
+				}
+			});
+
+			const divTerminos = document.querySelector(".terminos-condiciones");
+			const verTerminos = document.querySelector(".ver-terminos");
+			const aceptarTerminos = document.querySelector(".terminos-leidos");
+			verTerminos.addEventListener("click", () => {
+				divTerminos.classList.toggle("active");
+			});
+			aceptarTerminos.addEventListener("click", () => {
+				divTerminos.classList.toggle("active");
+			});
+
+			mostrarMensajeExpirado();
+		</script>
+	</body>
+</html>

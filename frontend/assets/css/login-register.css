@@ -1,0 +1,257 @@
+body {
+  background-image: url(../images/fondo-inicio.webp);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+  width: 100%;
+  font-family: "Raleway", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
+}
+
+h1,
+h2 {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* -------- colores del contenedor y titulo -------- */
+.login, .register{
+  height: 100vh;
+}
+
+.login-container,
+.register-container, .recovery-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  margin-top: 70px;
+  transform: translate(-50%, -50%);
+  background-color: rgba(15, 15, 22, 0.9);
+  border-radius: 5px;
+}
+
+.recovery-container b {
+  margin-top: 10px;
+  text-align: center;
+  color: #855988;
+}
+
+.login-container h1,
+.register-container h1,
+.recovery-container h1
+{
+  text-align: center;
+  color: #855988;
+  letter-spacing: 1px;
+  border-bottom: 3px solid rgba(40, 21, 49, 0.616);
+}
+
+/* -------- campos para completar -------- */
+
+.login-container input,
+.register-container input, 
+.recovery-container input {
+  color: #ae95af;
+  width: 260px;
+  margin-top: 15px;
+  background: rgba(53, 44, 58, 0.3);
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+ input::placeholder {
+  color: #a787acd5;
+  opacity: 0.5;
+}
+
+#aceptar-terminos-label {
+  color: #ae95af;
+  text-align: center;
+  cursor: pointer;
+}
+
+#aceptar-terminos-label a {
+  color: #855988;
+  font-weight: bold;
+}
+
+.terminos-condiciones {
+  cursor: default;
+  display: none;
+}
+
+.input-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.register-container .input-box.terminos-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  gap: 10px;
+}
+
+#aceptar-terminos {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  width: 16px;
+}
+
+.terminos-condiciones.active {
+  position: absolute;
+  width: 100%;
+  height: 110%;
+  top: 0;
+  padding: 16px;
+  background-color: #0f0f16;
+  color: #ae95af;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.terminos-condiciones strong {
+  font-weight: bold;
+  padding: 16px 0;
+}
+.terminos-condiciones p {
+  padding: 5px;
+  text-align: justify;
+}
+
+.terminos-condiciones b {
+  font-size: 16px;
+  margin-top: 16px;
+  padding: 10px;
+  border-radius: 26px;
+  color: #ae95af;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #734775;
+}
+
+/* -------- redireccion contraseña olvidada -------- */
+
+.recordar a {
+  display: flex;
+  color: #734775;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* -------- mensaje ! -------- */
+
+#message {
+  text-align: center;
+  padding: 10px;
+  font-size: 80%;
+}
+
+/* -------- boton de registro/ iniciar sesion -------- */
+
+.registrar,
+.iniciar-sesion,
+.enviar-correo
+.cambiar-contrasen, #cambiar-contrasena {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.registrar input,
+.iniciar-sesion input,
+.enviar-correo input,
+.cambiar-contrasena input {
+  color: #855988;
+  text-align: center;
+  width: 260px;
+  background: rgba(0, 0, 0, 0.3);
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.5s ease;
+}
+
+.registrar input:hover,
+.iniciar-sesion input:hover
+.enviar-correo input:hover,
+.cambiar-contrasena input:hover {
+  background-color: #855988;
+  color: #0f0f16;
+  cursor: pointer;
+}
+
+/* -------- redireccion a inicio de sesion/registrarse -------- */
+
+.iniciar-sesion a,
+.registrarse a {
+  color: #855988;
+  text-align: center;
+  width: 260px;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 16px;
+  border: 1px solid #734775;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.5s ease;
+  display: block;
+}
+
+.register-container .iniciar-sesion{
+  margin-top: 16px;
+}
+
+.mensaje-resultado {
+  display: none;
+  background-size: cover;
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  z-index: 20;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  border-radius: 32px;
+  color: white;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 350px;
+}
+
+.mensaje-resultado b {
+  text-align: center;
+  font-size: 30px;
+}
+
+.mensaje-resultado span {
+  text-align: center;
+  padding: 10px;
+  font-size: 20px;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="assets/images/luna-logo-header.webp">
+        <link rel="stylesheet" href="assets/css/cartas-emociones.css">
+        <link rel="stylesheet" href="./assets/css/inicio.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./assets/css/social.css">
+        <title>Mundo Onírico</title>
+    </head>
+
+    <body>
+        <div id="header"></div>
+        <script src="./assets/js/header.js"></script>
+
+        <main>
+            <div class="search-wrapper">
+                <input type="text" id="searchInput" placeholder="Buscar sueños" />
+                <span class="search-icon">
+                    <img src="./assets/images/lupa.webp" alt="Buscar" />
+                </span>
+            </div>
+            
+            <div class="blur-background">
+                <section class="intro-text">
+                <h1>MUNDO ONÍRICO</h1>
+                <p>Explorá los sueños compartidos por otros usuarios y descubrí sus significados simbólicos. Un espacio colectivo donde los mundos internos se hacen visibles.</p>
+                </section>
+                <section id="dreamGrid" class="grid-container"></section>
+            </div>
+        </main>
+
+        <div class="mensaje-expirado oculto">Tu sesión ha expirado. Por favor, iniciá sesión nuevamente.</div>
+        
+        <div id="dreamModal" class="modal hidden">
+            <div class="modal-content">
+              <span id="closeModal" class="close-button">&times;</span>
+              
+              <h1 id="modalUser"></h1>
+              <p id="modalDate"></p>
+              <p id="modalDream"></p>
+          
+              <h3>Interpretación</h3>
+              <p id="modalInterpretation"></p>
+          
+              <h3>Cartas asociadas</h3>
+              <div id="modalCarta" class="cartas-wrapper"></div>
+          
+              <h3>Emociones</h3>
+              <div id="modalEmotions" class="emocion-wrapper"></div>
+            </div>
+          </div>
+
+        <script src="./assets/js/social.js"></script>
+
+    </body>
+</html>

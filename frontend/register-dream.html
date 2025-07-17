@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="assets/images/luna-logo-header.webp">
+        <link rel="stylesheet" href="./assets/css/register-latest-dream.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+        <title>Registra tu sueño</title>
+    </head>
+    <body>
+        <div id="header"></div>
+        <script src="./assets/js/header.js"></script>
+        <main>
+            <section id="registro-de-suenos">
+                <div class="contenedor-form">
+                <h1>DESCRIBE TU SUEÑO Y PRESIONA "INTERPRETAR"</h1>
+                    <form action="http://localhost:3000/api/suenos" id="form-sueno" method="post">
+                        <div class="form-descripcion">
+                            <label for="descripcion">Aségurate de ser descriptivo:</label>
+                            <textarea id="descripcion" name="descripcion" required></textarea>
+                        </div>
+                        <div class="form-visibilidad">
+                            <img id="candado" src="assets/images/sueno-privado.webp" alt="Candado cerrado">
+                            <p id="form-mensaje">Tu sueño permanecerá en privado y solo tú podrás verlo<br/>
+                                Presiona el candado para cambiar la visibilidad de tu sueño</p>
+                        </div>
+                        <div class="form-boton">
+                            <button type="submit" class="boton-interpretar"><h2>INTERPRETAR<h2></button>
+                        </div>
+                        <div id="mensaje-descripcion"></div>
+
+                        <div id="spinner" class="spinner oculto">
+                            <img class="cargando" src="./assets/images/luna-logo-header.webp">
+                            <h2>Estamos interpretando tu sueño... <br/></h2>
+                            <p>Recordá que la IA puede fallar. <br/>
+                                Si eso pasa, no te preocupes. <br/>
+                                ¡Podés intentarlo otra vez!</p>
+                        </div>
+                        <div id="mensaje-resultado" class="mensaje-resultado oculto"></div>  
+                    </form>
+                </div>
+            </section>
+
+            <div class="mensaje-expirado oculto">Tu sesión ha expirado. Por favor, iniciá sesión nuevamente.</div>
+
+            <div id="footer"></div>
+            <script src="./assets/js/footer.js"></script>
+        </main>
+    </body>
+    <script>
+        const spinner = document.getElementById("spinner");
+        const mensaje = document.querySelector(".mensaje-resultado");
+        let esPublico = false;
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            const token = localStorage.getItem("token");
+            const sesionActiva = await verificarSesion();
+            if (!token || !sesionActiva) {
+                const textarea = document.getElementById("descripcion");
+                const formVisibilidad = document.querySelector(".form-visibilidad");
+                const formBoton = document.querySelector(".form-boton");
+                
+                if (textarea) {
+                textarea.disabled = true;
+                textarea.placeholder = "No puedes escribir aquí, así lo ha dictado el maravilloso mundo onírico.";
+                textarea.style.opacity = "0.3";
+                }
+                if (formVisibilidad) {
+                formVisibilidad.innerHTML = `
+                <a href="inicio.html"><img src="assets/images/luna-logo-header.webp" alt="Luna animada"></a>
+                <p>Para que el múndo onírico acepte interpretar tus sueños,<br/>
+                    debes iniciar sesión o crearte una cuenta.</p>
+                `;
+                }
+                if (formBoton) {
+                formBoton.innerHTML = `
+                <a href="login.html" class="redireccion"><h2>INICIAR SESIÓN</h2></a>
+                <a href="register.html" class="redireccion"><h2>REGISTRARSE</h2></a>
+                `;
+                }
+            }
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const token = localStorage.getItem("token");
+            if(token) {
+                const candado = document.getElementById('candado');
+                const mensaje = document.getElementById('form-mensaje');
+                if (!mensaje || !candado) return;
+
+                candado.addEventListener('click', () => {
+                    esPublico = !esPublico;
+
+                    if (esPublico) {
+                    candado.src = 'assets/images/sueno-publico.webp';
+                    candado.alt = 'Candado abierto';
+                    mensaje.innerHTML = 'Tu sueño será público y otras personas podrán verlo<br/>Presiona el candado para cambiar la visibilidad de tu sueño';
+                    } else {
+                    candado.src = 'assets/images/sueno-privado.webp';
+                    candado.alt = 'Candado cerrado';
+                    mensaje.innerHTML = 'Tu sueño permanecerá en privado y solo tú podrás verlo<br/>Presiona el candado para cambiar la visibilidad de tu sueño';
+                    }
+                });
+            }
+        });
+
+        const checkDescriptionLength = (descripcion) => {
+			let mensajeDescripcion = document.getElementById("mensaje-descripcion");
+            if(!mensajeDescripcion || !descripcion) return false;
+
+			if (descripcion.length < 30) {
+                mensajeDescripcion.innerHTML =
+                    "Para asegurar que la IA pueda darte una buena interpretración <br/> la descripción de tu sueño debe tener más de 30 letras.<br/>";
+                mensajeDescripcion.style.color = "red";
+                return false;
+			}
+			if (descripcion.length > 400) {
+                mensajeDescripcion.innerHTML =
+                    "La descripción de tu sueño debe tener menos de 400 letras.<br/>";
+                mensajeDescripcion.style.color = "red";
+                return false;
+			}
+
+			mensajeDescripcion.innerHTML = "";
+			return true;
+		};
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("form-sueno");
+            if (!form) return;
+
+		    form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const token = localStorage.getItem("token");
+                const descripcion = document.getElementById("descripcion").value;
+                const publico = esPublico;
+
+                if (!checkDescriptionLength(descripcion) || !mensaje || !token) return;
+
+                try {
+                    spinner.classList.remove("oculto");
+                    const respuesta = await fetch("http://localhost:3000/api/suenos", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                        body: JSON.stringify({
+                        descripcion,
+                        publico
+                        })
+                    });
+                    const resultado = await respuesta.json();
+
+                if (respuesta.ok) {
+                    localStorage.setItem("ultimoSueno", JSON.stringify(resultado));
+                    mensaje.classList.remove("oculto");
+                    mensaje.innerHTML =
+                    "<h2>¡Se ha registrado tu sueño con éxito!</h2> <p>Las estrellas continúan brillando en el cielo nocturno <br/><br/> En unos segundos podrás ver lo que la IA interpretó de tu sueño</p>";
+                    setTimeout(() => {
+                        mensaje.classList.add("oculto");
+                        window.location.href = "latest-dream.html";
+                    }, 3000);
+                } else {
+                    mensaje.classList.remove("oculto");
+                    mensaje.innerHTML =
+                    "<h2>Ocurrió un error al registrar tu sueño</h2><p>Las puertas del mundo onírico a veces se atascan...</p>";
+                    setTimeout(() => {
+                        mensaje.classList.add("oculto");
+                        window.location.reload();
+                    }, 3000);
+                }
+                } catch (error) {
+                    mensaje.classList.remove("oculto");
+                    mensaje.innerHTML =
+                    "<h2>Error interno</h2><p>Algo explotó en la dimensión del servidor.<br/>Estamos tratando de recomponer el tejido de la realidad.</p>";
+                    setTimeout(() => {
+                        mensaje.classList.add("oculto");
+                        window.location.reload();
+                    }, 3000);
+                } finally {
+                    spinner.classList.add("oculto");
+                }
+		    });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const token = localStorage.getItem("token");
+            const ultimoSueno = localStorage.getItem("ultimoSueno");
+            if (ultimoSueno && token) {
+                const formBoton = document.querySelector(".form-boton");
+                if (formBoton) {
+                formBoton.innerHTML = `
+                <button type="submit" class="boton-interpretar"><h2>INTERPRETAR<h2></button>
+                <a href="latest-dream.html" class="redireccion"><h2>SUEÑO RECIÉN INTERPRETADO</h2></a>
+                `;
+                }
+            }
+        });
+
+        mostrarMensajeExpirado();
+    </script>
+</html>

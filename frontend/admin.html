@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="assets/images/luna-logo-header.webp"
+    />
+    <link rel="stylesheet" href="./assets/css/cartas-emociones.css" />
+    <link rel="stylesheet" href="./assets/css/admin.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <title>Cartas</title>
+  </head>
+  <body>
+    <div id="header" style="border-bottom: 5px solid #332233"></div>
+    <script src="./assets/js/header.js"></script>
+
+    <main id="admin-main">
+      <div class="popup-carta popup"></div>
+      <div class="popup-emociones popup"></div>
+      <div class="popup-usuarios popup"></div>
+      <div class="popup-edicion-carta popup edicion"></div>
+      <div class="popup-edicion-emociones popup edicion"></div>
+      <div class="popup-edicion-usuarios popup edicion"></div>
+      <section class="admin-section">
+        <div>
+          <h1 id="admin-titulo-section">
+            Bienvenidos, maestros del mundo onírico
+          </h1>
+          <p id="cartas-emociones-descripcion">
+            Determinen el destino de los viajeros a través de esta página
+          </p>
+        </div>
+        <div class="acciones-contenedor">
+          <button class="gestionar-cartas">Gestionar <br />Cartas</button>
+          <button class="gestionar-emociones">Gestionar <br />Emociones</button>
+          <button class="gestionar-usuarios">Gestionar <br />Usuarios</button>
+        </div>
+        <div class="creacion-contenedor">
+          <button id="btn-nueva-carta">➕</button>
+          <button id="btn-nueva-emocion">➕</button>
+          <button id="btn-nuevo-usuario">➕</button>
+        </div>
+        <div id="cartas-contenedor"></div>
+        <div id="emociones-contenedor"></div>
+        <div id="usuarios-contenedor"></div>
+        <script src="./assets/js/cartas-admin.js"></script>
+        <script src="./assets/js/emociones-admin.js"></script>
+        <script src="./assets/js/usuarios-admin.js"></script>
+      </section>
+    </main>
+
+    <div id="footer" style="border-top: 5px solid #332233"></div>
+    <script src="./assets/js/footer.js"></script>
+  </body>
+</html>
