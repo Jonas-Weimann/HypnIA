@@ -159,7 +159,8 @@
   margin-top: 30px;
 }
 
-.acciones-contenedor {
+.acciones-contenedor,
+.creacion-contenedor {
   display: flex;
   flex-direction: row;
   gap: 16px;
@@ -167,16 +168,24 @@
   align-items: center;
 }
 
-.acciones-contenedor button {
+.acciones-contenedor button,
+.creacion-contenedor button {
   border: none;
   font-size: 20px;
   padding: 10px 16px;
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: #855988;
   color: white;
   cursor: pointer;
   width: 150px;
   font-family: "Raleway", sans-serif;
+}
+
+.creacion-contenedor button {
+  border: solid 2px #855988;
+  background-color: #0f0f16;
+  padding: 4px 16px;
+  margin-top: 10px;
 }
 
 .popup {

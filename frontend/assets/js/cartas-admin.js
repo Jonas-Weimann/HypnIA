@@ -2,6 +2,16 @@ const cartasURL = "http://localhost:3000/api/cartas";
 const contenedor = document.getElementById("cartas-contenedor");
 let cartas = [];
 
+const crearSelect = (name, emociones = []) => {
+  let select = `<select name="${name}" required>`;
+  select += `<option value="">Seleccionar</option>`;
+  emociones.forEach((e) => {
+    select += `<option value="${e.id_emocion}">${e.nombre}</option>`;
+  });
+  select += `</select>`;
+  return select;
+};
+
 const btnGestionarCartas = document.querySelector(".gestionar-cartas");
 const popupCarta = document.querySelector(".popup-carta");
 const popupEdicionCarta = document.querySelector(".popup-edicion-carta");
@@ -62,15 +72,6 @@ const mostrarCartas = (cartasAMostrar) => {
       const res = await fetch("http://localhost:3000/api/emociones");
       const emociones = await res.json();
 
-      const crearSelect = (name) => {
-        let select = `<select name="${name}" required>`;
-        emociones.forEach((e) => {
-          select += `<option value="${e.id_emocion}">${e.nombre}</option>`;
-        });
-        select += `</select>`;
-        return select;
-      };
-
       popupEdicionCarta.innerHTML = `
     <form id="form-editar-carta">
       <h2>Editar Carta</h2>
@@ -86,9 +87,9 @@ const mostrarCartas = (cartasAMostrar) => {
       <input type="text" name="elemento" value="${carta.elemento}" required />
       <label>Polaridad:</label>
       <input type="text" name="polaridad" value="${carta.polaridad}" required />
-      <label>Emoción 1:</label>${crearSelect("emocion1")}
-      <label>Emoción 2:</label>${crearSelect("emocion2")}
-      <label>Emoción 3:</label>${crearSelect("emocion3")}
+      <label>Emoción 1:</label>${crearSelect("emocion1", emociones)}
+      <label>Emoción 2:</label>${crearSelect("emocion2", emociones)}
+      <label>Emoción 3:</label>${crearSelect("emocion3", emociones)}
       <div>
       <button type="button" class="volver">Volver</button>
       <button type="submit">Guardar cambios</button>
@@ -179,6 +180,102 @@ const mostrarCartas = (cartasAMostrar) => {
     }
   });
 };
+
+const btnNuevaCarta = document.getElementById("btn-nueva-carta");
+
+btnNuevaCarta.addEventListener("click", async () => {
+  const res = await fetch("http://localhost:3000/api/emociones");
+  const emociones = await res.json();
+  popupEdicionCarta.classList.add("activo");
+  popupEdicionCarta.innerHTML = `
+  <form id="form-crear-carta">
+    <h2>Crear Carta</h2>
+
+    <label>Nombre:</label>
+    <input type="text" name="nombre" required />
+
+    <label>Descripción:</label>
+    <input type="text" name="descripcion" required />
+
+    <label>Imagen:</label>
+    <input type="text" name="imagen" required />
+
+    <label>Elemento:</label>
+    <input type="text" name="elemento" required />
+
+    <label>Polaridad:</label>
+    <input type="text" name="polaridad" required />
+
+    <label>Emoción 1:</label>
+    ${crearSelect("emocion1", emociones)}
+
+    <label>Emoción 2:</label>
+    ${crearSelect("emocion2", emociones)}
+
+    <label>Emoción 3:</label>
+    ${crearSelect("emocion3", emociones)}
+
+    <div>
+      <button type="button" class="volver">Volver</button>
+      <button type="submit">Crear carta</button>
+    </div>
+  </form>
+  `;
+
+  popupEdicionCarta.querySelector(".volver").addEventListener("click", () => {
+    popupEdicionCarta.classList.remove("activo");
+    popupEdicionCarta.innerHTML = "";
+  });
+
+  popupEdicionCarta
+    .querySelector("#form-crear-carta")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const fd = new FormData(e.target);
+      const emociones = [
+        parseInt(fd.get("emocion1")),
+        parseInt(fd.get("emocion2")),
+        parseInt(fd.get("emocion3")),
+      ];
+
+      const datos = {
+        nombre: fd.get("nombre"),
+        descripcion: fd.get("descripcion"),
+        imagen: fd.get("imagen"),
+        elemento: fd.get("elemento"),
+        polaridad: fd.get("polaridad"),
+        emociones,
+      };
+
+      const token = localStorage.getItem("token");
+
+      try {
+        const respuesta = await fetch(cartasURL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(datos),
+        });
+
+        if (respuesta.ok) {
+          popupEdicionCarta.innerHTML = `<p>Carta creada con éxito</p>`;
+          obtenerCartas();
+        } else {
+          popupEdicionCarta.innerHTML = `<p>Error al crear la carta</p>`;
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        popupEdicionCarta.innerHTML = `<p>Error interno al crear la carta</p>`;
+      } finally {
+        setTimeout(() => {
+          popupEdicionCarta.classList.remove("activo");
+        }, 1500);
+      }
+    });
+});
 
 const limpiarTexto = (texto) => {
   return texto
