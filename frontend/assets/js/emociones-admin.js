@@ -123,7 +123,7 @@ const mostrarEmociones = (emocionesAMostrar) => {
           );
           if (respuesta.ok) {
             popupEdicionEmociones.innerHTML = `<p>Emoción actualizada con éxito</p>`;
-            mostrarEmociones(emocionesAMostrar);
+            obtenerEmociones();
           }
         } catch (error) {
           popupEdicionEmociones.innerHTML = `<p>Error actualizando emoción</p>`;
