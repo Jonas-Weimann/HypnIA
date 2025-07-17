@@ -3,44 +3,46 @@ document.addEventListener("DOMContentLoaded", async () => {
 	const sesionActiva = await verificarSesion();
 	if (!header) return;
 
-	fetch("components/header.html")
-	.then((res) => res.text())
-	.then((html) => {
-	header.innerHTML = html;
+	try {
+		const res = await fetch("components/header.html");
+		const html = await res.text();
+		header.innerHTML = html;
 
-	const token = localStorage.getItem("token");
-	if (!token || !sesionActiva) return;
-	
-	const headerLinks = header.querySelector(".header-links");
-	const datosUsuario = localStorage.getItem("usuario");
-	const usuario = JSON.parse(datosUsuario);
+		const token = localStorage.getItem("token");
 
-	if (!headerLinks) return;
+		if (!token || !sesionActiva) return;
+		
+		const headerLinks = header.querySelector(".header-links");
 
-	headerLinks.innerHTML = `
-			<ul>
-				<li><a href="cards.html">Cartas</a></li>
-				<li><a href="emotions.html">Emociones</a></li>
-				<li><a href="register-dream.html">Registra tu sueño</a></li>
-				<li><a href="social.html">Explora el mundo</a></li>
-				<li><a href="#" id="cerrar-sesion-header">Cerrar sesión</a></li>
-				<li style="padding: 0;" class="header-perfil"><a href="profile.html">
-				<img id="foto-perfil" src="./assets/images/profile-img/${usuario.foto_perfil}" alt="Perfil" >
+		if (!headerLinks) return;
 
-				</a></li>
-			</ul>
-		`;
+		const fotoPerfil = await obtenerPerfil(token);
 
-	const logout = header.querySelector("#cerrar-sesion-header");
-	if (logout) {
-		logout.addEventListener("click", (e) => {
-		e.preventDefault();
-		localStorage.clear();
-		window.location = "inicio.html";
-		});
+		headerLinks.innerHTML = `
+				<ul>
+					<li><a href="cards.html">Cartas</a></li>
+					<li><a href="emotions.html">Emociones</a></li>
+					<li><a href="register-dream.html">Registra tu sueño</a></li>
+					<li><a href="social.html">Explora el mundo</a></li>
+					<li><a href="#" id="cerrar-sesion-header">Cerrar sesión</a></li>
+					<li style="padding: 0;" class="header-perfil"><a href="profile.html">
+					<img id="foto-perfil" src="${fotoPerfil}" alt="Perfil" >
+
+					</a></li>
+				</ul>
+			`;
+
+		const logout = header.querySelector("#cerrar-sesion-header");
+		if (logout) {
+			logout.addEventListener("click", (e) => {
+			e.preventDefault();
+			localStorage.clear();
+			window.location = "inicio.html";
+			});
+		}
+	} catch (error) {
+		console.error("Error al agregar el evento de cierre de sesión:", error);
 	}
-	})
-	.catch((err) => console.error("Error al cargar el header:", err));
 });
 
 
@@ -87,4 +89,25 @@ const mostrarMensajeExpirado = async () => {
 		mensajeExpirado.classList.add("visible");
 	}
 };
-            
+
+async function obtenerPerfil(token) {
+	const rutaImagen = "assets/images/profile-img/";
+
+	try {
+		const urlPerfil = `http://localhost:3000/api/usuarios/perfil`;
+
+		const response = await fetch(urlPerfil, {
+			method: 'GET',
+			headers: {
+				"Authorization": `Bearer ${token}`
+			}
+		})
+								
+		const data = await response.json()
+		const fotoPerfil = rutaImagen + data.foto_perfil;
+		return fotoPerfil;
+	} catch (error) {
+		console.error("Error al obtener el perfil del usuario:", error);
+		return null;
+	}
+};

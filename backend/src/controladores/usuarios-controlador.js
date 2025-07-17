@@ -34,6 +34,24 @@ const getUsuarioById = async (req, res) => {
   }
 };
 
+const getPerfilDeUsuario = async (req, res) => {
+  try {
+    const { id_usuario } = req.usuario;
+    const usuario = await dbClient.query(
+      "SELECT id_usuario, nombre, email, fecha_registro, foto_perfil FROM usuarios WHERE id_usuario = $1",
+      [id_usuario]
+    );
+    if (usuario.rows.length === 0) {
+      throw { status: 404, message: "Usuario no encontrado" };
+    }
+    res.status(200).json(usuario.rows[0]);
+  } catch (error) {
+    res
+      .status(error.status || 500)
+      .json({ message: error.message || "Error obteniendo usuario" });
+  }
+};
+
 const getUsuarioByEmail = async (req, res) => {
   const { email } = req.body;
   try {
@@ -309,6 +327,7 @@ const eliminarUsuario = async (req, res) => {
 export {
   getAllUsuarios,
   getUsuarioById,
+  getPerfilDeUsuario,
   getUsuarioByEmail,
   getSuenosByUsuario,
   getSuenosPublicosByUsuario,
