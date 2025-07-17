@@ -25,7 +25,7 @@ const router = Router();
 
 router.get("/", autenticarAdmin, getAllUsuarios);
 router.get("/estado/activo", esUsuarioActivo);
-router.get("/perfil", autenticarUsuario, getPerfilD);
+router.get("/perfil", autenticarUsuario, getPerfilDeUsuario);
 router.get("/admin", esAdministrador);
 router.get("/:uid", autenticarAdmin, getUsuarioById);
 router.get("/:uid/suenos", autenticarUsuario, getSuenosByUsuario);
