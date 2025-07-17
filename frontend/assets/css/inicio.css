@@ -18,26 +18,29 @@
 
 .inicio_section {
   min-height: 100vh;
-  background-image: url('../images/fondo-inicio.webp');
+  background-image: url('../images/fondo-inicio2.webp');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding: 20px;
 }
 
 .logo_condenedor {
   text-align: center;
-  background-color: rgba(15, 15, 22, 0.9); /* --color-azul-grisaceo */
+  background-color: rgba(15, 15, 22, 0.3);
   padding: 40px;
+  border: 2px solid var(--color-lila);
   border-radius: 20px;
+  margin-left: 120px;
+  width: 600px;
 }
 
 #logo_principal {
-  width: 320px;
-  height: 270px;
+  width: 400px;
+  height: 340px;
   margin-bottom: 30px;
 }
 
@@ -48,6 +51,7 @@
 }
 
 .acciones a {
+  font-size: 22px;
   margin: 10px auto;
   padding: 10px 20px;
   background-color: var(--color-lila);
@@ -111,4 +115,49 @@
 
 .contenido_info:hover {
   transform: scale(1.05); 
+}
+
+/* -------------- responsive para celular -------------- */
+
+@media (max-width: 768px) {
+  .inicio_section {
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .logo_condenedor {
+    width: 90%;
+    margin: 0;
+    padding: 20px;
+  }
+
+  #logo_principal {
+    width: 80%;
+    height: auto;
+  }
+
+  .acciones {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .acciones a {
+    width: 80%;
+    text-align: center;
+  }
+
+  .info_section {
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .luna_logo_header {
+    justify-content: center;
+  }
+
+  .contenido_info {
+    width: 90%;
+    font-size: 16px;
+  }
 }
