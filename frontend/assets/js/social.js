@@ -140,3 +140,4 @@ searchInput.addEventListener("input", e => {
 });
 
 fetchPublicDreams();
+mostrarMensajeExpirado();

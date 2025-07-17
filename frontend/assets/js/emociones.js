@@ -56,9 +56,11 @@ emocionesBusqueda.addEventListener("input", () => {
 	mostrarEmociones(filtradas);
 });
 
-const modificarLinks = () => {
+const modificarLinks = async () => {
 	const token = localStorage.getItem("token");
-	if (!token) return;
+	const sesionActiva = await verificarSesion();
+
+	if (!token || !sesionActiva) return;
 
 	const contenedor = document.querySelector(".cartas-emociones-links");
 	if (!contenedor) return;
@@ -72,3 +74,4 @@ const modificarLinks = () => {
 
 obtenerEmociones();
 modificarLinks();
+mostrarMensajeExpirado();
