@@ -248,7 +248,7 @@ Y en ```GMAIL_USER``` coloca el correo con el cual generaste esa contraseña.
 ```A continuación se muestra un recorrido visual por las distintas secciones de la página:```
 
 ### Página de Inicio de sesión
-![Inicio](.feature/frontend/assets/images/screenshots/inicio-sesion.webp)
+![Inicio](./frontend/assets/images/screenshots/inicio-sesion.webp)
 
 ### Página de Registro de usuario
 ![Registro](./frontend/assets/images/screenshots/registro-usuario.webp)
@@ -257,22 +257,22 @@ Y en ```GMAIL_USER``` coloca el correo con el cual generaste esa contraseña.
 ![Interpretaciones](./frontend/assets/images/screenshots/interpretacion.webp)
 
 ### Página de Sueño Interpretado 1
-![Sueño Interpretado1](./assets/images/screenshots/sueno-interpretado1.webp)
+![Sueño Interpretado1](./frontend/assets/images/screenshots/sueno-interpretado1.webp)
 
 ### Página de Sueño Interpretado 2
-![Sueño Interpretado2](./assets/images/screenshots/sueno-interpretado2.webp)
+![Sueño Interpretado2](./frontend/assets/images/screenshots/sueno-interpretado2.webp)
 
 ### Página de Perfil
-![Perfil](./assets/images/screenshots/perfil-page.webp)
+![Perfil](./frontend/assets/images/screenshots/perfil-page.webp)
 
 ### Página de Mundo Onírico
-![Mundo Onírico](./assets/images/screenshots/mundo-onirico.webp)
+![Mundo Onírico](./frontend/assets/images/screenshots/mundo-onirico.webp)
 
 ### Página de Cartas
-![Cartas](./assets/images/screenshots/cartas.webp)
+![Cartas](./frontend/assets/images/screenshots/cartas.webp)
 
 ### Página de Emociones
-![Emociones](./assets/images/screenshots/emociones.webp)
+![Emociones](./frontend/assets/images/screenshots/emociones.webp)
 
 ---
 
