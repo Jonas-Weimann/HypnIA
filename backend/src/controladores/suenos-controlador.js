@@ -147,6 +147,7 @@ const createSueno = async (req, res) => {
 };
 
 const updateSueno = async (req, res) => {
+  const cliente = await dbClient.connect();
   try {
     const { sid } = req.params;
     const { descripcion, publico } = req.body;
@@ -157,7 +158,6 @@ const updateSueno = async (req, res) => {
     const idEmociones = await obtenerIdEmociones(emociones);
     const idCartas = await obtenerIdCartas(cartas);
 
-    const cliente = await dbClient.connect();
     await cliente.query("BEGIN");
 
     if (!id_usuario) {
@@ -190,9 +190,7 @@ const updateSueno = async (req, res) => {
     await cliente.query("DELETE FROM suenos_emociones WHERE id_sueno = $1 ", [
       idSueno,
     ]);
-    if (emocionesEliminadas.rows.length === 0) {
-      throw { status: 404, message: "Sueño no encontrado" };
-    }
+
     const insertarEmociones = idEmociones.map(async (idEmocion) => {
       return await cliente.query(
         "INSERT INTO suenos_emociones (id_sueno, id_emocion) VALUES ($1, $2)",
@@ -200,6 +198,10 @@ const updateSueno = async (req, res) => {
       );
     });
     await Promise.all(insertarEmociones);
+
+    await cliente.query("DELETE FROM suenos_cartas WHERE id_sueno = $1 ", [
+      idSueno,
+    ]);
 
     const insertarCartas = idCartas.map(async (idCarta) => {
       return await cliente.query(
@@ -216,6 +218,7 @@ const updateSueno = async (req, res) => {
       cartas: await cartasDeSueno(idSueno, dbClient),
     });
   } catch (error) {
+    console.log(error);
     await cliente.query("ROLLBACK");
     res.status(error.status || 500).json({
       message: error.message || "Error actualizando sueño",

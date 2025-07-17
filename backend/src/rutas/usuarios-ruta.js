@@ -12,18 +12,21 @@ import {
   cambiarNombre,
   borrarCuenta,
   eliminarUsuario,
+  editarUsuario,
 } from "../controladores/usuarios-controlador.js";
 import {
   autenticarUsuario,
   autenticarAdmin,
   esUsuarioActivo,
+  esAdministrador,
 } from "../middlewares/autenticacion.js";
 
 const router = Router();
 
 router.get("/", autenticarAdmin, getAllUsuarios);
 router.get("/estado/activo", esUsuarioActivo);
-router.get("/perfil", autenticarUsuario, getPerfilDeUsuario);
+router.get("/perfil", autenticarUsuario, getPerfilD);
+router.get("/admin", esAdministrador);
 router.get("/:uid", autenticarAdmin, getUsuarioById);
 router.get("/:uid/suenos", autenticarUsuario, getSuenosByUsuario);
 router.get("/:uid/suenos-publicos", getSuenosPublicosByUsuario);
@@ -32,6 +35,7 @@ router.post("/iniciar-sesion", iniciarSesion);
 router.put("/cambiar-contrasena", cambiarContrasena);
 router.put("/cambiar-foto", autenticarUsuario, cambiarFoto);
 router.put("/cambiar-nombre", autenticarUsuario, cambiarNombre);
+router.put("/editar-usuario", autenticarAdmin, editarUsuario);
 router.delete("/borrar-cuenta", autenticarUsuario, borrarCuenta);
 router.delete("/eliminar-usuario", autenticarAdmin, eliminarUsuario);
 
