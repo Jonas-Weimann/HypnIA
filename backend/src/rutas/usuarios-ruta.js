@@ -33,7 +33,7 @@ router.post("/iniciar-sesion", iniciarSesion);
 router.put("/cambiar-contrasena", cambiarContrasena);
 router.put("/cambiar-foto", autenticarUsuario, cambiarFoto);
 router.put("/cambiar-nombre", autenticarUsuario, cambiarNombre);
-router.put("editar-usuario", autenticarAdmin, editarUsuario);
+router.put("/editar-usuario", autenticarAdmin, editarUsuario);
 router.delete("/borrar-cuenta", autenticarUsuario, borrarCuenta);
 router.delete("/eliminar-usuario", autenticarAdmin, eliminarUsuario);
 
