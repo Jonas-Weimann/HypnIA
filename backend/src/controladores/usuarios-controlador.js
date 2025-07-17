@@ -319,7 +319,25 @@ const eliminarUsuario = async (req, res) => {
     res.status(200).json({ message: "Cuenta eliminada correctamente" });
   } catch (error) {
     res.status(error.status || 500).json({
-      message: error.message || "Error al actualizar nombre de usuario",
+      message: error.message || "Error al eliminar cuenta",
+    });
+  }
+};
+
+const editarUsuario = async (req, res) => {
+  try {
+    const { id_usuario, nombre, foto_perfil, email } = req.body;
+    if (!id_usuario || !nombre || !email) {
+      throw { status: 400, message: "Datos faltantes" };
+    }
+    await dbClient.query(
+      "UPDATE usuarios SET nombre = $1, foto_perfil = $2, email = $3 WHERE id_usuario = $4 ",
+      [nombre, foto_perfil, email, id_usuario]
+    );
+    res.status(200).json({ messaje: "Usuario actualizado con éxito" });
+  } catch (error) {
+    res.status(error.status || 500).json({
+      message: error.message || "Error al actualizar el usuario",
     });
   }
 };
@@ -338,4 +356,5 @@ export {
   cambiarNombre,
   borrarCuenta,
   eliminarUsuario,
+  editarUsuario,
 };
