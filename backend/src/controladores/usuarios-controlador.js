@@ -161,6 +161,7 @@ const getSuenosPublicosByUsuario = async (req, res) => {
 const registrarUsuario = async (req, res) => {
   const { nombre, email, contrasena } = req.body;
   const fecha_actual = obtenerFechaActual();
+  console.log(req.body)
   try {
     if (!nombre || !email || !contrasena) {
       throw { status: 400, message: "Faltan campos requeridos" };
