@@ -214,6 +214,8 @@ footer {
   display: flex;
   align-items: center;
   gap: 8px;
+<<<<<<< HEAD
+=======
 }
 
 /* ----------- estilo del scrollbar principal -------------*/
@@ -232,4 +234,5 @@ body::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb {
   background-color:var(--color-lila)  ;
   border-radius: 5px;
+>>>>>>> feature/frontend
 }

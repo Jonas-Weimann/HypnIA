@@ -94,7 +94,7 @@
 
             </div>
         </main>
-    
+        
         <div id="dreamModal" class="modal hidden" style="z-index: 9999;">
             <div class="modal-content">
               <span id="closeModal" class="close-button">&times;</span>
@@ -126,15 +126,13 @@
 
             // Verificar si el usuario está autenticado
 
-            document.addEventListener("DOMContentLoaded", () => {
+            document.addEventListener("DOMContentLoaded", async () => {
                 const token = localStorage.getItem("token");
-
-                if (!token) {
-                    console.log("No token found in localStorage");
+                const sesionActiva = await verificarSesion();
+                if (!token || !sesionActiva) {
                     const contenido = document.getElementById("main");
                     contenido.classList.add("fondo-borroso");
-                    
-                    // redireccion al login
+                    window.location.href = "login.html";
                 }
             });
 
@@ -151,8 +149,6 @@
                     if (datosUsuario) {
                         const nombreUsuario = document.getElementById("nombreUsuario");
                         nombreUsuario.textContent = `@${usuario.nombre}`; 
-                    } else {
-                        console.log("No hay datos de usuario en localStorage");
                     }
 
                     // ------- Funciones para modal ---------
@@ -174,7 +170,6 @@
                         try {
                             const urlPerfil = `http://localhost:3000/api/usuarios/cambiar-foto`;
 
-                            console.log(imagen)
                             const respuesta = await fetch(urlPerfil, {
                                 method: 'PUT',
                                 headers: {
@@ -185,7 +180,6 @@
                             })
 
                             const data = await respuesta.json();
-                            console.log("se actualizo");
                             document.getElementById("perfilUsuario").src = rutaImagen + imagen;
 
                         } catch (error) {
