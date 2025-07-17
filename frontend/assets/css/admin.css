@@ -288,3 +288,6 @@
 .popup-edicion-emociones.popup.activo {
   height: 500px;
 }
+.popup-edicion-usuarios.popup.activo {
+  height: 400px;
+}

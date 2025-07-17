@@ -3,6 +3,7 @@ const usuariosBusqueda = document.getElementById("usuarios-busqueda");
 const contenedorUsuarios = document.getElementById("usuarios-contenedor");
 const btnGestionarUsuarios = document.querySelector(".gestionar-usuarios");
 const popupUsuarios = document.querySelector(".popup-usuarios");
+const popupEdicionUsuarios = document.querySelector(".popup-edicion-usuarios");
 btnGestionarUsuarios.addEventListener("click", () => {
   contenedorUsuarios.classList.toggle("activo");
   contenedorEmociones.classList.remove("activo");
@@ -32,6 +33,8 @@ const obtenerUsuarios = async () => {
 
 const mostrarUsuarios = (usuariosAMostrar) => {
   contenedorUsuarios.innerHTML = "";
+  const token = localStorage.getItem("token");
+  if (!token) return;
 
   if (usuariosAMostrar.length === 0) {
     contenedorUsuarios.innerHTML = "<p>No se encontraron usuarios.</p>";
@@ -49,14 +52,13 @@ const mostrarUsuarios = (usuariosAMostrar) => {
 			  <button class="editar-usuario" data-id="${usuario.id_usuario}">🖊️</button>
         <img class="foto-perfil" src='./assets/images/profile-img/${
           usuario.foto_perfil
-        }'
-				<div class="nombre-usuario"><h2>${usuario.nombre.toUpperCase()}</h2></div>
+        }'/>
+				<div class="nombre-usuario"><h2>${usuario.nombre.toUpperCase()}</h2></div></div>
 				<div class="informacion-usuario">
 					<p>ID: ${usuario.id_usuario}</p>
 					<p>EMAIL: ${usuario.email}</p>
 					<p>REGISTRO: ${new Date(usuario.fecha_registro).toLocaleDateString()}</p>
 				</div>
-			</img>
 		`;
     contenedorUsuarios.appendChild(usuarioDiv);
     const btnEliminar = usuarioDiv.querySelector(".eliminar-usuario");
@@ -71,6 +73,74 @@ const mostrarUsuarios = (usuariosAMostrar) => {
 					<button class="confirmar-eliminar" data-id="${usuario.id_usuario}">Eliminar</button>
 				</div>
 			`;
+    });
+    const btnEditar = usuarioDiv.querySelector(".editar-usuario");
+    btnEditar.addEventListener("click", () => {
+      popupEdicionUsuarios.classList.add("activo");
+      popupEdicionUsuarios.innerHTML = `
+        <h2>Editar Usuario</h2>
+          <form id="form-editar-usuario">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" value="${usuario.nombre}" required />
+  
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="${usuario.email}" required />
+  
+            <label for="foto_perfil">Foto de perfil:</label>
+            <input type="text" id="foto_perfil" name="foto_perfil" value="${usuario.foto_perfil}" required />
+  
+            <div class="confirmaciones">
+              <button type="button" class="volver">Volver</button>
+              <button type="submit">Guardar Cambios</button>
+            </div>
+          </form>
+        `;
+
+      popupEdicionUsuarios
+        .querySelector(".volver")
+        .addEventListener("click", () => {
+          popupEdicionUsuarios.classList.remove("activo");
+          popupEdicionUsuarios.innerHTML = "";
+        });
+
+      popupEdicionUsuarios
+        .querySelector("#form-editar-usuario")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const nuevoNombre = e.target.nombre.value;
+          const nuevoEmail = e.target.email.value;
+          const nuevaFoto = e.target.foto_perfil.value;
+
+          try {
+            const respuesta = await fetch(`${usuariosURL}/editar-usuario`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify({
+                id_usuario: usuario.id_usuario,
+                nombre: nuevoNombre,
+                email: nuevoEmail,
+                foto_perfil: nuevaFoto,
+              }),
+            });
+
+            if (respuesta.ok) {
+              popupEdicionUsuarios.innerHTML = `<p>Usuario actualizado con éxito</p>`;
+              obtenerUsuarios();
+            } else {
+              popupEdicionUsuarios.innerHTML = `<p>Error actualizando usuario</p>`;
+            }
+          } catch (error) {
+            popupEdicionUsuarios.innerHTML = `<p>Error actualizando usuario</p>`;
+          } finally {
+            setTimeout(() => {
+              popupEdicionUsuarios.classList.remove("activo");
+            }, 1500);
+          }
+        });
     });
   });
 };
