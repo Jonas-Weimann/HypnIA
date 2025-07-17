@@ -131,7 +131,7 @@ const mostrarCartas = (cartasAMostrar) => {
           });
           if (respuesta.ok) {
             popupEdicionCarta.innerHTML = `<p>Carta actualizada con éxito</p>`;
-            mostrarCartas(cartas);
+            obtenerCartas();
           } else {
             popupEdicionCarta.innerHTML = `<p>Error actualizando carta</p>`;
           }
