@@ -11,35 +11,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 		const token = localStorage.getItem("token");
 
 		if (!token || !sesionActiva) return;
-
-		const rutaImagen = "/assets/images/profile-img/";
-
-		async function obtenerPerfil() {
-			try {
-				const urlPerfil = `http://localhost:3000/api/usuarios/perfil`;
-
-				const response = await fetch(urlPerfil, {
-					method: 'GET',
-					headers: {
-						"Authorization": `Bearer ${token}`
-					}
-				})
-								
-				const data = await response.json()
-				const fotoPerfil = rutaImagen + data.foto_perfil;
-				console.log("Foto de perfil obtenida:", fotoPerfil);
-				return fotoPerfil;
-			} catch (error) {
-				console.error("Error al obtener el perfil del usuario:", error);
-				return null;
-			}
-		};
 		
 		const headerLinks = header.querySelector(".header-links");
 
 		if (!headerLinks) return;
 
-		const fotoPerfil = await obtenerPerfil();
+		const fotoPerfil = await obtenerPerfil(token);
 
 		headerLinks.innerHTML = `
 				<ul>
@@ -112,4 +89,25 @@ const mostrarMensajeExpirado = async () => {
 		mensajeExpirado.classList.add("visible");
 	}
 };
-            
+
+async function obtenerPerfil(token) {
+	const rutaImagen = "assets/images/profile-img/";
+
+	try {
+		const urlPerfil = `http://localhost:3000/api/usuarios/perfil`;
+
+		const response = await fetch(urlPerfil, {
+			method: 'GET',
+			headers: {
+				"Authorization": `Bearer ${token}`
+			}
+		})
+								
+		const data = await response.json()
+		const fotoPerfil = rutaImagen + data.foto_perfil;
+		return fotoPerfil;
+	} catch (error) {
+		console.error("Error al obtener el perfil del usuario:", error);
+		return null;
+	}
+};
