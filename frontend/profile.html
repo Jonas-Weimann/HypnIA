@@ -267,6 +267,30 @@
                                                     </div>
                                                     `;
                     });
+                    const btnEditar = suenoDiv.querySelector('.editar-sueno')
+                    btnEditar.addEventListener('click', (e)=>{
+                        e.stopPropagation()
+                        popupEditar.classList.add('activo')
+                        popupEditar.innerHTML = `
+                                                    <h2>Editar Sueño</h2>
+                                                    <form id="form-editar-sueno">
+                                                        <label>Descripción:</label>
+                                                        <textarea name="descripcion" maxlength="300" id="descripcion-editar" rows="5" required>${sueno.descripcion}</textarea>
+                                                        <label>Hacer mi sueño visible para todos:<input type="checkbox" id="publico"></input></label>
+                                                        <div class="confirmaciones">
+                                                        <button type="button" class="volver">Volver</button>
+                                                        <button type="submit" class="guardar-cambios" data-id="${sueno.id_sueno}">Guardar cambios</button>
+                                                        </div>
+                                                        <div id="spinner" class="spinner oculto">
+                                                        <img class="cargando" src="./assets/images/luna-logo-header.webp">
+                                                        <h2>Estamos interpretando tu sueño... <br/></h2>
+                                                        <p>Recordá que la IA puede fallar. <br/>
+                                                            Si eso pasa, no te preocupes. <br/>
+                                                            ¡Podés intentarlo otra vez!</p>
+                                                        </div>
+                                                    </form>
+                                                    `
+                    })
                     });
                 } catch (error) {
                     console.error("Error al obtener los sueños:", error);
@@ -274,38 +298,82 @@
                 }
 
                 popupEliminar.addEventListener("click", async (e) => {
-                const token = localStorage.getItem("token");
-                const urlSuenos = `http://localhost:3000/api/suenos`;
+                    const token = localStorage.getItem("token");
+                    const urlSuenos = `http://localhost:3000/api/suenos`;
 
-                if (e.target.classList.contains("volver")) {
-                    popupEliminar.classList.remove("activo");
-                    return;
-                }
-
-                if (e.target.classList.contains("confirmar-eliminar")) {
-                    const sid = e.target.dataset.id;
-                    try {
-                    const respuesta = await fetch(`${urlSuenos}/${sid}`, {
-                        method: "DELETE",
-                        headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                        },
-                    });
-                    if (respuesta.ok) {
-                        popupEliminar.innerHTML = `<h2>Sueño eliminado con éxito</h2>`;
-                        obtenerSuenos();
-                        setTimeout(() => {
+                    if (e.target.classList.contains("volver")) {
                         popupEliminar.classList.remove("activo");
-                        }, 1500);
-                    } else {
-                        console.error("Error al eliminar sueño");
+                        return;
                     }
-                    } catch (error) {
-                    console.error("Error en la petición de eliminación:", error);
+
+                    if (e.target.classList.contains("confirmar-eliminar")) {
+                        const sid = e.target.dataset.id;
+                        try {
+                        const respuesta = await fetch(`${urlSuenos}/${sid}`, {
+                            method: "DELETE",
+                            headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                            },
+                        });
+                        if (respuesta.ok) {
+                            popupEliminar.innerHTML = `<h2>Sueño eliminado con éxito</h2>`;
+                            obtenerSuenos();
+                            setTimeout(() => {
+                            popupEliminar.classList.remove("activo");
+                            }, 1500);
+                        } else {
+                            console.error("Error al eliminar sueño");
+                        }
+                        } catch (error) {
+                        console.error("Error en la petición de eliminación:", error);
+                        }
                     }
-                }
                 });
+
+                popupEditar.addEventListener('click', async (e)=>{
+                    const token = localStorage.getItem("token");
+                    const urlSuenos = `http://localhost:3000/api/suenos`;
+                    const spinner = popupEditar.querySelector('#spinner')
+
+                    if (e.target.classList.contains("volver")) {
+                        popupEditar.classList.remove("activo");
+                        return;
+                    }
+                    if(e.target.classList.contains('guardar-cambios')) {
+                        e.preventDefault()
+                        const sid = e.target.dataset.id;
+                        const descripcion = popupEditar.querySelector('#descripcion-editar').value
+                        const publico = popupEditar.querySelector('#publico').checked
+                        spinner.classList.remove('oculto')
+                        try {
+                        const respuesta = await fetch(`${urlSuenos}/${sid}`, {
+                            method: "PUT",
+                            headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                            },
+                            body: JSON.stringify({descripcion: descripcion, publico: publico})
+                        });
+                        if (respuesta.ok) {
+                            spinner.classList.add('oculto')
+                            popupEditar.innerHTML = `<h2>Sueño actualizado con éxito</h2>`;
+                        } else {
+                            spinner.classList.add('oculto')
+                            popupEditar.innerHTML = `<h2>Error al actualizar sueño</h2>`;
+                        }
+                        } catch (error) {
+                            spinner.classList.add('oculto')
+                            popupEditar.innerHTML = `<h2>Error al actualizar sueño</h2>`;
+                        }
+                        finally {
+                            spinner.classList.add('oculto')
+                            setTimeout(() => {
+                            popupEditar.classList.remove("activo");
+                            }, 1500);
+                        }
+                    }
+                })
                 await obtenerSuenos();
                 await obtenerPerfil();   
             })()
