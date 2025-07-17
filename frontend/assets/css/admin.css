@@ -1,5 +1,6 @@
 .eliminar-carta,
-.eliminar-emocion {
+.eliminar-emocion,
+.eliminar-usuario {
   position: absolute;
   right: -30px;
   top: 0;
@@ -15,15 +16,26 @@
 }
 
 .editar-carta,
-.editar-emocion {
+.editar-emocion,
+.editar-usuario {
   position: absolute;
   right: -30px;
   top: 40px;
   background: none;
   border: none;
-  color: red;
+  color: #0f0f16;
   font-size: 1.2rem;
   cursor: pointer;
+}
+
+.eliminar-usuario {
+  top: 16px;
+  right: 16px;
+}
+
+.editar-usuario {
+  top: 60px;
+  right: 16px;
 }
 
 .editar-emocion {
@@ -43,6 +55,39 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.usuario-card {
+  display: flex;
+  background-color: #85598823;
+  position: relative;
+  border-radius: 25px;
+  width: 600px;
+  align-items: center;
+}
+
+.usuario {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 25px;
+  color: white;
+}
+
+.informacion-usuario {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  color: #855988;
+  font-size: 20px;
+}
+
+.foto-perfil {
+  border-radius: 50%;
+  width: 100px;
 }
 
 #cartas-main,
@@ -87,20 +132,31 @@
 }
 
 #cartas-contenedor,
-#emociones-contenedor {
+#emociones-contenedor,
+#usuarios-contenedor {
   display: none;
 }
 
 #cartas-contenedor.activo,
-#emociones-contenedor.activo {
+#emociones-contenedor.activo,
+#usuarios-contenedor.activo {
   display: flex;
 }
 
-#emociones-contenedor.activo {
+#emociones-contenedor.activo,
+#usuarios-contenedor.activo {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+#usuarios-contenedor.activo {
+  gap: 40px;
+  border-radius: 25px;
+  background-color: #0f0f16;
+  padding: 30px;
+  margin-top: 30px;
 }
 
 .acciones-contenedor {
