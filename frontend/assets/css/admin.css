@@ -284,3 +284,7 @@
   font-weight: 700;
   text-align: center;
 }
+
+.popup-edicion-emociones.popup.activo {
+  height: 500px;
+}

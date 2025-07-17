@@ -3,6 +3,9 @@ const emocionesBusqueda = document.getElementById("emociones-busqueda");
 const contenedorEmociones = document.getElementById("emociones-contenedor");
 const btnGestionarEmociones = document.querySelector(".gestionar-emociones");
 const popupEmociones = document.querySelector(".popup-emociones");
+const popupEdicionEmociones = document.querySelector(
+  ".popup-edicion-emociones"
+);
 btnGestionarEmociones.addEventListener("click", () => {
   contenedorEmociones.classList.toggle("activo");
   contenedorUsuarios.classList.remove("activo");
@@ -59,6 +62,77 @@ const mostrarEmociones = (emocionesAMostrar) => {
 					<button class="confirmar-eliminar" data-id="${emocion.id_emocion}">Eliminar</button>
 				</div>
 			`;
+    });
+
+    const btnEditar = emocionDiv.querySelector(".editar-emocion");
+    btnEditar.addEventListener("click", () => {
+      popupEdicionEmociones.classList.add("activo");
+      popupEdicionEmociones.innerHTML = `
+      <form id="form-editar-emocion" class="form-edicion">
+        <h3>Editar emoción</h3>
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required />
+
+        <label for="polaridad">Polaridad:</label>
+        <select id="polaridad" name="polaridad" required>
+          <option value="">-- Seleccionar --</option>
+          <option value="positiva">Positiva</option>
+          <option value="negativa">Negativa</option>
+          <option value="neutra">Neutra</option>
+        </select>
+
+        <label for="intensidad">Intensidad (1 a 10):</label>
+        <input type="number" id="intensidad" name="intensidad" min="1" max="10" required />
+
+        <div>
+          <button type="button" class="volver">Volver</button>
+          <button type="submit">Guardar cambios</button>
+        </div>
+      </form>
+      `;
+      document.getElementById("nombre").value = emocion.nombre;
+      document.getElementById("polaridad").value = emocion.polaridad;
+      document.getElementById("intensidad").value = emocion.intensidad;
+      const btnVolver = popupEdicionEmociones.querySelector(".volver");
+      btnVolver.addEventListener("click", () => {
+        popupEdicionEmociones.classList.remove("activo");
+        popupEdicionEmociones.innerHTML = "";
+      });
+      const form = document.getElementById("form-editar-emocion");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const datosActualizados = {
+          nombre: form.nombre.value,
+          polaridad: form.polaridad.value,
+          intensidad: Number(form.intensidad.value),
+        };
+
+        try {
+          const respuesta = await fetch(
+            `http://localhost:3000/api/emociones/${emocion.id_emocion}`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              body: JSON.stringify(datosActualizados),
+            }
+          );
+          if (respuesta.ok) {
+            popupEdicionEmociones.innerHTML = `<p>Emoción actualizada con éxito</p>`;
+            mostrarEmociones(emocionesAMostrar);
+          }
+        } catch (error) {
+          popupEdicionEmociones.innerHTML = `<p>Error actualizando emoción</p>`;
+        } finally {
+          setTimeout(() => {
+            popupEdicionEmociones.classList.remove("activo");
+          }, 1500);
+        }
+      });
     });
   });
 };
