@@ -171,4 +171,74 @@ popupEmociones.addEventListener("click", async (e) => {
   }
 });
 
+const btnNuevaEmocion = document.getElementById("btn-nueva-emocion");
+
+btnNuevaEmocion.addEventListener("click", async () => {
+  popupEdicionEmociones.classList.add("activo");
+  popupEdicionEmociones.innerHTML = `
+       <form id="form-crear-emocion" class="form-creacion">
+        <h3>Crear emoción</h3>
+
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required />
+
+        <label for="polaridad">Polaridad:</label>
+        <select id="polaridad" name="polaridad" required>
+          <option value="">Seleccionar</option>
+          <option value="positiva">Positiva</option>
+          <option value="negativa">Negativa</option>
+          <option value="neutra">Neutra</option>
+        </select>
+
+        <label for="intensidad">Intensidad (1 a 10):</label>
+        <input type="number" id="intensidad" name="intensidad" min="1" max="10" required />
+
+        <div>
+          <button type="button" class="volver">Volver</button>
+          <button type="submit">Guardar cambios</button>
+        </div>
+      </form>`;
+
+  const btnVolver = popupEdicionEmociones.querySelector(".volver");
+  btnVolver.addEventListener("click", () => {
+    popupEdicionEmociones.classList.remove("activo");
+    popupEdicionEmociones.innerHTML = "";
+  });
+  const form = document.getElementById("form-crear-emocion");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const datos = {
+      nombre: form.nombre.value,
+      polaridad: form.polaridad.value,
+      intensidad: Number(form.intensidad.value),
+    };
+
+    const token = localStorage.getItem("token");
+
+    try {
+      const respuesta = await fetch(emocionesURL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(datos),
+      });
+      if (respuesta.ok) {
+        popupEdicionEmociones.innerHTML = `<p>Emoción creada con éxito</p>`;
+        obtenerEmociones();
+      } else {
+        popupEdicionEmociones.innerHTML = `<p>Error creando emoción</p>`;
+      }
+    } catch (error) {
+      popupEdicionEmociones.innerHTML = `<p>Error creando emoción</p>`;
+    } finally {
+      setTimeout(() => {
+        popupEdicionEmociones.classList.remove("activo");
+      }, 1500);
+    }
+  });
+});
+
 obtenerEmociones();
