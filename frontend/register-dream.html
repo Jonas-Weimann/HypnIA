@@ -45,6 +45,8 @@
                 </div>
             </section>
 
+            <div class="mensaje-expirado oculto">Tu sesión ha expirado. Por favor, iniciá sesión nuevamente.</div>
+
             <div id="footer"></div>
             <script src="./assets/js/footer.js"></script>
         </main>
@@ -54,9 +56,10 @@
         const mensaje = document.querySelector(".mensaje-resultado");
         let esPublico = false;
 
-        document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("DOMContentLoaded", async () => {
             const token = localStorage.getItem("token");
-            if (!token) {
+            const sesionActiva = await verificarSesion();
+            if (!token || !sesionActiva) {
                 const textarea = document.getElementById("descripcion");
                 const formVisibilidad = document.querySelector(".form-visibilidad");
                 const formBoton = document.querySelector(".form-boton");
@@ -199,5 +202,6 @@
             }
         });
 
+        mostrarMensajeExpirado();
     </script>
 </html>

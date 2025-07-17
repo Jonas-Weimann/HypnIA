@@ -1,22 +1,23 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const header = document.getElementById("header");
-  if (!header) return;
+document.addEventListener("DOMContentLoaded", async () => {
+	const header = document.getElementById("header");
+	const sesionActiva = await verificarSesion();
+	if (!header) return;
 
-  fetch("components/header.html")
-    .then((res) => res.text())
-    .then((html) => {
-      header.innerHTML = html;
+	fetch("components/header.html")
+	.then((res) => res.text())
+	.then((html) => {
+	header.innerHTML = html;
 
-      const token = localStorage.getItem("token");
-      if (!token) return;
+	const token = localStorage.getItem("token");
+	if (!token || !sesionActiva) return;
+	
+	const headerLinks = header.querySelector(".header-links");
+	const datosUsuario = localStorage.getItem("usuario");
+	const usuario = JSON.parse(datosUsuario);
 
-      const headerLinks = header.querySelector(".header-links");
-      const datosUsuario = localStorage.getItem("usuario");
-      const usuario = JSON.parse(datosUsuario);
+	if (!headerLinks) return;
 
-      if (!headerLinks) return;
-
-      headerLinks.innerHTML = `
+	headerLinks.innerHTML = `
 			<ul>
 				<li><a href="cards.html">Cartas</a></li>
 				<li><a href="emotions.html">Emociones</a></li>
@@ -30,14 +31,60 @@ document.addEventListener("DOMContentLoaded", () => {
 			</ul>
 		`;
 
-      const logout = header.querySelector("#cerrar-sesion-header");
-      if (logout) {
-        logout.addEventListener("click", (e) => {
-          e.preventDefault();
-          localStorage.clear();
-          window.location = "inicio.html";
-        });
-      }
-    })
-    .catch((err) => console.error("Error al cargar el header:", err));
+	const logout = header.querySelector("#cerrar-sesion-header");
+	if (logout) {
+		logout.addEventListener("click", (e) => {
+		e.preventDefault();
+		localStorage.clear();
+		window.location = "inicio.html";
+		});
+	}
+	})
+	.catch((err) => console.error("Error al cargar el header:", err));
 });
+
+
+const verificarSesion = async () => {
+	const token = localStorage.getItem("token");
+	if (!token) {
+		return false;
+	}
+
+	try {
+		const respuesta = await fetch("http://localhost:3000/api/usuarios/estado/activo", {
+		method: "GET",
+		headers: {
+			"Authorization": `Bearer ${token}`,
+		},
+		});
+
+		if (!respuesta.ok) {
+			return false;
+		}
+
+		const resultado = await respuesta.json();
+		return (resultado.activo === true);
+
+	} catch (error) {
+		console.error("No se logró verificar la sesión.", error);
+		return false;
+	}
+};
+
+const mostrarMensajeExpirado = async () => {
+	const mensajeExpirado = document.querySelector(".mensaje-expirado");
+	const token = localStorage.getItem("token");
+	const sesionActiva = await verificarSesion();
+	if (!mensajeExpirado) return;
+
+	if(sesionActiva) {
+		mensajeExpirado.classList.remove("visible");
+		mensajeExpirado.classList.add("oculto");
+	}
+
+	if(token && !sesionActiva) {
+		mensajeExpirado.classList.remove("oculto");
+		mensajeExpirado.classList.add("visible");
+	}
+};
+            

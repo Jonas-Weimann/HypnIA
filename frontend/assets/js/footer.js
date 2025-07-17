@@ -1,5 +1,6 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 	const footer = document.getElementById("footer");
+	const sesionActiva = await verificarSesion();
 	if(!footer) return;
 
 	fetch("components/footer.html")
@@ -7,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	.then(html => { 
 		footer.innerHTML = html;
 		copiarEmail();
-		modificarFooter(footer);
+		modificarFooter(sesionActiva, footer);
 	})
 	.catch(err => console.error("Error al cargar el header:", err));
 });
@@ -44,9 +45,9 @@ const mostrarMensajeCopiado = () => {
   }, 2000);
 };
 
-const modificarFooter = (footer) => {
+const modificarFooter = (sesionActiva, footer) => {
 	const token = localStorage.getItem("token");
-	if (!token) return;
+	if (!token || !sesionActiva) return;
 
 	const contenedor = footer.querySelector(".login-register-contenedor");
 	if (!contenedor) return;
