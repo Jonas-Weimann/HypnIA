@@ -180,4 +180,8 @@ popupUsuarios.addEventListener("click", async (e) => {
   }
 });
 
+document.getElementById("btn-nuevo-usuario").addEventListener("click", () => {
+  window.location = "register.html";
+});
+
 obtenerUsuarios();
