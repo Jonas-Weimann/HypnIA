@@ -16,13 +16,13 @@
         <title>Perfil</title>
     </head>
     <body>
-        <div class="estrellas"></div>
 
         <div id="header"></div>
         <script src="./assets/js/header.js"></script>
 
         <main id="main">
-
+            <div class="popup-eliminar popup"></div>
+            <div class="popup-editar popup"></div>
             <div class="container-profile">
 
                 <div class="profile-info">
@@ -122,135 +122,268 @@
         <!-- scripts para la pagina -->
         <script src="./assets/js/social.js"></script>
         <script>
-            
+            const popupEditar = document.querySelector(".popup-editar");
+            const popupEliminar = document.querySelector(".popup-eliminar");
 
             // Verificar si el usuario está autenticado
-
-            document.addEventListener("DOMContentLoaded", async () => {
-                const token = localStorage.getItem("token");
-                const sesionActiva = await verificarSesion();
-                if (!token || !sesionActiva) {
-                    const contenido = document.getElementById("main");
-                    contenido.classList.add("fondo-borroso");
-                    window.location.href = "login.html";
+            (async ()=>{
+                if (!token) {
+                const contenido = document.getElementById("main");
+                contenido.classList.add("fondo-borroso");
+                window.location = "login.html";
+                // redireccion al login
                 }
-            });
-
-            document.addEventListener("DOMContentLoaded", async () => {
-                const token = localStorage.getItem("token");
-
-                if (token) {
-
-                    // ------- carga los datos del usuario ---------
-
-                    const datosUsuario = localStorage.getItem("usuario");
-                    const usuario = JSON.parse(datosUsuario);
-
-                    if (datosUsuario) {
-                        const nombreUsuario = document.getElementById("nombreUsuario");
-                        nombreUsuario.textContent = `@${usuario.nombre}`; 
-                    }
-
-                    // ------- Funciones para modal ---------
-
-                    window.abrirModal = function() {
-                        document.getElementById("profileModal").style.display = "block";
-                    }
-
-                    window.cerrarModal = function() {
-                        document.getElementById("profileModal").style.display = "none";
-                        window.location.reload();
-                    }
-
-                    // ------- Cambios para el perfil ---------
-                    
-                    const rutaImagen = "assets/images/profile-img/";
-
-                    window.cambiarPerfil = async function(imagen) {
-                        try {
-                            const urlPerfil = `http://localhost:3000/api/usuarios/cambiar-foto`;
-
-                            const respuesta = await fetch(urlPerfil, {
-                                method: 'PUT',
-                                headers: {
-                                    "Content-Type": "application/json",
-                                    "Authorization": `Bearer ${token}`
-                                },
-                                body: JSON.stringify({ fotoPerfil: imagen })
-                            })
-
-                            const data = await respuesta.json();
-                            document.getElementById("perfilUsuario").src = rutaImagen + imagen;
-
-                        } catch (error) {
-                            console.error("Error al cambiar la foto de perfil:", error);
-                        }
-                    }
-
-                    async function obtenerPerfil() {
-                        try {
-                            const urlPerfil = `http://localhost:3000/api/usuarios/perfil`;
-
-                            const response = await fetch(urlPerfil, {
-                                method: 'GET',
-                                headers: {
-                                    "Authorization": `Bearer ${token}`
-                                }
-                            })
-                            
-                            const data = await response.json()
-                            document.getElementById("perfilUsuario").src = rutaImagen + data.foto_perfil;
-
-                        } catch (error) {
-                            console.error("Error al obtener el perfil del usuario:", error);
-                        }
-                    };
-
-                    // -------- Cargar los registros del usuario ---------
-
-                    
-                    const contenedorRegistros = document.getElementById("usuarioRegistros");
-                    const id_usuario = usuario.id_usuario;
-                    const urlSuenos = `http://localhost:3000/api/usuarios/${id_usuario}/suenos`;
 
 
-                    async function obtenerSuenos() {
-                        try {
-                            const response = await fetch(urlSuenos, {
-                                method: 'GET',
-                                headers: {
-                                    "Authorization": `Bearer ${token}`
-                                }
-                            });
+                // ------- carga los datos del usuario ---------
 
-                            const suenos = await response.json();
+                const datosUsuario = localStorage.getItem("usuario");
+                const usuario = JSON.parse(datosUsuario);
 
-                            suenos.forEach(sueno => {
-                                const visibilidad = sueno.publico === true 
-                                    ? "<img src='assets/images/sueno-publico.webp' alt='publico' class='icono-candado'> Público" 
-                                    : "<img src='assets/images/sueno-privado.webp' alt='privado' class='icono-candado'> Privado";
-                                const suenoDiv = document.createElement("div");
-                                suenoDiv.classList.add("sueno");
-                                suenoDiv.innerHTML = `
-                                    <h3 class="visibilidad">${visibilidad}</h3> <br>
-                                    <p class="descripcion">${sueno.descripcion}</p>
-                                    <span class="fecha">${sueno.fecha.slice(0,10)}</span>
-                                `;
-                                suenoDiv.onclick = () => openModal({ ...sueno, nombre_usuario: `˗ˏˋ @${usuario.nombre} ´ˎ˗`, foto_perfil: usuario.foto_perfil });
-                                contenedorRegistros.appendChild(suenoDiv);
-                            });
-                        } catch (error) {
-                            console.error("Error al obtener los sueños:", error);
-                        }
-                    }
+                if (datosUsuario) {
+                const nombreUsuario = document.getElementById("nombreUsuario");
+                nombreUsuario.textContent = `@${usuario.nombre}`;
+                } else {
+                console.log("No hay datos de usuario en localStorage");
 
-                    await obtenerSuenos();
-                    await obtenerPerfil();
+                }
 
+                // ------- Funciones para modal ---------
+
+                window.abrirModal = function () {
+                document.getElementById("profileModal").style.display = "block";
                 };
-            });
+
+                window.cerrarModal = function () {
+                document.getElementById("profileModal").style.display = "none";
+                window.location.reload();
+                };
+
+                // ------- Cambios para el perfil ---------
 
 
+                const rutaImagen = "assets/images/profile-img/";
+
+
+                window.cambiarPerfil = async function (imagen) {
+                try {
+                    const urlPerfil = `http://localhost:3000/api/usuarios/cambiar-foto`;
+                    const respuesta = await fetch(urlPerfil, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ fotoPerfil: imagen }),
+                    });
+
+                    const data = await respuesta.json();
+
+                    document.getElementById("perfilUsuario").src = rutaImagen + imagen;
+                } catch (error) {
+                    console.error("Error al cambiar la foto de perfil:", error);
+                }
+                };
+
+                async function obtenerPerfil() {
+                try {
+                    const urlPerfil = `http://localhost:3000/api/usuarios/perfil`;
+
+                    const response = await fetch(urlPerfil, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                    });
+
+                    const data = await response.json();
+                    document.getElementById("perfilUsuario").src =
+                    rutaImagen + data.foto_perfil;
+                    localStorage.setItem('usuario', JSON.stringify(data))
+                } catch (error) {
+                    console.error("Error al obtener el perfil del usuario:", error);
+                }
+                }
+
+                // -------- Cargar los registros del usuario ---------
+
+                const contenedorRegistros = document.getElementById("usuarioRegistros");
+                const id_usuario = usuario.id_usuario;
+                const urlSuenos = `http://localhost:3000/api/usuarios/${id_usuario}/suenos`;
+
+                async function obtenerSuenos() {
+                try {
+                    contenedorRegistros.innerHTML = "";
+                    const response = await fetch(urlSuenos, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                    });
+                    if(!response.ok){
+                        return;
+                    }
+
+                    const suenos = await response.json();
+
+                    suenos.forEach((sueno) => {
+                    const visibilidad =
+                        sueno.publico === true
+                        ? "<img src='assets/images/sueno-publico.webp' alt='publico' class='icono-candado'> Público"
+                        : "<img src='assets/images/sueno-privado.webp' alt='privado' class='icono-candado'> Privado";
+                    const suenoDiv = document.createElement("div");
+                    suenoDiv.classList.add("sueno");
+                    suenoDiv.innerHTML = `
+                                                    <button class="eliminar-sueno" data-id="${
+                                                    sueno.id_sueno
+                                                    }">❌</button>
+                                                    <button class="editar-sueno" data-id="${
+                                                    sueno.id_sueno
+                                                    }">🖊️</button>
+                                                    <h3 class="visibilidad">${visibilidad}</h3> <br>
+                                                    <p class="descripcion">${
+                                                    sueno.descripcion
+                                                    }</p>
+                                                    <span class="fecha">${sueno.fecha.slice(
+                                                    0,
+                                                    10
+                                                    )}</span>
+                                                `;
+                    contenedorRegistros.appendChild(suenoDiv);
+
+                    suenoDiv.onclick = () =>
+                        openModal({
+                        ...sueno,
+                        nombre_usuario: `˗ˏˋ @${usuario.nombre} ´ˎ˗`,
+                        foto_perfil: usuario.foto_perfil,
+                        });
+                    const btnEliminar = suenoDiv.querySelector(".eliminar-sueno");
+                    btnEliminar.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        popupEliminar.classList.add("activo");
+                        popupEliminar.innerHTML = `
+                                                    <h2>¿Eliminar Sueño?</h2>
+                                                    <br/>
+                                                    <span>Esta acción no puede ser revertida ni desde el más allá.</span>
+                                                    <div class="confirmaciones">
+                                                        <button class="volver">Volver</button>
+                                                        <button class="confirmar-eliminar" data-id="${sueno.id_sueno}">Eliminar</button>
+                                                    </div>
+                                                    `;
+                    });
+                    const btnEditar = suenoDiv.querySelector('.editar-sueno')
+                    btnEditar.addEventListener('click', (e)=>{
+                        e.stopPropagation()
+                        popupEditar.classList.add('activo')
+                        popupEditar.innerHTML = `
+                                                    <h2>Editar Sueño</h2>
+                                                    <form id="form-editar-sueno">
+                                                        <label>Descripción:</label>
+                                                        <textarea name="descripcion" maxlength="300" id="descripcion-editar" rows="5" required>${sueno.descripcion}</textarea>
+                                                        <label>Hacer mi sueño visible para todos:<input type="checkbox" id="publico"></input></label>
+                                                        <div class="confirmaciones">
+                                                        <button type="button" class="volver">Volver</button>
+                                                        <button type="submit" class="guardar-cambios" data-id="${sueno.id_sueno}">Guardar cambios</button>
+                                                        </div>
+                                                        <div id="spinner" class="spinner oculto">
+                                                        <img class="cargando" src="./assets/images/luna-logo-header.webp">
+                                                        <h2>Estamos interpretando tu sueño... <br/></h2>
+                                                        <p>Recordá que la IA puede fallar. <br/>
+                                                            Si eso pasa, no te preocupes. <br/>
+                                                            ¡Podés intentarlo otra vez!</p>
+                                                        </div>
+                                                    </form>
+                                                    `
+                    })
+                    });
+                } catch (error) {
+                    console.error("Error al obtener los sueños:", error);
+                }
+                }
+
+
+                popupEliminar.addEventListener("click", async (e) => {
+                    const token = localStorage.getItem("token");
+                    const urlSuenos = `http://localhost:3000/api/suenos`;
+
+
+                    if (e.target.classList.contains("volver")) {
+                        popupEliminar.classList.remove("activo");
+                        return;
+                    }
+
+                    if (e.target.classList.contains("confirmar-eliminar")) {
+                        const sid = e.target.dataset.id;
+                        try {
+                        const respuesta = await fetch(`${urlSuenos}/${sid}`, {
+                            method: "DELETE",
+                            headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                            },
+                        });
+                        if (respuesta.ok) {
+                            popupEliminar.innerHTML = `<h2>Sueño eliminado con éxito</h2>`;
+                            obtenerSuenos();
+                            setTimeout(() => {
+                            popupEliminar.classList.remove("activo");
+                            }, 1500);
+                        } else {
+                            console.error("Error al eliminar sueño");
+                        }
+                        } catch (error) {
+                        console.error("Error en la petición de eliminación:", error);
+                        }
+                    }
+                });
+
+                popupEditar.addEventListener('click', async (e)=>{
+                    const token = localStorage.getItem("token");
+                    const urlSuenos = `http://localhost:3000/api/suenos`;
+                    const spinner = popupEditar.querySelector('#spinner')
+
+                    if (e.target.classList.contains("volver")) {
+                        popupEditar.classList.remove("activo");
+                        return;
+                    }
+                    if(e.target.classList.contains('guardar-cambios')) {
+                        e.preventDefault()
+                        const sid = e.target.dataset.id;
+                        const descripcion = popupEditar.querySelector('#descripcion-editar').value
+                        const publico = popupEditar.querySelector('#publico').checked
+                        spinner.classList.remove('oculto')
+                        try {
+                        const respuesta = await fetch(`${urlSuenos}/${sid}`, {
+                            method: "PUT",
+                            headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                            },
+                            body: JSON.stringify({descripcion: descripcion, publico: publico})
+                        });
+                        if (respuesta.ok) {
+                            spinner.classList.add('oculto')
+                            popupEditar.innerHTML = `<h2>Sueño actualizado con éxito</h2>`;
+                        } else {
+                            spinner.classList.add('oculto')
+                            popupEditar.innerHTML = `<h2>Error al actualizar sueño</h2>`;
+                        }
+                        } catch (error) {
+                            spinner.classList.add('oculto')
+                            popupEditar.innerHTML = `<h2>Error al actualizar sueño</h2>`;
+                        }
+                        finally {
+                            spinner.classList.add('oculto')
+                            setTimeout(() => {
+                            popupEditar.classList.remove("activo");
+                            }, 1500);
+                        }
+                    }
+                })
+                await obtenerSuenos();
+                await obtenerPerfil();   
+            })()
+            
         </script>
 
     </body>
